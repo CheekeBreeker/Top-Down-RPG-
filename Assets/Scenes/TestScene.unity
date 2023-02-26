@@ -746,9 +746,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
+      propertyPath: _speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
       propertyPath: _cursor
       value: 
-      objectReference: {fileID: 762659578}
+      objectReference: {fileID: 0}
     - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
       propertyPath: _cameraTransform
       value: 
