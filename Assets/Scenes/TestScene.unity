@@ -390,11 +390,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &1042556516 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5952712695190874851, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-  m_PrefabInstance: {fileID: 5952712694943885082}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1138401559
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,44 +741,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: _speed
+      propertyPath: _walkSpeed
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: _cursor
-      value: 
+      propertyPath: _sprintSpeed
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: _cameraTransform
-      value: 
-      objectReference: {fileID: 1042556516}
-    - target: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: _characterStatus
-      value: 
-      objectReference: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
     - target: {fileID: 5952712693886245903, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131353839909627141, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131353839909627141, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131353839909627141, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131353839909627141, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6131353839909627141, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}

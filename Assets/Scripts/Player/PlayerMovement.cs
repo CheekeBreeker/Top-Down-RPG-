@@ -8,23 +8,26 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Animator _anim;
-    private Transform _playerModel;
+    private Rigidbody _rb;
+    public Transform _playerModel;
 
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private CharacterStatus _characterStatus;
 
-    [SerializeField] private float _speed = 1;
+    [SerializeField] private float _walkSpeed = 1;
+    [SerializeField] private float _sprintSpeed = 2;
 
-    private float vertical;
-    private float horizontal;
+    public float vertical;
+    public float horizontal;
+    private Vector3 moveInput;
+    private Vector3 moveVelocity;
 
     private Vector3 mousePosition;
-    public float lookSpeed = 2f;
+    public float lookHight = 10f;
 
     private void Awake()
     {
-        _anim = GetComponent<Animator>();
+        _rb = GetComponent<Rigidbody>();
         _playerModel = gameObject.transform.Find("PlayerModel").transform;
     }
 
@@ -33,31 +36,82 @@ public class PlayerMovement : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
-        _anim.SetFloat("vertical", vertical, 0.15f, Time.deltaTime);
-        _anim.SetFloat("horizontal", horizontal, 0.15f, Time.deltaTime);
-
-        LookTo();
-
-        transform.position += new Vector3(-vertical, 0f, horizontal) * _speed * Time.deltaTime;
+        if (_characterStatus.isSprint)
+        {
+            SprintMove();
+        }
+        else if (_characterStatus.isDodge)
+        {
+            DodgeMove();
+        }
+        else
+        {
+            NormalMove();
+        }
     }
 
-    public void LookTo()
+    private void FixedUpdate()
     {
-        //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        _rb.MovePosition(_rb.position + moveVelocity * Time.fixedDeltaTime);
+    }
+    public void NormalMove()
+    {
+        LookToMousePosition();
+        MoveToMousePosition();
+    }
 
-        //Vector3 difference = mousePosition - transform.position;
-        //difference.Normalize();
-        //float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(0f, 0f, rotationY);
+    public void SprintMove()
+    {
+        LookForward();
+        MoveForward();
+    }
 
-        //Plane playerPlane = new Plane(Vector3.up, transform.position); 		
-        //Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition); 		
-        //float hitdist = 0;  		
-        //if (playerPlane.Raycast (ray, out hitdist)) 
-        //{ 			
-        //    Vector3 targetPoint = ray.GetPoint (hitdist);  			
-        //    Quaternion targetRotation = Quaternion.LookRotation (targetPoint - transform.position);  			
-        //    transform.rotation = Quaternion.Slerp (transform.rotation, targetRotation, lookSpeed * Time.deltaTime); 		
-        //}
+    public void DodgeMove()
+    {
+        MoveForward();
+        LookForward();
+    }
+
+    public void MoveToMousePosition()
+    {
+        moveInput = new Vector3(-vertical, 0f, horizontal);
+        moveVelocity.z = Vector3.Dot(moveInput, transform.forward);
+        moveVelocity.x = Vector3.Dot(moveInput, transform.right);
+        moveVelocity = moveInput.normalized * _walkSpeed;
+    }
+
+    public void MoveForward()
+    {
+        transform.position += new Vector3(-vertical, 0f, horizontal) * _sprintSpeed * Time.deltaTime;
+    }
+
+    public void LookToMousePosition()
+    {
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 difference = mousePosition - transform.position;
+        difference.Normalize();
+        float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
+        _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+    }
+
+    public void LookForward()
+    {
+        if (Input.GetKey(KeyCode.W))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.S))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 180f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.D))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 90f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.A))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 270f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 3150f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 45f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 225f, 0.0f), Time.deltaTime * 5f);
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 135f, 0.0f), Time.deltaTime * 5f);
     }
 }

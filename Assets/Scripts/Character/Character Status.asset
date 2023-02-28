@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: Character Status
   m_EditorClassIdentifier: 
   isSprint: 0
+  isBlock: 0
+  isDodge: 0
+  isAiming: 0
   isGround: 0

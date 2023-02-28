@@ -5,14 +5,20 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
+    private CharacterAnimation _characterAnimation;
+    private PlayerInput _playerInput;
 
     public void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+        _characterAnimation = GetComponent<CharacterAnimation>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     public void Update()
     {
         _playerMovement.MoveUpdate();
+        _characterAnimation.AnimationUpdate();
+        _playerInput.InputUpdate();
     }
 }
