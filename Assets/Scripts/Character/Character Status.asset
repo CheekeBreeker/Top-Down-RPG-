@@ -18,3 +18,4 @@ MonoBehaviour:
   isDodge: 0
   isAiming: 0
   isAttack: 0
+  isUsing: 0

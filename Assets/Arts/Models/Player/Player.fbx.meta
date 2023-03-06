@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 5282770605009443219
-    second: Skeleton|Dodge
+    second: Dodge
   - first:
       74: 9164707649657863311
     second: Skeleton|FirstAttack
@@ -35,7 +35,34 @@ ModelImporter:
     second: Skeleton|WalkLeft
   - first:
       74: -2306169111255221276
-    second: Skeleton|WalkRight
+    second: WalkRight
+  - first:
+      74: 4849552805802510223
+    second: FirstAttack
+  - first:
+      74: -3100369314251171874
+    second: Idle
+  - first:
+      74: 5522812681064789136
+    second: Run
+  - first:
+      74: -1959715618399468363
+    second: SecondAttack
+  - first:
+      74: -2068433784658676163
+    second: ThirdAttack
+  - first:
+      74: 7890215858140287855
+    second: Use
+  - first:
+      74: 7402836860979311914
+    second: WalkBackward
+  - first:
+      74: -6337207191384161919
+    second: WalkForward
+  - first:
+      74: -1684538353075855503
+    second: WalkLeft
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -66,7 +93,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Skeleton|Dodge
+      name: Dodge
       takeName: Skeleton|Dodge
       internalID: 0
       firstFrame: 0
@@ -95,7 +122,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|FirstAttack
+      name: FirstAttack
       takeName: Skeleton|FirstAttack
       internalID: 0
       firstFrame: 0
@@ -124,7 +151,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|Idle
+      name: Idle
       takeName: Skeleton|Idle
       internalID: 0
       firstFrame: 0
@@ -153,7 +180,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|Run
+      name: Run
       takeName: Skeleton|Run
       internalID: 0
       firstFrame: 0
@@ -182,7 +209,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|SecondAttack
+      name: SecondAttack
       takeName: Skeleton|SecondAttack
       internalID: 0
       firstFrame: 0
@@ -211,7 +238,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|ThirdAttack
+      name: ThirdAttack
       takeName: Skeleton|ThirdAttack
       internalID: 0
       firstFrame: 0
@@ -240,7 +267,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|Use
+      name: Use
       takeName: Skeleton|Use
       internalID: 0
       firstFrame: 0
@@ -251,12 +278,12 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -269,7 +296,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|WalkBackward
+      name: WalkBackward
       takeName: Skeleton|WalkBackward
       internalID: 0
       firstFrame: 0
@@ -298,7 +325,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|WalkForward
+      name: WalkForward
       takeName: Skeleton|WalkForward
       internalID: 0
       firstFrame: 0
@@ -327,7 +354,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|WalkLeft
+      name: WalkLeft
       takeName: Skeleton|WalkLeft
       internalID: 0
       firstFrame: 0
@@ -356,7 +383,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Skeleton|WalkRight
+      name: WalkRight
       takeName: Skeleton|WalkRight
       internalID: 0
       firstFrame: 0

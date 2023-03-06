@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|ThirdAttack
+  m_Name: ThirdAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 3680641910342274596, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: -2068433784658676163, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -127,7 +127,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|Use
+  m_Name: Use
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -141,7 +141,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -6517237020912875990, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: 7890215858140287855, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -234,7 +234,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -4905750304626733639, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+    m_Motion: {fileID: -6337207191384161919, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
     m_Threshold: 0
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
@@ -242,7 +242,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 8985827075972498900, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+    m_Motion: {fileID: 7402836860979311914, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
     m_Threshold: 0.1875
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
@@ -250,7 +250,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 2592911729634703675, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+    m_Motion: {fileID: -1684538353075855503, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
     m_Threshold: 0.375
     m_Position: {x: 0, y: -1}
     m_TimeScale: 1
@@ -266,7 +266,7 @@ BlendTree:
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -2420248955592922456, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+    m_Motion: {fileID: -3100369314251171874, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
     m_Threshold: 0.75
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -367,9 +367,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: attackNumber
     m_EventTreshold: 0.5
-  - m_ConditionMode: 4
-    m_ConditionEvent: stopAttackTimer
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4997812815380341230}
   m_Solo: 0
@@ -391,7 +388,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|FirstAttack
+  m_Name: FirstAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -406,7 +403,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 9164707649657863311, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: 4849552805802510223, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -494,7 +491,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|WalkBackward
+  m_Name: Block
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -508,7 +505,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 8985827075972498900, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: 7402836860979311914, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -602,10 +599,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: dodge
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4997812815380341230}
   m_Solo: 0
@@ -627,7 +621,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|SecondAttack
+  m_Name: SecondAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -642,7 +636,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1115489807242258974, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: -1959715618399468363, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -655,7 +649,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|Run
+  m_Name: Run
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -671,7 +665,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1473664779095469666, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Motion: {fileID: 5522812681064789136, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -688,9 +682,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 4
     m_ConditionEvent: attackNumber
     m_EventTreshold: 0.5
-  - m_ConditionMode: 4
-    m_ConditionEvent: stopAttackTimer
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4997812815380341230}
   m_Solo: 0
@@ -784,7 +775,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton|Dodge
+  m_Name: Dodge
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -812,10 +803,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: dodge
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5994990180803426352}
   m_Solo: 0

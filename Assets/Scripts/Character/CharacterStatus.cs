@@ -11,4 +11,5 @@ public class CharacterStatus : ScriptableObject
     public bool isDodge;
     public bool isAiming;
     public bool isAttack;
+    public bool isUsing;
 }

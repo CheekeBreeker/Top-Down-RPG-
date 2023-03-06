@@ -36,24 +36,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveUpdate()
     {
+        
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-        var attackMoveSpeed = _walkSpeed / 5;
 
-        if (_characterStatus.isSprint && !_characterStatus.isDodge)
+        if (_characterStatus.isSprint)
         {
             SprintMove();
         }
-        else if (_characterStatus.isDodge)
+        if (_characterStatus.isDodge)
         {
             DodgeMove();
         }
-        else if (_characterStatus.isAttack && !_characterStatus.isDodge)
+        if (_characterStatus.isAttack)
         {
             Attacking();
-            NormalMove(attackMoveSpeed);
+            NormalMove(_walkSpeed / 5);
         }
-        else 
+        if (_characterStatus.isUsing)
+        { }
+        if (_characterStatus.isNormal)
         {
             NormalMove(_walkSpeed);
         }
@@ -85,6 +87,11 @@ public class PlayerMovement : MonoBehaviour
             }
             if (_stopAttackTimer < 0)
                 _attackNumber = 0;
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            _stopAttackTimer = 0.8f;
+            _attackNumber = 0;
         }
     }
 
@@ -126,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DodgeCor(float dodgeVertical, float dodgeHorizontal)
     {
-        LookForward(15f);
+        //LookForward(15f);
 
         //dodgeVertical = -vertical;
         //dodgeHorizontal = horizontal;

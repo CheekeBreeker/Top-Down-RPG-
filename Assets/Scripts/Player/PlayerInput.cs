@@ -6,6 +6,7 @@ public class PlayerInput : MonoBehaviour
 {
     public CharacterStatus _characterStatus;
     private PlayerMovement _playerMovement;
+    private Animator _animator;
 
     private bool isNormal;
     private bool isSprint;
@@ -13,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     private bool isDodge;
     private bool isAiming;
     private bool isAttack;
+    private bool isUsing;
 
     private bool debagNormal;
     private bool debagSprint;
@@ -20,34 +22,36 @@ public class PlayerInput : MonoBehaviour
     private bool debagDodge;
     private bool debagAiming;
     private bool debagAttack;
+    private bool debagUsing;
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
+        _animator = GetComponent<Animator>();
     }
 
     public void InputUpdate()
     {
         if (!debagNormal &&
             (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift) && 
-            !_characterStatus.isDodge))
+            !_characterStatus.isDodge && !_characterStatus.isAttack))
             _characterStatus.isNormal = true;
         else _characterStatus.isNormal = isNormal;
 
         if (!debagSprint &&
-            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetMouseButton(2) && !Input.GetMouseButtonDown(1)) &&
+            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetMouseButton(2) && !Input.GetMouseButton(1)) &&
             !_characterStatus.isDodge) 
             _characterStatus.isSprint = Input.GetKey(KeyCode.LeftShift);
         else _characterStatus.isSprint = isSprint;
 
         if (!debagBlock && 
             !Input.GetKey(KeyCode.LeftShift)) 
-            _characterStatus.isBlock = Input.GetMouseButtonDown(1);
+            _characterStatus.isBlock = Input.GetMouseButton(1);
         else _characterStatus.isBlock = isBlock;
 
-        if (!debagDodge && 
-            (!Input.GetMouseButtonDown(1))) 
-            Dodging();
+        if (!debagDodge &&
+            (!Input.GetMouseButton(1)))
+            IsDodging();
         else _characterStatus.isDodge = isDodge;
 
         if (!debagAiming && 
@@ -56,28 +60,63 @@ public class PlayerInput : MonoBehaviour
         else _characterStatus.isAiming = isAiming;
 
         if (!debagAttack && 
-            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButtonDown(1) &&
+            (!Input.GetKeyDown(KeyCode.Space) && 
             !_characterStatus.isDodge)) 
             isAttacking();
         else _characterStatus.isAttack = isAttack;
-    }
-    private void Dodging()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            StartCoroutine(DodgeCor());
-        StopCoroutine(DodgeCor());
+
+        if (!debagUsing &&
+            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1) &&
+            !_characterStatus.isDodge && !_characterStatus.isAttack))
+            _characterStatus.isUsing = Input.GetKeyDown(KeyCode.E);
+        else _characterStatus.isUsing = isUsing;
     }
 
-    IEnumerator DodgeCor()
+    private bool IsAnimPlaying(string animName)
     {
-        _characterStatus.isDodge = true;
+        var animStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+        if (animStateInfo.IsName(animName)) return true;
+        else return false;
+    }
+    private void IsDodging()
+    {
+        if (IsAnimPlaying("Dodge.Dodge") || Input.GetKeyDown(KeyCode.Space))
+        {
+            _characterStatus.isDodge = true;
+            StartCoroutine(TimerDodgeCor());
+        }
+        StopCoroutine(TimerDodgeCor());
+    }
+
+    IEnumerator TimerDodgeCor()
+    {
         yield return new WaitForSeconds(_playerMovement._dodgeActiveTime);
         _characterStatus.isDodge = false;
     }
 
     private void isAttacking()
     {
-        _characterStatus.isAttack = false;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (!_characterStatus.isAttack) _characterStatus.isAttack = true;
+            else _characterStatus.isAttack = false;
+        }
+
+        //_characterStatus.isAttack = false;
+
+        //if (IsAnimPlaying("FirstAttack.FirstAttack") || IsAnimPlaying("SecondAttack.SecondAttack") || IsAnimPlaying("ThirdAttack.ThirdAttack") || Input.GetMouseButtonDown(0))
+        //{
+        //    _characterStatus.isAttack = true;
+        //    StartCoroutine(TimerAttackCor());
+        //}
+        //StopCoroutine(TimerAttackCor());
+
+        //IEnumerator TimerAttackCor()
+        //{
+        //    yield return new WaitForSeconds(0.8f);
+        //    _characterStatus.isAttack = false;
+        //}
+
         //if (Input.GetMouseButtonDown(0))
         //{
         //    _characterStatus.isAttack = true;

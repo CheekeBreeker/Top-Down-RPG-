@@ -18,8 +18,9 @@ public class CharacterAnimation : MonoBehaviour
     public void AnimationUpdate()
     {
         _anim.SetBool("sprint", _characterStatus.isSprint);
-        _anim.SetBool("aiming", _characterStatus.isAiming);
+        _anim.SetBool("block", _characterStatus.isBlock);
         _anim.SetBool("dodge", _characterStatus.isDodge);
+        _anim.SetBool("use", _characterStatus.isUsing);
 
         if (_characterStatus.isNormal) AnimationNormal();
         if (_characterStatus.isSprint) AnimationSprint();
@@ -39,10 +40,12 @@ public class CharacterAnimation : MonoBehaviour
     {
         //_anim.SetFloat("vertical", Mathf.Clamp01(Mathf.Abs(_playerMovement.vertical) 
         //    + Mathf.Abs(_playerMovement.horizontal)), 0.15f, Time.deltaTime);
-        _anim.SetFloat("vertical", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
-            _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
-        _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
-            _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
+        //_anim.SetFloat("vertical", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
+        //    _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
+        //_anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
+        //    _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
+        _anim.SetFloat("vertical", 0f);
+        _anim.SetFloat("horizontal", 0f);
     }
 
     void AnimationDodge()
@@ -52,6 +55,10 @@ public class CharacterAnimation : MonoBehaviour
 
     void AnimationAttack()
     {
+        _anim.SetFloat("vertical", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
+            _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
+        _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
+            _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
         _anim.SetFloat("attackNumber", _playerMovement._attackNumber);
         _anim.SetFloat("stopAttackTimer", _playerMovement._stopAttackTimer);
     }
