@@ -14,7 +14,7 @@ public class FieldOfView : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(FindTargetWithDeley(0.2f));
+        StartCoroutine(FindTargetWithDeley(0.1f));
     }
 
     void FindVisibleTargets()
@@ -26,7 +26,7 @@ public class FieldOfView : MonoBehaviour
         {
             Transform target = targetsInViewRadius[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if(Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            if(Vector3.Angle(-transform.right, dirToTarget) < viewAngle / 2)
             {
                 float distToTarget = Vector3.Distance(transform.position, target.position);
 

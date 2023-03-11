@@ -15,7 +15,7 @@ public class Interface : MonoBehaviour
     private void Update()
     {
         CursorMove();
-        InventorySetActive();
+        InventoryActive();
     }
 
     private void CursorMove()
@@ -24,7 +24,7 @@ public class Interface : MonoBehaviour
         _cursor.transform.Rotate(0f, 0f, 50f * Time.deltaTime);
     }
 
-    private void InventorySetActive()
+    private void InventoryActive()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {

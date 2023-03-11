@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2317860959365947981}
   - component: {fileID: 562462916944598663}
   - component: {fileID: 1157373062205978859}
-  m_Layer: 0
+  - component: {fileID: 3469287836768589919}
+  m_Layer: 7
   m_Name: Jelly plate
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075800415349225298}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3659015, y: 0.075, z: -3.901733}
   m_LocalScale: {x: 9.4922905, y: 9.4922905, z: 15.547331}
   m_ConstrainProportionsScale: 0
@@ -100,5 +101,20 @@ MonoBehaviour:
   typeItem: Consumables
   price: 0
   mass: 0
-  pathSprite: 
-  pathPrefab: 
+  pathSprite: Arts/Sprites/Items/Jelly plate
+  pathPrefab: Prefabs/Items/Jelly plate
+  notActiveMaterial: {fileID: 2100000, guid: e4d0efd3414707c4cb1257eaee2e3ff5, type: 2}
+  activeMaterial: {fileID: 2100000, guid: 378e4c7c5c29f284482596c5ff1e5dac, type: 2}
+--- !u!65 &3469287836768589919
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075800415349225298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.022117594, y: 0.013604236, z: 0.02}
+  m_Center: {x: 0.0010587972, y: 0, z: 0}

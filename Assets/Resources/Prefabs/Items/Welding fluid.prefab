@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6357869048244558704}
   - component: {fileID: 9214161974198382522}
   - component: {fileID: 7502665884280134853}
-  m_Layer: 0
+  - component: {fileID: 3469287836925731652}
+  m_Layer: 7
   m_Name: Welding fluid
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7268733997129010799}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -2.8571827, y: 0.189, z: -3.9367707}
   m_LocalScale: {x: 10.416931, y: 10.416931, z: 10.416931}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &6357869048244558704
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -100,5 +101,20 @@ MonoBehaviour:
   typeItem: Consumables
   price: 10
   mass: 5
-  pathSprite: 
-  pathPrefab: 
+  pathSprite: Arts/Sprites/Items/Welding fluid
+  pathPrefab: Prefabs/Items/Welding fluid
+  notActiveMaterial: {fileID: 2100000, guid: 56b0a34c3856d60409339d77ce273128, type: 2}
+  activeMaterial: {fileID: 2100000, guid: 378e4c7c5c29f284482596c5ff1e5dac, type: 2}
+--- !u!65 &3469287836925731652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7268733997129010799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.01806406, y: 0.020858575, z: 0.032194808}
+  m_Center: {x: 0, y: 0, z: 0.0024922332}
