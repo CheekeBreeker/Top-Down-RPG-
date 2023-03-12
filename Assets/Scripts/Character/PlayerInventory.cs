@@ -35,15 +35,43 @@ public class PlayerInventory : MonoBehaviour
 
         for (int i = 0; i < item.Count; i++)
         {
-            _drags[i]._item = item[i];
-            _drags[i].image.sprite = Resources.Load<Sprite>(item[i].pathSprite);
-            _drags[i].ownerItem = "myItem";
+            Item it = item[i];
+
+            for (int j = 0; j < _drags.Count; j++)
+            {
+                if (_drags[j].ownerItem != "")
+                {
+                    if (item[i].isStackable)
+                    {
+                        if (_drags[j]._item.nameItem == it.nameItem)
+                        {
+                            _drags[j].countItem++;
+                            _drags[j].count.text = _drags[j].countItem.ToString();
+                            break;
+                        }
+                    }
+                    else continue;
+
+                }
+                else
+                {
+                    _drags[j]._item = it;
+                    _drags[j].image.sprite = Resources.Load<Sprite>(item[i].pathSprite);
+                    _drags[j].ownerItem = "myItem";
+                    _drags[j].countItem++;
+                    break;
+                }
+            }
         }
     }
 
     public void RemoveItem(Drag drag)
     {
-        Debug.Log("RemoveItem");
+        Item it = drag._item;
+        GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+        newObj.transform.position = transform.position + transform.forward + transform.up;
+        item.Remove(it);
+        InventoryEnabled();
     }
 
     public void UseItem(Drag drag)

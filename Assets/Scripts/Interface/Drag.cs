@@ -9,7 +9,7 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public PlayerInventory _playerInventory;
     public Item _item;
     public string ownerItem;
-    public int CountItem;
+    public int countItem;
 
     public Image image;
     public Sprite defaultSprite;
@@ -40,8 +40,9 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         _item = null;
         image.sprite = null;
+        countItem = 0;
+        count.text = "";
         //descriptionCell.text = "";
-        //count.text = "";
         ownerItem = "";
     }
 }
