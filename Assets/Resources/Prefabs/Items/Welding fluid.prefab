@@ -102,6 +102,7 @@ MonoBehaviour:
   typeItem: Consumables
   price: 10
   mass: 5
+  addHealth: 11
   pathSprite: Arts/Sprites/Items/Welding fluid
   pathPrefab: Prefabs/Items/Welding fluid
   isStackable: 1

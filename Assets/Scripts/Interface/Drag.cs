@@ -35,14 +35,4 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             _playerInventory.UseItem(this);
         }
     }
-
-    public void RemoveCell()
-    {
-        _item = null;
-        image.sprite = null;
-        countItem = 0;
-        count.text = "";
-        //descriptionCell.text = "";
-        ownerItem = "";
-    }
 }

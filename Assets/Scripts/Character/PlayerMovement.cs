@@ -206,14 +206,23 @@ public class PlayerMovement : MonoBehaviour
             _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 135f, 0.0f), Time.deltaTime * rotationSpeed);
     }
 
-    void TakeItem(RaycastHit _hit)
+    void TakeItem(RaycastHit hit)
     {
-        distance = Vector3.Distance(transform.position + transform.up, _hit.transform.position);
+        distance = Vector3.Distance(transform.position + transform.up, hit.transform.position);
+        Item it = hit.transform.GetComponent<Item>();
 
         if (distance < 2)
         {
-            _playerInventory.item.Add(_hit.transform.GetComponent<Item>());
-            Destroy(_hit.transform.gameObject);
+            if (it.typeItem == "Consumables")
+            {
+                _playerInventory.consumables.Add(hit.transform.GetComponent<Item>());
+                Destroy(hit.transform.gameObject);
+            }
+            else if (it.typeItem == "Weapon")
+            {
+                _playerInventory.weapon.Add(hit.transform.GetComponent<Item>());
+                Destroy(hit.transform.gameObject);
+            }
         }
         else
         {

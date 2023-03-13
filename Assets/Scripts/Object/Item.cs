@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public string typeItem;
     public int price;
     public int mass;
+    public int addHealth;
     public string pathSprite;
     public string pathPrefab;
     public bool isStackable;

@@ -103,8 +103,10 @@ MonoBehaviour:
   typeItem: Consumables
   price: 0
   mass: 0
+  addHealth: 111
   pathSprite: Arts/Sprites/Items/Jelly plate
   pathPrefab: Prefabs/Items/Jelly plate
+  isStackable: 0
   notActiveMaterial: {fileID: 2100000, guid: e4d0efd3414707c4cb1257eaee2e3ff5, type: 2}
   activeMaterial: {fileID: 2100000, guid: 378e4c7c5c29f284482596c5ff1e5dac, type: 2}
 --- !u!65 &3469287836768589919
