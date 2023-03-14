@@ -17,6 +17,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject _cell;
     public Transform _cellParent;
 
+    public Transform _rightHand;
+
     private void Start()
     {
         typeOutput = 1;
@@ -50,7 +52,7 @@ public class PlayerInventory : MonoBehaviour
             Destroy(drag.gameObject);
         _drags.Clear();
 
-        for (int i = 0; i < consumables.Count; i++)
+        for (int i = 0; i < consumables.Count + weapon.Count; i++)
         {
             GameObject newCell = Instantiate(_cell);
             newCell.transform.SetParent(_cellParent, false);
@@ -117,7 +119,7 @@ public class PlayerInventory : MonoBehaviour
                     else
                     {
                         _drags[j]._item = it;
-                        _drags[j].image.sprite = Resources.Load<Sprite>(consumables[i].pathSprite);
+                        _drags[j].image.sprite = Resources.Load<Sprite>(weapon[i].pathSprite);
                         _drags[j].ownerItem = "myItem";
                         _drags[j].countItem++;
                         _drags[j].count.text = "" + _drags[j].countItem;
@@ -128,7 +130,7 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        for(int i = _drags.Count - 1; i > 0; i--)
+        for(int i = _drags.Count - 1; i >= 0; i--)
         {
             if (_drags[i].ownerItem == "")
             {
@@ -171,7 +173,11 @@ public class PlayerInventory : MonoBehaviour
         }
         else if (it.typeItem == "Weapon")
         {
-            Debug.Log("UseWeapon");
+            GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+            weaponObj.transform.SetParent(_rightHand);
+            weaponObj.transform.localPosition = it.weaponPosition;
+            weaponObj.transform.localRotation = Quaternion.Euler(it.weaponRotation);
+            weaponObj.GetComponent<Rigidbody>().isKinematic = true;
         }
         InventoryEnabled();
     }

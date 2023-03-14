@@ -12,11 +12,13 @@ public class Item : MonoBehaviour
     public string pathSprite;
     public string pathPrefab;
     public bool isStackable;
+    public Vector3 weaponPosition;
+    public Vector3 weaponRotation;
+    public float weaponDamage; 
 
     private MeshRenderer _renderer;
 
-    [SerializeField] private Material notActiveMaterial;
-    [SerializeField] private Material activeMaterial;
+    [SerializeField] private GameObject activeView;
 
     private void Start()
     {
@@ -32,8 +34,8 @@ public class Item : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.LeftAlt))
         {
-            _renderer.sharedMaterial = activeMaterial;
+            activeView.SetActive(true);
         }
-        else _renderer.sharedMaterial = notActiveMaterial;
+        else activeView.SetActive(false);
     }
 }
