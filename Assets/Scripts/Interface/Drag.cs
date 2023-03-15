@@ -26,13 +26,16 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (ownerItem != "")
         {
-            _playerInventory.RemoveItem(this);
-        }
-        else if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            _playerInventory.UseItem(this);
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                _playerInventory.RemoveItem(this);
+            }
+            else if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                _playerInventory.UseItem(this);
+            }
         }
     }
 }

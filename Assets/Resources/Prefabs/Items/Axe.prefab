@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4202443481782993957}
   - component: {fileID: 4202443481782993958}
   - component: {fileID: 4202443481782993956}
+  - component: {fileID: 1008190046946970508}
   m_Layer: 7
   m_Name: Axe
   m_TagString: Item
@@ -225,5 +226,22 @@ MonoBehaviour:
   isStackable: 0
   weaponPosition: {x: -0.00572, y: 0.00665, z: -0.0004}
   weaponRotation: {x: 0.1111391, y: 268.133, z: -329.607}
-  weaponDamage: 0
+  weaponDamage: 10
   activeView: {fileID: 3645418064614028886}
+--- !u!114 &1008190046946970508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809897111646772216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686c5825b7038f142bc39d7be1ed12aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponRig: {fileID: 0}
+  _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
+  _playerMovement: {fileID: 0}
+  _npcStats: {fileID: 0}
+  _item: {fileID: 0}

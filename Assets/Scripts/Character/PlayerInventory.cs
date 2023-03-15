@@ -11,6 +11,8 @@ public class PlayerInventory : MonoBehaviour
 
     public int typeOutput;
 
+    public Drag _mainWeapon;
+    public GameObject _weaponInHand;
     public List<Drag> _drags = new();
     public GameObject _inventory;
 
@@ -173,11 +175,39 @@ public class PlayerInventory : MonoBehaviour
         }
         else if (it.typeItem == "Weapon")
         {
-            GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
-            weaponObj.transform.SetParent(_rightHand);
-            weaponObj.transform.localPosition = it.weaponPosition;
-            weaponObj.transform.localRotation = Quaternion.Euler(it.weaponRotation);
-            weaponObj.GetComponent<Rigidbody>().isKinematic = true;
+            if(drag.ownerItem == "myItem")
+            {
+                GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+                weaponObj.transform.SetParent(_rightHand);
+                weaponObj.transform.localPosition = it.weaponPosition;
+                weaponObj.transform.localRotation = Quaternion.Euler(it.weaponRotation);
+                weaponObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                weaponObj.GetComponent<BoxCollider>().isTrigger = true;
+                _weaponInHand = weaponObj;
+
+                _mainWeapon._item = it;
+                _mainWeapon.image.sprite = Resources.Load<Sprite>(it.pathSprite);
+                _mainWeapon.ownerItem = "myWeapon";
+                _mainWeapon.countItem++;
+                _mainWeapon.count.text = "";
+                _mainWeapon._playerInventory = this;
+
+                weapon.Remove(it);
+            }
+            else if(drag.ownerItem == "myWeapon")
+            {
+                weapon.Add(drag._item);
+
+                Destroy(_weaponInHand);
+                _weaponInHand = null;
+
+                _mainWeapon._item = null;
+                _mainWeapon.image.sprite = _mainWeapon.defaultSprite;
+                _mainWeapon.ownerItem = "";
+                _mainWeapon.countItem = 0;
+                _mainWeapon.count.text = "";
+                _mainWeapon._playerInventory = null;
+            }
         }
         InventoryEnabled();
     }

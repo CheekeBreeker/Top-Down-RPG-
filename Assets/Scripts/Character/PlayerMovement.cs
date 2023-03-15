@@ -92,12 +92,13 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if (_characterStatus.isAttack)
                     {
-                        _stopAttackTimer = 0.8f;
-                        _attackNumber += 1;
-                        if (_attackNumber > 3)
+                        if (_attackNumber <= 3)
                         {
-                            _attackNumber = 0;
+                            _stopAttackTimer = 0.8f;
+                            _attackNumber += 1;
                         }
+                        if (_attackNumber > 4)
+                            _attackNumber = 4;
                         if (_stopAttackTimer < 0)
                             _attackNumber = 0;
                     }
