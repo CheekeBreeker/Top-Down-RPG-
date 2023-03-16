@@ -214,15 +214,35 @@ public class PlayerMovement : MonoBehaviour
 
         if (distance < 2)
         {
-            if (it.typeItem == "Consumables")
+            if (_playerInventory._weight + it.mass <= _playerInventory._maxWeight)
             {
-                _playerInventory.consumables.Add(hit.transform.GetComponent<Item>());
-                Destroy(hit.transform.gameObject);
+                if (it.typeItem == "Consumables")
+                {
+                    _playerInventory.consumables.Add(it);
+                    Destroy(hit.transform.gameObject);
+                }
+                else if (it.typeItem == "Weapon")
+                {
+                    _playerInventory.weapon.Add(it);
+                    Destroy(hit.transform.gameObject);
+                }
+
+                _playerInventory._weight += it.mass;
             }
-            else if (it.typeItem == "Weapon")
+            else
             {
-                _playerInventory.weapon.Add(hit.transform.GetComponent<Item>());
-                Destroy(hit.transform.gameObject);
+                if (it.typeItem == "Consumables")
+                {
+                    _playerInventory.consumables.Add(it);
+                    Destroy(hit.transform.gameObject);
+                }
+                else if (it.typeItem == "Weapon")
+                {
+                    _playerInventory.weapon.Add(it);
+                    Destroy(hit.transform.gameObject);
+                }
+
+                _playerInventory._weight += it.mass;
             }
         }
         else
@@ -230,4 +250,15 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Daleko");
         }
     }
+
+    //public void SpeedDownByWeight()
+    //{
+    //    float actualSpeed = _walkSpeed;
+    //    float actualSprintSpeed = _sprintSpeed;
+
+    //    if (_playerInventory._weight + ixt.mass <= _playerInventory._maxWeight)
+    //    {
+    //    }
+    //    else
+    //}
 }

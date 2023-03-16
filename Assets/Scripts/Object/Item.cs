@@ -6,14 +6,18 @@ public class Item : MonoBehaviour
 {
     public string nameItem;
     public string typeItem;
+
     public int price;
     public int mass;
     public int addHealth;
+
     public string pathSprite;
     public string pathPrefab;
+
     public bool isStackable;
-    public Vector3 weaponPosition;
-    public Vector3 weaponRotation;
+
+    public Vector3 _posWeapAttack;
+    public Vector3 _rotWeapAttack;
     public float weaponDamage; 
 
     private MeshRenderer _renderer;

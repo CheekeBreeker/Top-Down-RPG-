@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     PlayerStats _playerStats;
+    public CharacterStatus _characterStatus;
 
     public List<Item> consumables = new List<Item>();
     public List<Item> weapon = new List<Item>();
@@ -13,6 +14,10 @@ public class PlayerInventory : MonoBehaviour
 
     public Drag _mainWeapon;
     public GameObject _weaponInHand;
+
+    public int _weight;
+    public int _maxWeight;
+
     public List<Drag> _drags = new();
     public GameObject _inventory;
 
@@ -159,6 +164,7 @@ public class PlayerInventory : MonoBehaviour
         Item it = drag._item;
         GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
         newObj.transform.position = transform.position + transform.forward + transform.up;
+        _weight -= it.mass;
         consumables.Remove(it);
         weapon.Remove(it);
         InventoryEnabled();
@@ -175,12 +181,13 @@ public class PlayerInventory : MonoBehaviour
         }
         else if (it.typeItem == "Weapon")
         {
-            if(drag.ownerItem == "myItem")
+            if (drag.ownerItem == "myItem")
             {
                 GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
                 weaponObj.transform.SetParent(_rightHand);
-                weaponObj.transform.localPosition = it.weaponPosition;
-                weaponObj.transform.localRotation = Quaternion.Euler(it.weaponRotation);
+                weaponObj.transform.localPosition = it._posWeapAttack;
+                weaponObj.transform.localRotation = Quaternion.Euler(it._rotWeapAttack);
+
                 weaponObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 weaponObj.GetComponent<BoxCollider>().isTrigger = true;
                 _weaponInHand = weaponObj;
@@ -194,7 +201,7 @@ public class PlayerInventory : MonoBehaviour
 
                 weapon.Remove(it);
             }
-            else if(drag.ownerItem == "myWeapon")
+            else if (drag.ownerItem == "myWeapon")
             {
                 weapon.Add(drag._item);
 
