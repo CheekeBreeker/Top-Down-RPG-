@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Interface : MonoBehaviour
+public class InterfaceManager : MonoBehaviour
 {
     [SerializeField] private Transform _cursor;
     [SerializeField] private GameObject _inventory;
+    [SerializeField] private Image _imgWeight;
+    [SerializeField] private Text _txtWeight;
+    [SerializeField] private Text _txtMaxWeight;
+
+    public PlayerInventory _playerInventory;
 
     private void Start()
     {
@@ -16,6 +22,7 @@ public class Interface : MonoBehaviour
     {
         CursorMove();
         InventoryActive();
+        WeightInterface();
     }
 
     private void CursorMove()
@@ -33,5 +40,12 @@ public class Interface : MonoBehaviour
             else
                 _inventory.SetActive(false);
         }
+    }
+
+    public void WeightInterface()
+    {
+        _imgWeight.fillAmount = _playerInventory._weight / _playerInventory._maxWeight;
+        _txtWeight.text = _playerInventory._weight.ToString();
+        _txtMaxWeight.text = (_playerInventory._maxWeight - _playerInventory._weight).ToString();
     }
 }

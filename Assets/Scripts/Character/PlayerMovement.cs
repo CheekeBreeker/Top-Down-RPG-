@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rb;
     private PlayerInventory _playerInventory;
+    public InterfaceManager _interfaceManager;
     public Transform _playerModel;
 
     [SerializeField] private Transform _cameraTransform;
@@ -73,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         {
             _attackNumber = 0;
         }
+
+        SpeedDownByWeight();
     }
 
     public void ClickUpdate()
@@ -214,36 +217,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (distance < 2)
         {
-            if (_playerInventory._weight + it.mass <= _playerInventory._maxWeight)
+            if (it.typeItem == "Consumables")
             {
-                if (it.typeItem == "Consumables")
-                {
-                    _playerInventory.consumables.Add(it);
-                    Destroy(hit.transform.gameObject);
-                }
-                else if (it.typeItem == "Weapon")
-                {
-                    _playerInventory.weapon.Add(it);
-                    Destroy(hit.transform.gameObject);
-                }
-
-                _playerInventory._weight += it.mass;
+                _playerInventory.consumables.Add(it);
+                Destroy(hit.transform.gameObject);
             }
-            else
+            else if (it.typeItem == "Weapon")
             {
-                if (it.typeItem == "Consumables")
-                {
-                    _playerInventory.consumables.Add(it);
-                    Destroy(hit.transform.gameObject);
-                }
-                else if (it.typeItem == "Weapon")
-                {
-                    _playerInventory.weapon.Add(it);
-                    Destroy(hit.transform.gameObject);
-                }
-
-                _playerInventory._weight += it.mass;
+                _playerInventory.weapon.Add(it);
+                Destroy(hit.transform.gameObject);
             }
+
+            _playerInventory._weight += it.mass;
+            _interfaceManager.WeightInterface();
         }
         else
         {
@@ -251,14 +237,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //public void SpeedDownByWeight()
-    //{
-    //    float actualSpeed = _walkSpeed;
-    //    float actualSprintSpeed = _sprintSpeed;
+    public void SpeedDownByWeight()
+    {
+        float actualSpeed = 5f;
+        float actualSprintSpeed = 10f;
 
-    //    if (_playerInventory._weight + ixt.mass <= _playerInventory._maxWeight)
-    //    {
-    //    }
-    //    else
-    //}
+        if (_playerInventory._weight  > _playerInventory._maxWeight)
+        {
+            _walkSpeed = 2.5f;
+            _sprintSpeed = 5f;
+        }
+        else
+        {
+            _walkSpeed = actualSpeed;
+            _sprintSpeed = actualSprintSpeed;
+
+        }
+    }
 }

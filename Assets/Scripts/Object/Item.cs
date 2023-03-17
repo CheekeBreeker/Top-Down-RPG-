@@ -8,7 +8,7 @@ public class Item : MonoBehaviour
     public string typeItem;
 
     public int price;
-    public int mass;
+    public float mass;
     public int addHealth;
 
     public string pathSprite;
@@ -18,7 +18,7 @@ public class Item : MonoBehaviour
 
     public Vector3 _posWeapAttack;
     public Vector3 _rotWeapAttack;
-    public float weaponDamage; 
+    public float _weaponDamage; 
 
     private MeshRenderer _renderer;
 

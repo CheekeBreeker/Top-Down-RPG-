@@ -219,16 +219,14 @@ MonoBehaviour:
   nameItem: Axe
   typeItem: Weapon
   price: 0
-  mass: 0
+  mass: 4
   addHealth: 0
   pathSprite: Arts/Sprites/Items/Axe
   pathPrefab: Prefabs/Items/Axe
   isStackable: 0
-  weaponPosition: {x: -0.00572, y: 0.00665, z: -0.0004}
-  weaponRotation: {x: 0.1111391, y: 268.133, z: -329.607}
-  _posWeapNormal: {x: 0.0041, y: 0.01034, z: 0.0006}
-  _rotWeapNormal: {x: 7.677, y: -93.2, z: -343.046}
-  weaponDamage: 10
+  _posWeapAttack: {x: -0.00763, y: 0.00684, z: -0.00147}
+  _rotWeapAttack: {x: 15.534, y: -100.725, z: 21.523}
+  _weaponDamage: 20
   activeView: {fileID: 3645418064614028886}
 --- !u!114 &1008190046946970508
 MonoBehaviour:
@@ -244,6 +242,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponRig: {fileID: 0}
   _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
-  _playerMovement: {fileID: 0}
+  _playerMovement: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}

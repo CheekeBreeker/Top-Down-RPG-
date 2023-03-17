@@ -8,15 +8,24 @@ public class PlayerStats : MonoBehaviour
     public float _health;
     public float _maxHealth;
     public Image _imgHealth;
+    public float _regenHP = 0.1f;
+
 
     public int _level;
     public float _exp;
     public float _curExp;
     public Image _imgExp;
 
+
     private void Start()
     {
         _exp = 100 * _level;
+        InterfaceUpdate();
+    }
+
+    private void Update()
+    {
+        hpRegeneration();
         InterfaceUpdate();
     }
 
@@ -25,7 +34,13 @@ public class PlayerStats : MonoBehaviour
         _health += add;
 
         _health = Mathf.Clamp(_health, 0f, _maxHealth);
-        InterfaceUpdate();
+    }
+
+
+    public void hpRegeneration()
+    {
+        if (_health < _maxHealth)
+            _health += _regenHP * Time.deltaTime;
     }
 
     public void AddExp(int add)
@@ -45,7 +60,6 @@ public class PlayerStats : MonoBehaviour
             _level += 1;
             _exp = 100 * _level;
         }
-        InterfaceUpdate();
     }
 
     public void InterfaceUpdate()

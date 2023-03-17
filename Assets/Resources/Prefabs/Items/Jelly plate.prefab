@@ -102,11 +102,14 @@ MonoBehaviour:
   nameItem: Jelly plate
   typeItem: Consumables
   price: 0
-  mass: 0
+  mass: 2
   addHealth: 111
   pathSprite: Arts/Sprites/Items/Jelly plate
   pathPrefab: Prefabs/Items/Jelly plate
   isStackable: 0
+  _posWeapAttack: {x: 0, y: 0, z: 0}
+  _rotWeapAttack: {x: 0, y: 0, z: 0}
+  weaponDamage: 0
   activeView: {fileID: 5983009890089032391}
 --- !u!65 &3469287836768589919
 BoxCollider:

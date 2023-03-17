@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    PlayerStats _playerStats;
+    public PlayerStats _playerStats;
     public CharacterStatus _characterStatus;
+    public InterfaceManager _interfaceManager;
 
     public List<Item> consumables = new List<Item>();
     public List<Item> weapon = new List<Item>();
@@ -15,8 +17,8 @@ public class PlayerInventory : MonoBehaviour
     public Drag _mainWeapon;
     public GameObject _weaponInHand;
 
-    public int _weight;
-    public int _maxWeight;
+    public float _weight;
+    public float _maxWeight;
 
     public List<Drag> _drags = new();
     public GameObject _inventory;
@@ -165,6 +167,7 @@ public class PlayerInventory : MonoBehaviour
         GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
         newObj.transform.position = transform.position + transform.forward + transform.up;
         _weight -= it.mass;
+        _interfaceManager.WeightInterface();
         consumables.Remove(it);
         weapon.Remove(it);
         InventoryEnabled();

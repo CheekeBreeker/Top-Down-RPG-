@@ -132,14 +132,14 @@ MonoBehaviour:
   nameItem: Iron pipe
   typeItem: Weapon
   price: 0
-  mass: 0
+  mass: 3
   addHealth: 0
   pathSprite: Arts/Sprites/Items/Iron pipe
   pathPrefab: Prefabs/Items/Iron pipe
   isStackable: 0
-  weaponPosition: {x: -0.009100615, y: 0.006356324, z: -0.002414629}
-  weaponRotation: {x: 10.511, y: -110.406, z: 85.101}
-  weaponDamage: 0
+  _posWeapAttack: {x: -0.00843, y: 0.00737, z: -0.00171}
+  _rotWeapAttack: {x: 11.063, y: -102.072, z: 29.93}
+  _weaponDamage: 15
   activeView: {fileID: 6421450801742607589}
 --- !u!114 &337222713365989655
 MonoBehaviour:
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponRig: {fileID: 0}
   _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
-  _playerMovement: {fileID: 0}
+  _playerMovement: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
 --- !u!1 &6421450801742607589
