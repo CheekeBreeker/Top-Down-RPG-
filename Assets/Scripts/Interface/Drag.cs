@@ -10,6 +10,8 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Item _item;
     public string ownerItem;
     public int countItem;
+    [SerializeField] private bool isQACell;
+    [SerializeField] private bool isJournalCell;
 
     public Image image;
     public Sprite defaultSprite;
@@ -30,7 +32,9 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                _playerInventory.RemoveItem(this);
+                if (!isQACell)
+                    _playerInventory.RemoveItem(this);
+                else return;
             }
             else if (eventData.button == PointerEventData.InputButton.Left)
             {

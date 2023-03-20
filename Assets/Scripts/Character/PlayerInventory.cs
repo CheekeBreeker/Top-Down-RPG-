@@ -7,10 +7,13 @@ public class PlayerInventory : MonoBehaviour
 {
     public PlayerStats _playerStats;
     public CharacterStatus _characterStatus;
+    public PlayerJournal _playerJournal;
     public InterfaceManager _interfaceManager;
 
     public List<Item> consumables = new List<Item>();
     public List<Item> weapon = new List<Item>();
+    public List<Item> expItems = new List<Item>();
+    public List<Drag> _drags = new List<Drag>();
 
     public int typeOutput;
 
@@ -20,7 +23,6 @@ public class PlayerInventory : MonoBehaviour
     public float _weight;
     public float _maxWeight;
 
-    public List<Drag> _drags = new();
     public GameObject _inventory;
 
     public GameObject _cell;
@@ -32,6 +34,7 @@ public class PlayerInventory : MonoBehaviour
     {
         typeOutput = 1;
         _playerStats = GetComponent<PlayerStats>();
+        _playerJournal = GetComponent<PlayerJournal>();
     }
 
     private void Update()
@@ -47,14 +50,15 @@ public class PlayerInventory : MonoBehaviour
                 InventoryDisable();
             else InventoryEnabled();
         }
-
     }
+
     public void InventoryDisable()
     {
         foreach (Drag drag in _drags)
             Destroy(drag.gameObject);
         _drags.Clear();
     }
+
     public void InventoryEnabled()
     {
         foreach (Drag drag in _drags)
@@ -70,81 +74,59 @@ public class PlayerInventory : MonoBehaviour
 
         if(typeOutput == 1)
         {
-            for (int i = 0; i < consumables.Count; i++)
-            {
-                Item it = consumables[i];
-
-                for (int j = 0; j < _drags.Count; j++)
-                {
-                    if (_drags[j].ownerItem != "")
-                    {
-                        if (consumables[i].isStackable)
-                        {
-                            if (_drags[j]._item.nameItem == it.nameItem)
-                            {
-                                _drags[j].countItem++;
-                                _drags[j].count.text = _drags[j].countItem.ToString();
-                                break;
-                            }
-                        }
-                        else continue;
-
-                    }
-                    else
-                    {
-                        _drags[j]._item = it;
-                        _drags[j].image.sprite = Resources.Load<Sprite>(consumables[i].pathSprite);
-                        _drags[j].ownerItem = "myItem";
-                        _drags[j].countItem++;
-                        _drags[j].count.text = "" + _drags[j].countItem;
-                        _drags[j]._playerInventory = this;
-                        break;
-                    }
-                }
-            }
+            OutputType(consumables);
         }
         else if (typeOutput == 2)
         {
-            for (int i = 0; i < weapon.Count; i++)
-            {
-                Item it = weapon[i];
-
-                for (int j = 0; j < _drags.Count; j++)
-                {
-                    if (_drags[j].ownerItem != "")
-                    {
-                        if (weapon[i].isStackable)
-                        {
-                            if (_drags[j]._item.nameItem == it.nameItem)
-                            {
-                                _drags[j].countItem++;
-                                _drags[j].count.text = _drags[j].countItem.ToString();
-                                break;
-                            }
-                        }
-                        else continue;
-
-                    }
-                    else
-                    {
-                        _drags[j]._item = it;
-                        _drags[j].image.sprite = Resources.Load<Sprite>(weapon[i].pathSprite);
-                        _drags[j].ownerItem = "myItem";
-                        _drags[j].countItem++;
-                        _drags[j].count.text = "" + _drags[j].countItem;
-                        _drags[j]._playerInventory = this;
-                        break;
-                    }
-                }
-            }
+            OutputType(weapon);
+        }
+        else if (typeOutput == 3)
+        {
+            OutputType(expItems);
         }
 
-        for(int i = _drags.Count - 1; i >= 0; i--)
+        for (int i = _drags.Count - 1; i >= 0; i--)
         {
             if (_drags[i].ownerItem == "")
             {
                 Destroy(_drags[i].gameObject);
                 _drags.RemoveAt(i);
+            }
+        }
+    }
+
+    private void OutputType(List<Item> type)
+    {
+        for (int i = 0; i < type.Count; i++)
+        {
+            Item it = type[i];
+
+            for (int j = 0; j < _drags.Count; j++)
+            {
+                if (_drags[j].ownerItem != "")
+                {
+                    if (type[i].isStackable)
+                    {
+                        if (_drags[j]._item.nameItem == it.nameItem)
+                        {
+                            _drags[j].countItem++;
+                            _drags[j].count.text = _drags[j].countItem.ToString();
+                            break;
+                        }
+                    }
+                    else continue;
+
+                }
+                else
+                {
+                    _drags[j]._item = it;
+                    _drags[j].image.sprite = Resources.Load<Sprite>(type[i].pathSprite);
+                    _drags[j].ownerItem = "myItem";
+                    _drags[j].countItem++;
+                    _drags[j].count.text = "" + _drags[j].countItem;
+                    _drags[j]._playerInventory = this;
+                    break;
+                }
             }
         }
     }
@@ -159,6 +141,12 @@ public class PlayerInventory : MonoBehaviour
     {
         typeOutput = 2;
         InventoryEnabled(); 
+    }
+
+    public void OutputExpItems()
+    {
+        typeOutput = 3;
+        InventoryEnabled();
     }
 
     public void RemoveItem(Drag drag)
@@ -180,11 +168,13 @@ public class PlayerInventory : MonoBehaviour
         if (it.typeItem == "Consumables")
         {
             _playerStats.AddHealth(drag._item.addHealth);
+            if(drag._item.addExp > 0)
+                _playerStats.AddExp(drag._item.addExp);
             consumables.Remove(drag._item);
         }
         else if (it.typeItem == "Weapon")
         {
-            if (drag.ownerItem == "myItem")
+            if (drag.ownerItem == "myItem" && _weaponInHand == null)
             {
                 GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
                 weaponObj.transform.SetParent(_rightHand);
@@ -218,6 +208,13 @@ public class PlayerInventory : MonoBehaviour
                 _mainWeapon.count.text = "";
                 _mainWeapon._playerInventory = null;
             }
+            else return;
+        }
+        else if (it.typeItem == "ExpItems")
+        {
+            _playerStats.AddExp(drag._item.addExp);
+            _playerJournal.AddItem(drag, it);
+            expItems.Remove(drag._item);
         }
         InventoryEnabled();
     }

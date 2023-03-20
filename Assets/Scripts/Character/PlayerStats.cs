@@ -20,7 +20,6 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         _exp = 100 * _level;
-        InterfaceUpdate();
     }
 
     private void Update()

@@ -134,6 +134,7 @@ MonoBehaviour:
   price: 0
   mass: 3
   addHealth: 0
+  addExp: 0
   pathSprite: Arts/Sprites/Items/Iron pipe
   pathPrefab: Prefabs/Items/Iron pipe
   isStackable: 0
@@ -155,7 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponRig: {fileID: 0}
   _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
-  _playerMovement: {fileID: 5952712693886245900, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
+  _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
 --- !u!1 &6421450801742607589

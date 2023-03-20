@@ -7,6 +7,7 @@ public class InterfaceManager : MonoBehaviour
 {
     [SerializeField] private Transform _cursor;
     [SerializeField] private GameObject _inventory;
+    [SerializeField] private GameObject _journal;
     [SerializeField] private Image _imgWeight;
     [SerializeField] private Text _txtWeight;
     [SerializeField] private Text _txtMaxWeight;
@@ -21,7 +22,15 @@ public class InterfaceManager : MonoBehaviour
     private void Update()
     {
         CursorMove();
-        InventoryActive();
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            InventoryActive();
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            JournalActive();
+        }
         WeightInterface();
     }
 
@@ -31,14 +40,33 @@ public class InterfaceManager : MonoBehaviour
         _cursor.transform.Rotate(0f, 0f, 50f * Time.deltaTime);
     }
 
-    private void InventoryActive()
+    public void InventoryActive()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (!_inventory.activeSelf)
         {
+            _inventory.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            _inventory.SetActive(false);
+            if (!_journal.activeSelf)
+                Time.timeScale = 1f;
+        }
+    }
+
+    public void JournalActive()
+    {
+        if (!_journal.activeSelf)
+        {
+            _journal.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            _journal.SetActive(false);
             if (!_inventory.activeSelf)
-                _inventory.SetActive(true);
-            else
-                _inventory.SetActive(false);
+                Time.timeScale = 1f;
         }
     }
 

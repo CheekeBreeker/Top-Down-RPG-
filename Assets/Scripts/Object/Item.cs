@@ -10,6 +10,7 @@ public class Item : MonoBehaviour
     public int price;
     public float mass;
     public int addHealth;
+    public int addExp;
 
     public string pathSprite;
     public string pathPrefab;
@@ -20,14 +21,7 @@ public class Item : MonoBehaviour
     public Vector3 _rotWeapAttack;
     public float _weaponDamage; 
 
-    private MeshRenderer _renderer;
-
     [SerializeField] private GameObject activeView;
-
-    private void Start()
-    {
-        _renderer = GetComponent<MeshRenderer>();
-    }
 
     private void Update()
     {

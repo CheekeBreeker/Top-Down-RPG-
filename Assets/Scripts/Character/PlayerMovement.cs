@@ -13,13 +13,12 @@ public class PlayerMovement : MonoBehaviour
     public InterfaceManager _interfaceManager;
     public Transform _playerModel;
 
-    [SerializeField] private Transform _cameraTransform;
     [SerializeField] private CharacterStatus _characterStatus;
-
     [SerializeField] private float _walkSpeed = 1f;
     [SerializeField] private float _sprintSpeed = 2f;
     [SerializeField] public float _dodgeActiveTime = 1.15f;
-    
+    [SerializeField] private float _zoomSpeed = 1f;
+
     public float vertical;
     public float horizontal;
     private Vector3 moveInput;
@@ -32,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float distance;
 
-    private void Awake()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _playerInventory = GetComponent<PlayerInventory>();
@@ -41,13 +40,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveUpdate()
     {
-        
+
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
-        if (_characterStatus.isSprint)
+        MovementDepending();
+
+        _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
+
+        AttackTimer();
+        SpeedDownByWeight();
+        CameraPosition();
+    }
+
+    private void MovementDepending()
+    {
+        if (_characterStatus.isSprint && !_characterStatus.isAttack)
         {
-            SprintMove();
+            SprintMove(_sprintSpeed);
         }
         if (_characterStatus.isDodge)
         {
@@ -56,7 +66,9 @@ public class PlayerMovement : MonoBehaviour
         if (_characterStatus.isAttack)
         {
             ClickUpdate();
-            NormalMove(_walkSpeed / 5);
+            if (!_characterStatus.isSprint)
+                NormalMove(_walkSpeed / 5);
+            else SprintMove(_sprintSpeed / 2);
         }
         if (_characterStatus.isUsing)
         { }
@@ -65,20 +77,70 @@ public class PlayerMovement : MonoBehaviour
             NormalMove(_walkSpeed);
             ClickUpdate();
         }
+    }
 
-        _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
-
+    private void AttackTimer()
+    {
         _stopAttackTimer -= Time.deltaTime;
-
         if (_stopAttackTimer < 0)
         {
             _attackNumber = 0;
         }
-
-        SpeedDownByWeight();
     }
 
-    public void ClickUpdate()
+    private void SpeedDownByWeight()
+    {
+        float actualSpeed = 5f;
+        float actualSprintSpeed = 10f;
+
+        if (_playerInventory._weight > _playerInventory._maxWeight)
+        {
+            _walkSpeed = 2.5f;
+            _sprintSpeed = 5f;
+        }
+        else
+        {
+            _walkSpeed = actualSpeed;
+            _sprintSpeed = actualSprintSpeed;
+
+        }
+    }
+
+    private void CameraPosition()
+    {
+        if (_characterStatus.isNormal)
+        {
+            if (_characterStatus.isAiming)
+            {
+                if (Camera.main.orthographicSize > 7f)
+                    Camera.main.orthographicSize -= _zoomSpeed * 10f * Time.deltaTime;
+                if (Camera.main.orthographicSize < 7f)
+                    Camera.main.orthographicSize += _zoomSpeed * 10f * Time.deltaTime;
+            }
+
+            else
+            {
+                Camera.main.orthographicSize += -Input.mouseScrollDelta.y * _zoomSpeed;
+
+                if (Camera.main.orthographicSize < 1f)
+                    Camera.main.orthographicSize = 1f;
+                if (Camera.main.orthographicSize > 5f)
+                    Camera.main.orthographicSize -= _zoomSpeed * 10f * Time.deltaTime;
+                if (Camera.main.orthographicSize > 7f)
+                    Camera.main.orthographicSize = 7f;
+            }
+        }
+
+        if (_characterStatus.isSprint || _characterStatus.isAttack)
+        {
+            if (Camera.main.orthographicSize > 5f)
+                Camera.main.orthographicSize -= _zoomSpeed * 10f * Time.deltaTime;
+            if (Camera.main.orthographicSize < 5f)
+                Camera.main.orthographicSize += _zoomSpeed * 10f * Time.deltaTime;
+        }
+    }
+
+    private void ClickUpdate()
     {
         if(Input.GetMouseButtonDown(0))
         {
@@ -89,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (hit.transform.tag == "Item")
                 {
-                    TakeItem(hit);
+                    TakeItem(hit);  
                 }
                 else
                 {
@@ -115,12 +177,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        //_rb.MovePosition(_rb.position + moveVelocity * Time.fixedDeltaTime);
-    }
-
-    //public void Attacking()
+    //private void Attacking()
     //{
     //    if (_characterStatus.isAttack && Input.GetMouseButtonDown(0))
     //    {
@@ -145,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(_stopAttackTimer);
     }
 
-    public void NormalMove(float walkSpeed)
+    private void NormalMove(float walkSpeed)
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -160,37 +217,30 @@ public class PlayerMovement : MonoBehaviour
         moveVelocity = moveInput.normalized * walkSpeed;
     }
 
-    public void SprintMove()
+    private void SprintMove(float speed)
     {
         LookForward(5f);
 
-        transform.position += new Vector3(-vertical, 0f, horizontal) * _sprintSpeed * Time.deltaTime;
+        transform.position += new Vector3(-vertical, 0f, horizontal) * speed * Time.deltaTime;
     }
 
-    public void DodgeMove()
+    private void DodgeMove()
     {
         float dodgeVertical = 0f;
         float dodgeHorizontal = 0f;
-        StartCoroutine(DodgeCor(dodgeVertical, dodgeHorizontal));
+        StartCoroutine(DodgeCor());
         transform.position += new Vector3(dodgeHorizontal, 0f, dodgeVertical) * _sprintSpeed * Time.deltaTime;
-        StopCoroutine(DodgeCor(dodgeVertical, dodgeHorizontal));
+        StopCoroutine(DodgeCor());
     }
 
-    IEnumerator DodgeCor(float dodgeVertical, float dodgeHorizontal)
+    IEnumerator DodgeCor()
     {
-        //LookForward(15f);
+        LookForward(15f);
 
-        //dodgeVertical = -vertical;
-        //dodgeHorizontal = horizontal;
         yield return new WaitForSeconds(_dodgeActiveTime);
     }
 
-    public void MoveForward()
-    {
-        transform.position += new Vector3(-vertical, 0f, horizontal) * _sprintSpeed * Time.deltaTime;
-    }
-
-    public void LookForward(float rotationSpeed)
+    private void LookForward(float rotationSpeed)
     {
         if (Input.GetKey(KeyCode.W))
             _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * rotationSpeed);
@@ -210,7 +260,7 @@ public class PlayerMovement : MonoBehaviour
             _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 135f, 0.0f), Time.deltaTime * rotationSpeed);
     }
 
-    void TakeItem(RaycastHit hit)
+    private void TakeItem(RaycastHit hit)
     {
         distance = Vector3.Distance(transform.position + transform.up, hit.transform.position);
         Item it = hit.transform.GetComponent<Item>();
@@ -221,11 +271,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 _playerInventory.consumables.Add(it);
                 Destroy(hit.transform.gameObject);
+                _characterStatus.isUsing = true;
             }
             else if (it.typeItem == "Weapon")
             {
                 _playerInventory.weapon.Add(it);
                 Destroy(hit.transform.gameObject);
+                _characterStatus.isUsing = true;
+            }
+            else if (it.typeItem == "ExpItems")
+            {
+                _playerInventory.expItems.Add(it);
+                Destroy(hit.transform.gameObject);
+                _characterStatus.isUsing = true;
             }
 
             _playerInventory._weight += it.mass;
@@ -234,24 +292,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Debug.Log("Daleko");
-        }
-    }
-
-    public void SpeedDownByWeight()
-    {
-        float actualSpeed = 5f;
-        float actualSprintSpeed = 10f;
-
-        if (_playerInventory._weight  > _playerInventory._maxWeight)
-        {
-            _walkSpeed = 2.5f;
-            _sprintSpeed = 5f;
-        }
-        else
-        {
-            _walkSpeed = actualSpeed;
-            _sprintSpeed = actualSprintSpeed;
-
         }
     }
 }

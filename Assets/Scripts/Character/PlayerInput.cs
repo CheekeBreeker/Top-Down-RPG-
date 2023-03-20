@@ -33,41 +33,37 @@ public class PlayerInput : MonoBehaviour
     public void InputUpdate()
     {
         if (!debagNormal &&
-            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift) && 
-            !_characterStatus.isDodge && !_characterStatus.isAttack))
+            !_characterStatus.isDodge && !_characterStatus.isAttack && !_characterStatus.isSprint)
             _characterStatus.isNormal = true;
         else _characterStatus.isNormal = isNormal;
 
         if (!debagSprint &&
-            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetMouseButton(2) && !Input.GetMouseButton(1)) &&
-            !_characterStatus.isDodge) 
+            !_characterStatus.isDodge && !_characterStatus.isBlock && !_characterStatus.isAiming) 
             _characterStatus.isSprint = Input.GetKey(KeyCode.LeftShift);
         else _characterStatus.isSprint = isSprint;
 
         if (!debagBlock && 
-            !Input.GetKey(KeyCode.LeftShift)) 
+            !_characterStatus.isSprint) 
             _characterStatus.isBlock = Input.GetMouseButton(1);
         else _characterStatus.isBlock = isBlock;
 
         if (!debagDodge &&
-            (!Input.GetMouseButton(1)))
+            !_characterStatus.isBlock && !_characterStatus.isAiming)
             IsDodging();
         else _characterStatus.isDodge = isDodge;
 
         if (!debagAiming && 
-            !Input.GetKey(KeyCode.LeftShift)) 
+            !_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAttack) 
             _characterStatus.isAiming = Input.GetMouseButton(2);
         else _characterStatus.isAiming = isAiming;
 
         if (!debagAttack && 
-            (!Input.GetKeyDown(KeyCode.Space) && 
-            !_characterStatus.isDodge)) 
+            !_characterStatus.isDodge) 
             isAttacking();
         else _characterStatus.isAttack = isAttack;
 
         if (!debagUsing &&
-            (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1) &&
-            !_characterStatus.isDodge && !_characterStatus.isAttack))
+            !_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAiming && !_characterStatus.isAttack)
             _characterStatus.isUsing = Input.GetKeyDown(KeyCode.E);
         else _characterStatus.isUsing = isUsing;
     }

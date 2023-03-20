@@ -21,6 +21,8 @@ public class CharacterAnimation : MonoBehaviour
         _anim.SetBool("block", _characterStatus.isBlock);
         _anim.SetBool("dodge", _characterStatus.isDodge);
         _anim.SetBool("use", _characterStatus.isUsing);
+        _anim.SetFloat("attackNumber", _playerMovement._attackNumber);
+        _anim.SetFloat("stopAttackTimer", _playerMovement._stopAttackTimer);
 
         if (_characterStatus.isNormal) AnimationNormal();
         if (_characterStatus.isSprint) AnimationSprint();
@@ -50,7 +52,8 @@ public class CharacterAnimation : MonoBehaviour
 
     void AnimationDodge()
     {
-
+        _anim.SetFloat("vertical", 0f);
+        _anim.SetFloat("horizontal", 0f);
     }
 
     void AnimationAttack()
@@ -59,7 +62,5 @@ public class CharacterAnimation : MonoBehaviour
             _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
         _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
             _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
-        _anim.SetFloat("attackNumber", _playerMovement._attackNumber);
-        _anim.SetFloat("stopAttackTimer", _playerMovement._stopAttackTimer);
     }
 }
