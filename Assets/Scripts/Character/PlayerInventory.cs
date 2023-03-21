@@ -46,7 +46,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if (_inventory.activeSelf)
+            if (!_inventory.activeSelf)
                 InventoryDisable();
             else InventoryEnabled();
         }
@@ -65,7 +65,7 @@ public class PlayerInventory : MonoBehaviour
             Destroy(drag.gameObject);
         _drags.Clear();
 
-        for (int i = 0; i < consumables.Count + weapon.Count; i++)
+        for (int i = 0; i < consumables.Count + weapon.Count + expItems.Count; i++)
         {
             GameObject newCell = Instantiate(_cell);
             newCell.transform.SetParent(_cellParent, false);
@@ -87,7 +87,7 @@ public class PlayerInventory : MonoBehaviour
 
         for (int i = _drags.Count - 1; i >= 0; i--)
         {
-            if (_drags[i].ownerItem == "")
+            if (_drags[i]._ownerItem == "")
             {
                 Destroy(_drags[i].gameObject);
                 _drags.RemoveAt(i);
@@ -103,14 +103,14 @@ public class PlayerInventory : MonoBehaviour
 
             for (int j = 0; j < _drags.Count; j++)
             {
-                if (_drags[j].ownerItem != "")
+                if (_drags[j]._ownerItem != "")
                 {
                     if (type[i].isStackable)
                     {
                         if (_drags[j]._item.nameItem == it.nameItem)
                         {
-                            _drags[j].countItem++;
-                            _drags[j].count.text = _drags[j].countItem.ToString();
+                            _drags[j]._countItem++;
+                            _drags[j]._count.text = _drags[j]._countItem.ToString();
                             break;
                         }
                     }
@@ -120,10 +120,10 @@ public class PlayerInventory : MonoBehaviour
                 else
                 {
                     _drags[j]._item = it;
-                    _drags[j].image.sprite = Resources.Load<Sprite>(type[i].pathSprite);
-                    _drags[j].ownerItem = "myItem";
-                    _drags[j].countItem++;
-                    _drags[j].count.text = "" + _drags[j].countItem;
+                    _drags[j]._image.sprite = Resources.Load<Sprite>(type[i].pathSprite);
+                    _drags[j]._ownerItem = "myItem";
+                    _drags[j]._countItem++;
+                    _drags[j]._count.text = "" + _drags[j]._countItem;
                     _drags[j]._playerInventory = this;
                     break;
                 }
@@ -152,12 +152,14 @@ public class PlayerInventory : MonoBehaviour
     public void RemoveItem(Drag drag)
     {
         Item it = drag._item;
-        GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
-        newObj.transform.position = transform.position + transform.forward + transform.up;
+        //GameObject newObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+        it.transform.gameObject.SetActive(true);
+        it.transform.position = transform.position + transform.forward + transform.up;
         _weight -= it.mass;
         _interfaceManager.WeightInterface();
         consumables.Remove(it);
         weapon.Remove(it);
+        expItems.Remove(it);
         InventoryEnabled();
     }
 
@@ -168,13 +170,11 @@ public class PlayerInventory : MonoBehaviour
         if (it.typeItem == "Consumables")
         {
             _playerStats.AddHealth(drag._item.addHealth);
-            if(drag._item.addExp > 0)
-                _playerStats.AddExp(drag._item.addExp);
             consumables.Remove(drag._item);
         }
         else if (it.typeItem == "Weapon")
         {
-            if (drag.ownerItem == "myItem" && _weaponInHand == null)
+            if (drag._ownerItem == "myItem" && _weaponInHand == null)
             {
                 GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
                 weaponObj.transform.SetParent(_rightHand);
@@ -186,15 +186,15 @@ public class PlayerInventory : MonoBehaviour
                 _weaponInHand = weaponObj;
 
                 _mainWeapon._item = it;
-                _mainWeapon.image.sprite = Resources.Load<Sprite>(it.pathSprite);
-                _mainWeapon.ownerItem = "myWeapon";
-                _mainWeapon.countItem++;
-                _mainWeapon.count.text = "";
+                _mainWeapon._image.sprite = Resources.Load<Sprite>(it.pathSprite);
+                _mainWeapon._ownerItem = "myWeapon";
+                _mainWeapon._countItem++;
+                _mainWeapon._count.text = "";
                 _mainWeapon._playerInventory = this;
 
                 weapon.Remove(it);
             }
-            else if (drag.ownerItem == "myWeapon")
+            else if (drag._ownerItem == "myWeapon")
             {
                 weapon.Add(drag._item);
 
@@ -202,16 +202,29 @@ public class PlayerInventory : MonoBehaviour
                 _weaponInHand = null;
 
                 _mainWeapon._item = null;
-                _mainWeapon.image.sprite = _mainWeapon.defaultSprite;
-                _mainWeapon.ownerItem = "";
-                _mainWeapon.countItem = 0;
-                _mainWeapon.count.text = "";
+                _mainWeapon._image.sprite = _mainWeapon._defaultSprite;
+                _mainWeapon._ownerItem = "";
+                _mainWeapon._countItem = 0;
+                _mainWeapon._count.text = "";
                 _mainWeapon._playerInventory = null;
             }
             else return;
         }
         else if (it.typeItem == "ExpItems")
         {
+            for (var i = 0; i < _playerJournal._expItem.Count; i++)
+            {
+                Item expItem = _playerJournal._expItem[i];
+                if (expItem.nameItem == drag._item.nameItem)
+                    foreach (var drags in _playerJournal._drags)
+                    {
+                        if (int.Parse(drags._count.text) >= drag._item.maxCountExpItems)
+                        {
+                            drag._item.addExp *= 0.9f;
+                            break;
+                        }
+                    }
+            }
             _playerStats.AddExp(drag._item.addExp);
             _playerJournal.AddItem(drag, it);
             expItems.Remove(drag._item);

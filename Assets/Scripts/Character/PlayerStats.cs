@@ -42,7 +42,7 @@ public class PlayerStats : MonoBehaviour
             _health += _regenHP * Time.deltaTime;
     }
 
-    public void AddExp(int add)
+    public void AddExp(float add)
     {
         _curExp += add;
 

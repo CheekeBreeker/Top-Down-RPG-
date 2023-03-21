@@ -266,11 +266,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInventory: {fileID: 1799391162, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
+  _playerJournal: {fileID: 4500716798864694492, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _item: {fileID: 0}
-  ownerItem: 
-  countItem: 0
-  isQACell: 0
-  image: {fileID: 2648305557701126155}
-  defaultSprite: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
-  count: {fileID: 2648305557850225415}
-  descriptionCell: {fileID: 0}
+  _ownerItem: 
+  _countItem: 0
+  _isQACell: 0
+  _isJournalCell: 0
+  _image: {fileID: 2648305557701126155}
+  _defaultSprite: {fileID: 0}
+  _nameItem: {fileID: 0}
+  _count: {fileID: 2648305557850225415}
+  _descriptionCell: {fileID: 0}

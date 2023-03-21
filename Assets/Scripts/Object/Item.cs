@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -10,7 +11,8 @@ public class Item : MonoBehaviour
     public int price;
     public float mass;
     public int addHealth;
-    public int addExp;
+    public float addExp;
+    public int maxCountExpItems;
 
     public string pathSprite;
     public string pathPrefab;

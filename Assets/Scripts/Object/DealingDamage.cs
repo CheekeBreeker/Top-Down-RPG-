@@ -23,17 +23,20 @@ public class DealingDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("EnemySpine"))
+        if (_playerMovement != null)
         {
-            _item._weaponDamage *= 2;
-            Debug.Log("damage 2x " + _item._weaponDamage);
-        }
+            if (other.gameObject.CompareTag("EnemySpine"))
+            {
+                _item._weaponDamage *= 2;
+                Debug.Log("damage 2x " + _item._weaponDamage);
+            }
 
-        if (_characterStatus.isAttack && other.gameObject.CompareTag("Enemy") && _playerMovement._attackNumber != 0 && _playerMovement._attackNumber != 4)
-        {
-            _npcStats = other.gameObject.GetComponent<NpcStats>();
-            _npcStats.TakeAwayHealth(_item._weaponDamage);
-            Debug.Log("damage " + _item._weaponDamage);
+            if (_characterStatus.isAttack && other.gameObject.CompareTag("Enemy") && _playerMovement._attackNumber != 0 && _playerMovement._attackNumber != 4)
+            {
+                _npcStats = other.gameObject.GetComponent<NpcStats>();
+                _npcStats.TakeAwayHealth(_item._weaponDamage);
+                Debug.Log("damage " + _item._weaponDamage);
+            }
         }
     }
 

@@ -7,17 +7,18 @@ using UnityEngine.UI;
 public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public PlayerInventory _playerInventory;
+    public PlayerJournal _playerJournal;
     public Item _item;
-    public string ownerItem;
-    public int countItem;
-    [SerializeField] private bool isQACell;
-    [SerializeField] private bool isJournalCell;
+    public string _ownerItem;
+    public int _countItem;
+    [SerializeField] private bool _isQACell;
+    [SerializeField] private bool _isJournalCell;
 
-    public Image image;
-    public Sprite defaultSprite;
-    public Text count;
-
-    public Text descriptionCell;
+    public Image _image;
+    public Sprite _defaultSprite;
+    public Text _nameItem;
+    public Text _count;
+    public Text _descriptionCell;
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
@@ -28,17 +29,18 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (ownerItem != "")
+        if (_ownerItem != "")
         {
             if (eventData.button == PointerEventData.InputButton.Right)
             {
-                if (!isQACell)
+                if (!_isQACell || !_isJournalCell)
                     _playerInventory.RemoveItem(this);
                 else return;
             }
             else if (eventData.button == PointerEventData.InputButton.Left)
             {
-                _playerInventory.UseItem(this);
+                if(!_isJournalCell)
+                    _playerInventory.UseItem(this);
             }
         }
     }
