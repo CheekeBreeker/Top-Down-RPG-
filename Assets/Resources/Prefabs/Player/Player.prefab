@@ -1514,6 +1514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec9855a63c72a3428bcc774d860ad8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerStats: {fileID: 0}
   _expItem: []
   _drags: []
   _journal: {fileID: 657161055}
@@ -1619,6 +1620,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1298912090463379537, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: _defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
+    - target: {fileID: 1298912090463379537, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: _playerJournal
       value: 
       objectReference: {fileID: 4500716798864694492}
@@ -1642,6 +1647,10 @@ PrefabInstance:
       propertyPath: isQACell
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1298912091343396568, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: _defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
     - target: {fileID: 1298912091343396568, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: _playerJournal
       value: 
@@ -1667,6 +1676,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1298912092124461865, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: _defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
+    - target: {fileID: 1298912092124461865, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: _playerJournal
       value: 
       objectReference: {fileID: 4500716798864694492}
@@ -1686,6 +1699,10 @@ PrefabInstance:
       propertyPath: isQACell
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1298912092163322364, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: _defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
     - target: {fileID: 1298912092163322364, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: _playerJournal
       value: 
@@ -1910,6 +1927,10 @@ PrefabInstance:
       propertyPath: isQACell
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3946844828739076284, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: _defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 25d6287f99c54bf4c91570423e63a30c, type: 3}
     - target: {fileID: 3946844828739076284, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: _playerJournal
       value: 

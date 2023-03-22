@@ -9,13 +9,13 @@ using UnityEngine.UIElements;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _rb;
-    private PlayerInventory _playerInventory;
     public InterfaceManager _interfaceManager;
+    public PlayerInventory _playerInventory;
     public Transform _playerModel;
 
     [SerializeField] private CharacterStatus _characterStatus;
-    [SerializeField] private float _walkSpeed = 1f;
-    [SerializeField] private float _sprintSpeed = 2f;
+    [SerializeField] public float _walkSpeed = 1f;
+    [SerializeField] public float _sprintSpeed = 2f;
     [SerializeField] public float _dodgeActiveTime = 1.15f;
     [SerializeField] private float _zoomSpeed = 1f;
 
@@ -49,7 +49,6 @@ public class PlayerMovement : MonoBehaviour
         _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
 
         AttackTimer();
-        SpeedDownByWeight();
         CameraPosition();
     }
 
@@ -85,24 +84,6 @@ public class PlayerMovement : MonoBehaviour
         if (_stopAttackTimer < 0)
         {
             _attackNumber = 0;
-        }
-    }
-
-    private void SpeedDownByWeight()
-    {
-        float actualSpeed = 5f;
-        float actualSprintSpeed = 10f;
-
-        if (_playerInventory._weight > _playerInventory._maxWeight)
-        {
-            _walkSpeed = 2.5f;
-            _sprintSpeed = 5f;
-        }
-        else
-        {
-            _walkSpeed = actualSpeed;
-            _sprintSpeed = actualSprintSpeed;
-
         }
     }
 

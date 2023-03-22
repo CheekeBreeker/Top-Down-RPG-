@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+    private PlayerMovement _playerMovement;
+    private PlayerInventory _playerInventory;
+
     public float _health;
     public float _maxHealth;
     public Image _imgHealth;
@@ -16,15 +19,21 @@ public class PlayerStats : MonoBehaviour
     public float _curExp;
     public Image _imgExp;
 
+    public bool _isOverload;
+    public bool _isHurt;
 
     private void Start()
     {
+        _playerMovement = GetComponent<PlayerMovement>();
+        _playerInventory = GetComponent<PlayerInventory>();
+
         _exp = 100 * _level;
     }
 
     private void Update()
     {
         hpRegeneration();
+        SpeedControl();
         InterfaceUpdate();
     }
 
@@ -41,6 +50,35 @@ public class PlayerStats : MonoBehaviour
         if (_health < _maxHealth)
             _health += _regenHP * Time.deltaTime;
     }
+
+    public void SpeedControl()
+    {
+        if (_playerInventory._weight > _playerInventory._maxWeight && !_isOverload)
+        {
+            _isOverload = true;
+            _playerMovement._walkSpeed = _playerMovement._walkSpeed / 2;
+            _playerMovement._sprintSpeed = _playerMovement._sprintSpeed / 2;
+        }
+        if (_playerInventory._weight <= _playerInventory._maxWeight && _isOverload)
+        {
+            _isOverload = false;
+            _playerMovement._walkSpeed = _playerMovement._walkSpeed * 2;
+            _playerMovement._sprintSpeed = _playerMovement._walkSpeed * 2;
+        }
+
+        if (_health <= _maxHealth * 0.35f && !_isHurt)
+        {
+            _isHurt = true;
+            _playerMovement._walkSpeed = _playerMovement._walkSpeed / 2;
+            _playerMovement._sprintSpeed = _playerMovement._walkSpeed / 2;
+        }
+        if (_health > _maxHealth * 0.35f && _isHurt)
+        {
+            _isHurt = false;
+            _playerMovement._walkSpeed = _playerMovement._walkSpeed * 2;
+            _playerMovement._sprintSpeed = _playerMovement._walkSpeed * 2;
+        }
+    }    
 
     public void AddExp(float add)
     {

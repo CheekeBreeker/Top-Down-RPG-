@@ -5,6 +5,7 @@ using UnityEngine;
 public class NpcMovenment : MonoBehaviour
 {
     //[SerializeField] private Transform _lookToTrigger;
+    public float _walkSpeed;
     public void MoveUpdate()
     {
 

@@ -170,6 +170,8 @@ public class PlayerInventory : MonoBehaviour
         if (it.typeItem == "Consumables")
         {
             _playerStats.AddHealth(drag._item.addHealth);
+
+            _weight -= it.mass;
             consumables.Remove(drag._item);
         }
         else if (it.typeItem == "Weapon")
@@ -192,6 +194,7 @@ public class PlayerInventory : MonoBehaviour
                 _mainWeapon._count.text = "";
                 _mainWeapon._playerInventory = this;
 
+                _weight -= it.mass / 2;
                 weapon.Remove(it);
             }
             else if (drag._ownerItem == "myWeapon")
@@ -207,6 +210,8 @@ public class PlayerInventory : MonoBehaviour
                 _mainWeapon._countItem = 0;
                 _mainWeapon._count.text = "";
                 _mainWeapon._playerInventory = null;
+
+                _weight += it.mass / 2;
             }
             else return;
         }
@@ -216,17 +221,23 @@ public class PlayerInventory : MonoBehaviour
             {
                 Item expItem = _playerJournal._expItem[i];
                 if (expItem.nameItem == drag._item.nameItem)
+                {
                     foreach (var drags in _playerJournal._drags)
                     {
-                        if (int.Parse(drags._count.text) >= drag._item.maxCountExpItems)
+                        //if (int.Parse(drags._count.text) >= drag._item.maxCountExpItems)
+                        if(drags._countItem >= drag._item.maxCountExpItems)
                         {
-                            drag._item.addExp *= 0.9f;
+                            drag._item.addExp /= 2;
                             break;
                         }
                     }
+                    break;
+                }
             }
             _playerStats.AddExp(drag._item.addExp);
             _playerJournal.AddItem(drag, it);
+
+            _weight -= it.mass;
             expItems.Remove(drag._item);
         }
         InventoryEnabled();
