@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class NpcStatus : MonoBehaviour
 {
-    public void StatusUpdate()
-    {
-
-    }
+    public bool isWalk;
+    public bool isAttack;
+    public bool isHurt;
+    public bool isWounded;
+    public bool isPatroling;
 }

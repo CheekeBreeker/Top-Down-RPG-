@@ -9,6 +9,7 @@ public class NpcStats : MonoBehaviour
 
     [SerializeField] private GameObject _spine;
     [SerializeField] private NpcMovenment _npcMovenment;
+    [SerializeField] private NpcStatus _npcStatus;
 
 
     public float _health;
@@ -24,13 +25,16 @@ public class NpcStats : MonoBehaviour
         _anim = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
         _npcMovenment = GetComponent<NpcMovenment>();
+        _npcStatus = GetComponent<NpcStatus>();
     }
 
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
         if (_isHurt)
-            _anim.Play("WalkBackward");
+        {
+            _npcStatus.isHurt = true;
+        }    
         if (_health <= 0)
             Die();
     }
@@ -51,14 +55,14 @@ public class NpcStats : MonoBehaviour
         if (_health <= _maxHealth * 0.35f && !_isHurt)
         {
             _isHurt = true;
+            _npcStatus.isWounded = true;
             _npcMovenment._walkSpeed = _npcMovenment._walkSpeed / 2;
-            _anim.speed = 0.5f;
         }
         if (_health > _maxHealth * 0.35f && _isHurt)
         {
             _isHurt = false;
+            _npcStatus.isWounded = false;
             _npcMovenment._walkSpeed = _npcMovenment._walkSpeed * 2;
-            _anim.speed = 1f;
         }
     }
 

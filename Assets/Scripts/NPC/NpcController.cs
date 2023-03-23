@@ -19,6 +19,5 @@ public class NpcController : MonoBehaviour
     {
         _npcAnimation.AnimationUpdate();
         _npcMovenment.MoveUpdate();
-        _npcStatus.StatusUpdate();
     }
 }
