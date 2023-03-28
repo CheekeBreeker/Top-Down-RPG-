@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Enemy
   - EnemySpine
+  - PlayerSpine
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Obstacle
   - Target
   - Unselectable
-  - 
+  - ObstacleForNPC
   - 
   - 
   - 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7502665884280134853}
   - component: {fileID: 3469287836925731652}
   - component: {fileID: 561947448}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Welding fluid
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -104,12 +104,14 @@ MonoBehaviour:
   price: 10
   mass: 2
   addHealth: 11
+  addExp: 0
+  maxCountExpItems: 0
   pathSprite: Arts/Sprites/Items/Welding fluid
   pathPrefab: Prefabs/Items/Welding fluid
   isStackable: 1
   _posWeapAttack: {x: 0, y: 0, z: 0}
   _rotWeapAttack: {x: 0, y: 0, z: 0}
-  weaponDamage: 0
+  _weaponDamage: 0
   activeView: {fileID: 7659446060635661604}
 --- !u!65 &3469287836925731652
 BoxCollider:
@@ -151,7 +153,7 @@ GameObject:
   - component: {fileID: 8316355279849578056}
   - component: {fileID: 2131114983922824794}
   - component: {fileID: 6261194719038614886}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ActiveView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

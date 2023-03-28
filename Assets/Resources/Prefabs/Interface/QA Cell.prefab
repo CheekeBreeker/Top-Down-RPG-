@@ -270,7 +270,7 @@ MonoBehaviour:
   _item: {fileID: 0}
   _ownerItem: 
   _countItem: 0
-  _isQACell: 0
+  _isNotRemovingCell: 1
   _isJournalCell: 0
   _image: {fileID: 2648305557701126155}
   _defaultSprite: {fileID: 0}

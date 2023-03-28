@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3022855705395183249}
   - component: {fileID: 308579457551704952}
   - component: {fileID: 838744729468421424}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ActiveView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4202443481782993958}
   - component: {fileID: 4202443481782993956}
   - component: {fileID: 1008190046946970508}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Axe
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -222,6 +222,7 @@ MonoBehaviour:
   mass: 4
   addHealth: 0
   addExp: 0
+  maxCountExpItems: 0
   pathSprite: Arts/Sprites/Items/Axe
   pathPrefab: Prefabs/Items/Axe
   isStackable: 0

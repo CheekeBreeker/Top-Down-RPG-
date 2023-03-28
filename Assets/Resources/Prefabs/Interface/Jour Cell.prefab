@@ -254,8 +254,8 @@ MonoBehaviour:
   _item: {fileID: 0}
   _ownerItem: 
   _countItem: 0
-  _isQACell: 0
-  _isJournalCell: 0
+  _isNotRemovingCell: 1
+  _isJourCell: 1
   _image: {fileID: 2424993683614000922}
   _defaultSprite: {fileID: 0}
   _nameItem: {fileID: 2424993683406693688}

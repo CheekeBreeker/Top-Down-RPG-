@@ -8,7 +8,7 @@ public class NpcStats : MonoBehaviour
     private Collider _collider;
 
     [SerializeField] private GameObject _spine;
-    [SerializeField] private NpcMovenment _npcMovenment;
+    [SerializeField] private NpcController _npcController;
     [SerializeField] private NpcStatus _npcStatus;
 
 
@@ -24,8 +24,13 @@ public class NpcStats : MonoBehaviour
         _maxHealth = _health;
         _anim = GetComponent<Animator>();
         _collider = GetComponent<Collider>();
-        _npcMovenment = GetComponent<NpcMovenment>();
+        _npcController = GetComponent<NpcController>();
         _npcStatus = GetComponent<NpcStatus>();
+    }
+
+    private void Update()
+    {
+        SpeedControl();
     }
 
     public void TakeAwayHealth(float takeAway)
@@ -41,7 +46,9 @@ public class NpcStats : MonoBehaviour
 
     public void Die()
     {
+        _npcStatus.isDead = true;
         _anim.enabled = false;
+        _npcController.enabled = false;
         _collider.enabled = false;
         _spine.SetActive(false);
 
@@ -56,14 +63,16 @@ public class NpcStats : MonoBehaviour
         {
             _isHurt = true;
             _npcStatus.isWounded = true;
-            _npcMovenment._walkSpeed = _npcMovenment._walkSpeed / 2;
         }
         if (_health > _maxHealth * 0.35f && _isHurt)
         {
             _isHurt = false;
             _npcStatus.isWounded = false;
-            _npcMovenment._walkSpeed = _npcMovenment._walkSpeed * 2;
         }
     }
 
+    public void MainWeapon()
+    {
+
+    }
 }

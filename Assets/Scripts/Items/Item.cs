@@ -5,8 +5,13 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    [SerializeField] private PlayerInventory _playerInventory;
+    [SerializeField] private NpcInventory _npcInventory;
+
+
     public string nameItem;
     public string typeItem;
+    public string _owner;
 
     public int price;
     public float mass;
@@ -24,6 +29,18 @@ public class Item : MonoBehaviour
     public float _weaponDamage; 
 
     [SerializeField] private GameObject activeView;
+
+    private void Start()
+    {
+        _playerInventory = GetComponentInParent<PlayerInventory>();
+        _npcInventory = GetComponentInParent<NpcInventory>();
+
+        if (_playerInventory != null)
+            _owner = "Player";
+        else if (_npcInventory != null)
+            _owner = "Npc";
+        else _owner = "";
+    }
 
     private void Update()
     {

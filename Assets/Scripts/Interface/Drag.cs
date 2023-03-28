@@ -11,8 +11,8 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     public Item _item;
     public string _ownerItem;
     public int _countItem;
-    [SerializeField] private bool _isQACell;
-    [SerializeField] private bool _isJournalCell;
+    [SerializeField] private bool _isNotRemovingCell;
+    [SerializeField] private bool _isJourCell;
 
     public Image _image;
     public Sprite _defaultSprite;
@@ -31,16 +31,13 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
     {
         if (_ownerItem != "")
         {
-            if (eventData.button == PointerEventData.InputButton.Right)
+            if (eventData.button == PointerEventData.InputButton.Right && !_isNotRemovingCell)
             {
-                if (!_isQACell || !_isJournalCell)
-                    _playerInventory.RemoveItem(this);
-                else return;
+                _playerInventory.RemoveItem(this);
             }
-            else if (eventData.button == PointerEventData.InputButton.Left)
+            else if (eventData.button == PointerEventData.InputButton.Left && !_isJourCell)
             {
-                if(!_isJournalCell)
-                    _playerInventory.UseItem(this);
+                _playerInventory.UseItem(this);
             }
         }
     }

@@ -188,6 +188,8 @@ public class PlayerInventory : MonoBehaviour
                 _weaponInHand = weaponObj;
 
                 _mainWeapon._item = it;
+                _weaponInHand.GetComponent<Item>()._owner = "Player";
+                _weaponInHand.layer = 7;
                 _mainWeapon._image.sprite = Resources.Load<Sprite>(it.pathSprite);
                 _mainWeapon._ownerItem = "myWeapon";
                 _mainWeapon._countItem++;
@@ -200,6 +202,8 @@ public class PlayerInventory : MonoBehaviour
             else if (drag._ownerItem == "myWeapon")
             {
                 weapon.Add(drag._item);
+                _weaponInHand.layer = 0;
+                _weaponInHand.GetComponent<Item>()._owner = "Player";
 
                 Destroy(_weaponInHand);
                 _weaponInHand = null;

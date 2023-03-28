@@ -248,30 +248,34 @@ public class PlayerMovement : MonoBehaviour
 
         if (distance < 2)
         {
-            if (it.typeItem == "Consumables")
+            if (it._owner != "Npc")
             {
-                _playerInventory.consumables.Add(it);
-                //Destroy(hit.transform.gameObject);
-                hit.transform.gameObject.SetActive(false);
-                _characterStatus.isUsing = true;
-            }
-            else if (it.typeItem == "Weapon")
-            {
-                _playerInventory.weapon.Add(it);
-                //Destroy(hit.transform.gameObject);
-                hit.transform.gameObject.SetActive(false);
-                _characterStatus.isUsing = true;
-            }
-            else if (it.typeItem == "ExpItems")
-            {
-                _playerInventory.expItems.Add(it);
-                //Destroy(hit.transform.gameObject);
-                hit.transform.gameObject.SetActive(false);
-                _characterStatus.isUsing = true;
-            }
+                if (it.typeItem == "Consumables")
+                {
+                    _playerInventory.consumables.Add(it);
+                    //Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.SetActive(false);
+                    _characterStatus.isUsing = true;
+                }
+                else if (it.typeItem == "Weapon")
+                {
+                    _playerInventory.weapon.Add(it);
+                    //Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.SetActive(false);
+                    _characterStatus.isUsing = true;
+                }
+                else if (it.typeItem == "ExpItems")
+                {
+                    _playerInventory.expItems.Add(it);
+                    //Destroy(hit.transform.gameObject);
+                    hit.transform.gameObject.SetActive(false);
+                    _characterStatus.isUsing = true;
+                }
 
-            _playerInventory._weight += it.mass;
-            _interfaceManager.WeightInterface();
+                _playerInventory._weight += it.mass;
+                _interfaceManager.WeightInterface();
+            }
+            else Debug.Log("npc weapon");
         }
         else
         {

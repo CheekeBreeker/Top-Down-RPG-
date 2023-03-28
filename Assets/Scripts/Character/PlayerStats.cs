@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
         InterfaceUpdate();
     }
 
-    public void AddHealth(int add)
+    public void AddHealth(float add)
     {
         _health += add;
 
@@ -49,6 +49,19 @@ public class PlayerStats : MonoBehaviour
     {
         if (_health < _maxHealth)
             _health += _regenHP * Time.deltaTime;
+    }
+
+    public void TakeAwayHealth(float damage)
+    {
+        _health -= damage;
+
+        if (_health < 0)
+            Die();
+    }
+
+    public void Die()
+    {
+        Time.timeScale = 0;
     }
 
     public void SpeedControl()
