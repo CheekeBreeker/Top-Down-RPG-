@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.Rendering;
 
 public class NpcInventory : MonoBehaviour
 {
@@ -9,6 +9,9 @@ public class NpcInventory : MonoBehaviour
     public List<Item> _items = new List<Item>();
     public Item _mainWeapon;
     private GameObject _objWeapon;
+    public int _reputation;
+    public QuestGiver _questGiver;
+    public bool _isDeleteQuestGiver;
 
     [SerializeField] private Transform _rightHand;
     [SerializeField] private Transform _model;
@@ -16,20 +19,25 @@ public class NpcInventory : MonoBehaviour
     private void Start()
     {
         _npcStatus = GetComponent<NpcStatus>();
+        _questGiver = GetComponent<QuestGiver>();
 
-        _mainWeapon._owner = "Npc";
-        _items.Add(_mainWeapon);
-        _objWeapon = Instantiate<GameObject>(Resources.Load<GameObject>(_mainWeapon.pathPrefab));
-        _objWeapon.transform.SetParent(_rightHand);
-        _objWeapon.transform.localPosition = _mainWeapon._posWeapAttack;
-        _objWeapon.transform.localRotation = Quaternion.Euler(_mainWeapon._rotWeapAttack);
-        _objWeapon.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        _objWeapon.GetComponent<BoxCollider>().isTrigger = true;
+        if (_mainWeapon != null)
+        {
+            _mainWeapon._owner = "Npc";
+            _items.Add(_mainWeapon);
+            _objWeapon = Instantiate<GameObject>(Resources.Load<GameObject>(_mainWeapon.pathPrefab));
+            _objWeapon.transform.SetParent(_rightHand);
+            _objWeapon.transform.localPosition = _mainWeapon._posWeapAttack;
+            _objWeapon.transform.localRotation = Quaternion.Euler(_mainWeapon._rotWeapAttack);
+            _objWeapon.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            _objWeapon.GetComponent<BoxCollider>().isTrigger = true;
+        }
     }
 
     private void Update()
     {
         if (_npcStatus.isDead) RemoveAllItems();
+        if (_isDeleteQuestGiver) _questGiver = null;
     }
 
     private void RemoveAllItems()

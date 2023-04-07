@@ -19,3 +19,5 @@ MonoBehaviour:
   isAiming: 0
   isAttack: 0
   isUsing: 0
+  isTalk: 0
+  isTrade: 0

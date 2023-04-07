@@ -8,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
     public PlayerStats _playerStats;
     public CharacterStatus _characterStatus;
     public PlayerJournal _playerJournal;
+    public Dialog _trading;
     public InterfaceManager _interfaceManager;
 
     public List<Item> consumables = new List<Item>();
@@ -30,11 +31,15 @@ public class PlayerInventory : MonoBehaviour
 
     public Transform _rightHand;
 
+    public GameObject _descriptionObj;
+    public Text _descriptionItem;
+
     private void Start()
     {
         typeOutput = 1;
         _playerStats = GetComponent<PlayerStats>();
         _playerJournal = GetComponent<PlayerJournal>();
+        _trading = GetComponent<Dialog>();
     }
 
     private void Update()
@@ -44,7 +49,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void InventoryActive()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !_characterStatus.isTrade)
         {
             if (!_inventory.activeSelf)
                 InventoryDisable();
@@ -57,10 +62,14 @@ public class PlayerInventory : MonoBehaviour
         foreach (Drag drag in _drags)
             Destroy(drag.gameObject);
         _drags.Clear();
+
+        _inventory.SetActive(false);
+        _descriptionObj.SetActive(false);
     }
 
     public void InventoryEnabled()
     {
+        _inventory.SetActive(true);
         foreach (Drag drag in _drags)
             Destroy(drag.gameObject);
         _drags.Clear();
@@ -125,6 +134,8 @@ public class PlayerInventory : MonoBehaviour
                     _drags[j]._countItem++;
                     _drags[j]._count.text = "" + _drags[j]._countItem;
                     _drags[j]._playerInventory = this;
+                    _drags[j]._descriptionObj = _descriptionObj;
+                    _drags[j]._descriptionItem = _descriptionItem;
                     break;
                 }
             }
@@ -169,10 +180,18 @@ public class PlayerInventory : MonoBehaviour
 
         if (it.typeItem == "Consumables")
         {
-            _playerStats.AddHealth(drag._item.addHealth);
+            if (!it.isWendingFluid)
+                _playerStats.AddHealth(drag._item.addHealth);
+            else
+            {
+                if (GetComponent<LevelUpgrade>()._isHaveWelderSkill)
+                    _playerStats.WendingSkillhpRegeneration(drag._item.addHealth, drag._item.wendingFluidUseTime);
+                return;
+            }
 
             _weight -= it.mass;
             consumables.Remove(drag._item);
+            _descriptionObj.SetActive(false);
         }
         else if (it.typeItem == "Weapon")
         {
@@ -198,6 +217,7 @@ public class PlayerInventory : MonoBehaviour
 
                 _weight -= it.mass / 2;
                 weapon.Remove(it);
+                _descriptionObj.SetActive(false);
             }
             else if (drag._ownerItem == "myWeapon")
             {
@@ -243,7 +263,20 @@ public class PlayerInventory : MonoBehaviour
 
             _weight -= it.mass;
             expItems.Remove(drag._item);
+            _descriptionObj.SetActive(false);
         }
         InventoryEnabled();
+    }
+
+    public void PlayerToBarter(Drag drag)
+    {
+        Item it = drag._item;
+
+        _trading._npcInventory._reputation += it.price;
+        _trading._npcInventory._items.Add(it);
+        consumables.Remove(it);
+        weapon.Remove(it);
+        expItems.Remove(it);
+        _trading.InventoryUpdate();
     }
 }

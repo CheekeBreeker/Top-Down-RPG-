@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInventory _playerInventory;
     public Transform _playerModel;
 
-    [SerializeField] private CharacterStatus _characterStatus;
+    [SerializeField] public CharacterStatus _characterStatus;
+    [SerializeField] private Dialog _dialog;
     [SerializeField] public float _walkSpeed = 1f;
     [SerializeField] public float _sprintSpeed = 2f;
     [SerializeField] public float _dodgeActiveTime = 1.15f;
@@ -35,20 +36,34 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _playerInventory = GetComponent<PlayerInventory>();
+        _dialog = GetComponent<Dialog>();
         _playerModel = gameObject.transform.Find("PlayerModel").transform;
     }
 
     public void MoveUpdate()
     {
+        if (GetComponent<LevelUpgrade>()._curTimeMetallistSkill <= 0)
+        {
+            vertical = Input.GetAxis("Vertical");
+            horizontal = Input.GetAxis("Horizontal");
 
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
 
-        MovementDepending();
+            MovementDepending();
 
-        _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
+            _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
 
-        AttackTimer();
+            AttackTimer();
+        }
+        else
+        {
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 difference = mousePosition - transform.position;
+            difference.Normalize();
+            float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+
+        }
         CameraPosition();
     }
 
@@ -75,6 +90,12 @@ public class PlayerMovement : MonoBehaviour
         {
             NormalMove(_walkSpeed);
             ClickUpdate();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _stopAttackTimer = 0.8f;
+            _attackNumber = 0;
         }
     }
 
@@ -123,36 +144,47 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClickUpdate()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if(Physics.Raycast(ray, out hit, 100f))
+            if (_characterStatus.isAttack)
+            {
+                if (_attackNumber <= 3)
+                {
+                    _stopAttackTimer = 0.8f;
+                    _attackNumber += 1;
+                }
+                if (_attackNumber > 4)
+                    _attackNumber = 4;
+                if (_stopAttackTimer < 0)
+                    _attackNumber = 0;
+            }
+            else if (Physics.Raycast(ray, out hit, 100f))
             {
                 if (hit.transform.tag == "Item")
                 {
-                    TakeItem(hit);  
+                    TakeItem(hit);
                 }
-                else
+                else if (hit.transform.tag == "Trader" || hit.transform.tag == "Freandly Npc")
                 {
-                    if (_characterStatus.isAttack)
+                    NpcStatus npcStatus = hit.transform.GetComponent<NpcStatus>();
+                    NpcInventory npcInventory = hit.transform.GetComponent<NpcInventory>();
+                    QuestGiver questGiver = hit.transform.GetComponent<QuestGiver>();
+                    NpcDialogs npcDialogs = hit.transform.GetComponent<NpcDialogs>();
+
+                    if (npcStatus.isFreandly)
                     {
-                        if (_attackNumber <= 3)
-                        {
-                            _stopAttackTimer = 0.8f;
-                            _attackNumber += 1;
-                        }
-                        if (_attackNumber > 4)
-                            _attackNumber = 4;
-                        if (_stopAttackTimer < 0)
-                            _attackNumber = 0;
+                        _dialog._npcInventory = npcInventory;
+                        _dialog._questGiver = questGiver;
+                        _dialog._npcDialogs = npcDialogs;
+
+                        distance = Vector3.Distance(transform.position, hit.transform.position);
+
+                        StartDialog(distance);
                     }
-                    if (Input.GetKeyDown(KeyCode.R))
-                    {
-                        _stopAttackTimer = 0.8f;
-                        _attackNumber = 0;
-                    }
+                    else return;
                 }
             }
         }
@@ -243,43 +275,53 @@ public class PlayerMovement : MonoBehaviour
 
     private void TakeItem(RaycastHit hit)
     {
-        distance = Vector3.Distance(transform.position + transform.up, hit.transform.position);
-        Item it = hit.transform.GetComponent<Item>();
-
-        if (distance < 2)
+        if (Time.timeScale != 0)
         {
-            if (it._owner != "Npc")
+            distance = Vector3.Distance(transform.position + transform.up, hit.transform.position);
+            Item it = hit.transform.GetComponent<Item>();
+
+            if (distance < 2)
             {
-                if (it.typeItem == "Consumables")
+                if (it._owner != "Npc")
                 {
-                    _playerInventory.consumables.Add(it);
-                    //Destroy(hit.transform.gameObject);
-                    hit.transform.gameObject.SetActive(false);
-                    _characterStatus.isUsing = true;
-                }
-                else if (it.typeItem == "Weapon")
-                {
-                    _playerInventory.weapon.Add(it);
-                    //Destroy(hit.transform.gameObject);
-                    hit.transform.gameObject.SetActive(false);
-                    _characterStatus.isUsing = true;
-                }
-                else if (it.typeItem == "ExpItems")
-                {
-                    _playerInventory.expItems.Add(it);
-                    //Destroy(hit.transform.gameObject);
-                    hit.transform.gameObject.SetActive(false);
-                    _characterStatus.isUsing = true;
-                }
+                    if (it.typeItem == "Consumables")
+                    {
+                        _playerInventory.consumables.Add(it);
+                        //Destroy(hit.transform.gameObject);
+                        hit.transform.gameObject.SetActive(false);
+                        _characterStatus.isUsing = true;
+                    }
+                    else if (it.typeItem == "Weapon")
+                    {
+                        _playerInventory.weapon.Add(it);
+                        //Destroy(hit.transform.gameObject);
+                        hit.transform.gameObject.SetActive(false);
+                        _characterStatus.isUsing = true;
+                    }
+                    else if (it.typeItem == "ExpItems")
+                    {
+                        _playerInventory.expItems.Add(it);
+                        //Destroy(hit.transform.gameObject);
+                        hit.transform.gameObject.SetActive(false);
+                        _characterStatus.isUsing = true;
+                    }
 
-                _playerInventory._weight += it.mass;
-                _interfaceManager.WeightInterface();
+                    _playerInventory._weight += it.mass;
+                    _interfaceManager.WeightInterface();
+                }
+                else Debug.Log("npc weapon");
             }
-            else Debug.Log("npc weapon");
+            else
+            {
+                Debug.Log("Daleko");
+            }
         }
+    }
+    private void StartDialog(float distance)
+    {
+        if (distance < 2)
+            _dialog.DialogManager();
         else
-        {
             Debug.Log("Daleko");
-        }
     }
 }

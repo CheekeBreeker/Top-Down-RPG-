@@ -60,16 +60,14 @@ public class NpcMovenment : MonoBehaviour
         _horizontal = Mathf.Clamp(transform.localPosition.x, -1f, 1f); ;
         _vertical = Mathf.Clamp(transform.localPosition.z, -1f, 1f);
 
-        if (_wayPoints.Count != 0)
+        if (_fieldOfView.visibleTargets.Count == 0 && !_curWayPointPos.gameObject.activeSelf || (_npcStatus.isFreandly && !_npcStatus.isFollow))
         {
-            if (_fieldOfView.visibleTargets.Count == 0 && !_curWayPointPos.gameObject.activeSelf)
-                Patrol();
-            else
-                Movenment();
+            Patrol();
         }
-        else Stand();
+        else
+            Movenment();
 
-        if(_npcStatus.isWounded)
+        if (_npcStatus.isWounded)
         {
             _acceleration = _actualAcceleration / 2;
             _maxSpeed = _actualSpeed;
@@ -78,6 +76,7 @@ public class NpcMovenment : MonoBehaviour
 
     private void Patrol()
     {
+        Debug.Log("Patrol");
         _npcStatus.isPatroling = true;
         _npcStatus.isWalk = false;
         _npcStatus.isAttack = false;
@@ -88,6 +87,7 @@ public class NpcMovenment : MonoBehaviour
         if (_wayPoints.Count == 1)
         {
             _meshAgent.SetDestination(_wayPoints[0].position);
+            _walkSpeed = _actualSpeed;
             float distance = Vector3.Distance(transform.position, _wayPoints[0].position);
 
             if (distance > 1f)
@@ -96,7 +96,7 @@ public class NpcMovenment : MonoBehaviour
                 {
                     _waitTime -= Time.deltaTime;
                     _isWaiting = true;
-                    if (_fieldOfView.visibleTargets.Count != 0 || _fieldOfHear.visibleTargets.Count != 0)
+                    if (!_npcStatus.isFreandly &&(_fieldOfView.visibleTargets.Count != 0 || _fieldOfHear.visibleTargets.Count != 0))
                         _waitTime = 0;
                 }
                 else _isWaiting = false;
@@ -114,6 +114,7 @@ public class NpcMovenment : MonoBehaviour
             {
                 _waitTime = _actualWaitTime;
                 _walkSpeed = 0;
+                _isWaiting = true;
 
                 Looking();
             }
@@ -121,6 +122,7 @@ public class NpcMovenment : MonoBehaviour
         else if (_wayPoints.Count > 1)
         {
             _meshAgent.SetDestination(_wayPoints[_curWayPoints].position);
+            _walkSpeed = _actualSpeed;
             float distance = Vector3.Distance(transform.position, _wayPoints[_curWayPoints].position);
 
             if (distance > 2.5f)
@@ -155,40 +157,40 @@ public class NpcMovenment : MonoBehaviour
                     _curWayPoints = 0;
             }
         }
-    }
-
-    private void Stand()
-    {
-        _walkSpeed = 0f;
-        _fieldOfView.viewRadius = _actualViewRadius;
-        _fieldOfView.viewAngle = _actualViewAngle;
+        else
+        {
+            _meshAgent.speed = 0;
+            _walkSpeed = 0;
+            Looking();
+        }
     }
 
     private void Movenment()
     {
+        Debug.Log("Movenment");
         _npcStatus.isWalk = true;
         _npcStatus.isPatroling = false;
 
         _fieldOfView.viewRadius = 100f;
         _fieldOfView.viewAngle = 240f;
 
+        if ((_fieldOfView.visibleTargets.Count == 0 ||
+            _fieldOfHear.visibleTargets.Count == 0) &&
+            _curWayPointPos.position != _ActualcurWayPointPos)
+            _curWayPointPos.position = _ActualcurWayPointPos;
+
         _meshAgent.SetDestination(_curWayPointPos.position);
         float distance = Vector3.Distance(transform.position, _curWayPointPos.position);
 
-        if (distance > 2f)
+        if (distance > 1.75f)
         {
             Looking();
 
-            foreach (Transform target in _fieldOfView.visibleTargets)
-            {
-                _ActualcurWayPointPos = target.position;
-            }
-
             if (_fieldOfView.visibleTargets.Count == 0)
-            {
-                if (_curWayPointPos.position != _ActualcurWayPointPos) 
-                    _curWayPointPos.position = _ActualcurWayPointPos;
-            }
+                foreach (Transform target in _fieldOfView.visibleTargets)
+                {
+                    _ActualcurWayPointPos = target.position;
+                }
 
             _walkSpeed += _acceleration * Time.deltaTime;
             if (_walkSpeed > _maxSpeed) _walkSpeed = _maxSpeed;
@@ -217,42 +219,53 @@ public class NpcMovenment : MonoBehaviour
 
             _curWayPointPos.gameObject.SetActive(false);
 
-            if(_fieldOfView.visibleTargets.Count != 0)
+            if (_fieldOfView.visibleTargets.Count != 0 && !_npcStatus.isFreandly && distance != 0)
                 _npcStatus.isAttack = true;
         }
     }
 
     private void Looking()
     {
-        if (_npcStatus.isPatroling && _fieldOfView.visibleTargets.Count == 0 && _fieldOfHear.visibleTargets.Count == 0 && _lookPoint == null)
+        if (_npcStatus.isPatroling && (_fieldOfView.visibleTargets.Count == 0 || _fieldOfHear.visibleTargets.Count == 0) && !_isWaiting && _wayPoints.Count != 0)
         {
             Vector3 direction = (_wayPoints[_curWayPoints].position - transform.position).normalized;
             float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
         }
-        else if (_fieldOfView.visibleTargets.Count != 0)
+
+        else if (_fieldOfView.visibleTargets.Count != 0 && (!_npcStatus.isFreandly || _npcStatus.isFollow))
         {
             _curWayPointPos.gameObject.SetActive(true);
             foreach (Transform target in _fieldOfView.visibleTargets)
             {
                 _curWayPointPos.position = target.position;
+                _ActualcurWayPointPos = target.position;
                 Vector3 direction = (target.position - transform.position).normalized;
                 float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
             }
         }
-        else if (_fieldOfHear.visibleTargets.Count != 0)
+        else if (_fieldOfHear.visibleTargets.Count != 0 && (!_npcStatus.isFreandly || _npcStatus.isFollow))
         {
-            _curWayPointPos.gameObject.SetActive(true);
             foreach (Transform target in _fieldOfHear.visibleTargets)
             {
-                _curWayPointPos.position = target.position;
-                Vector3 direction = (target.position - transform.position).normalized;
-                float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
+                if (target.GetComponent<PlayerMovement>()._attackNumber > 0
+                    || target.GetComponent<PlayerMovement>()._characterStatus.isSprint
+                    || target.GetComponent<PlayerMovement>()._characterStatus.isDodge)
+                {
+                    _curWayPointPos.gameObject.SetActive(true);
+                    _curWayPointPos.position = target.position;
+                    _ActualcurWayPointPos = target.position;
+                }
+                if (_curWayPointPos.gameObject.activeSelf)
+                {
+                    Vector3 direction = (target.position - transform.position).normalized;
+                    float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
+                }
             }
         }
-        else if(_lookPoint != null && !_curWayPointPos.gameObject.activeSelf)
+        else if(_lookPoint != null && !_curWayPointPos.gameObject.activeSelf && _isWaiting)
         {
             Vector3 direction = (_lookPoint.position - transform.position).normalized;
             float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;

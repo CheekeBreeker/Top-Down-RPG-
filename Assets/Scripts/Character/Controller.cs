@@ -17,8 +17,12 @@ public class Controller : MonoBehaviour
 
     public void Update()
     {
-        _playerMovement.MoveUpdate();
         _characterAnimation.AnimationUpdate();
         _playerInput.InputUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        _playerMovement.MoveUpdate();
     }
 }

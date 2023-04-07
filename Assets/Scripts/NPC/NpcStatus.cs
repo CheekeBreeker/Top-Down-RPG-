@@ -10,4 +10,6 @@ public class NpcStatus : MonoBehaviour
     public bool isWounded;
     public bool isPatroling;
     public bool isDead;
+    public bool isFreandly;
+    public bool isFollow;
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class DealingDamage : MonoBehaviour
 {
@@ -37,12 +38,18 @@ public class DealingDamage : MonoBehaviour
             if (_characterStatus.isAttack && other.gameObject.CompareTag("Enemy") && _playerMovement._attackNumber != 0 && _playerMovement._attackNumber != 4)
             {
                 _npcStats = other.gameObject.GetComponent<NpcStats>();
+
+                if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
+                    && other.GetComponent<NpcStats>()._health <= other.GetComponent<NpcStats>()._maxHealth * 0.25f)
+                    _item._weaponDamage *= 1.25f;
+
                 _npcStats.TakeAwayHealth(_item._weaponDamage);
                 Debug.Log("damage " + _item._weaponDamage);
             }
         }
-        if (_item._owner == "Npc")
+        else if (_item._owner == "Npc")
         {
+
             if (other.gameObject.CompareTag("PlayerSpine"))
             {
                 _item._weaponDamage *= 2;
@@ -52,6 +59,10 @@ public class DealingDamage : MonoBehaviour
             if (_npcStatus.isAttack && other.gameObject.CompareTag("Player"))
             {
                 _playerStats = other.gameObject.GetComponent<PlayerStats>();
+
+                if (_playerStats._wendingFluidUseTime > 0)
+                    _playerStats.TakeAwayHealth(GetComponent<Item>().wendingFluidDamage);
+
                 _playerStats.TakeAwayHealth(_item._weaponDamage);
                 Debug.Log("enemy damage " + _item._weaponDamage);
             }

@@ -12,4 +12,6 @@ public class CharacterStatus : ScriptableObject
     public bool isAiming;
     public bool isAttack;
     public bool isUsing;
+    public bool isTalk;
+    public bool isTrade;
 }

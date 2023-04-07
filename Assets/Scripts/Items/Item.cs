@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -13,6 +14,8 @@ public class Item : MonoBehaviour
     public string typeItem;
     public string _owner;
 
+    [Multiline(10)] public string _description;
+
     public int price;
     public float mass;
     public int addHealth;
@@ -23,6 +26,10 @@ public class Item : MonoBehaviour
     public string pathPrefab;
 
     public bool isStackable;
+    public bool isWendingFluid;
+
+    public float wendingFluidUseTime;
+    public float wendingFluidDamage;
 
     public Vector3 _posWeapAttack;
     public Vector3 _rotWeapAttack;

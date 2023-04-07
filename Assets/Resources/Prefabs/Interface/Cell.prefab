@@ -93,16 +93,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInventory: {fileID: 1799391162, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _playerJournal: {fileID: 4500716798864694492, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
+  _trading: {fileID: 1929228611, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _item: {fileID: 0}
   _ownerItem: 
   _countItem: 0
-  _isQACell: 0
-  _isJournalCell: 0
+  _isNotRemovingCell: 0
+  _isJourCell: 0
   _image: {fileID: 4405681971949567058}
   _defaultSprite: {fileID: 0}
   _nameItem: {fileID: 0}
   _count: {fileID: 4405681972795220264}
   _descriptionCell: {fileID: 0}
+  _descriptionObj: {fileID: 0}
+  _descriptionItem: {fileID: 0}
 --- !u!1 &4405681971949567056
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,9 +262,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '99
-
-'
+  m_Text: 
 --- !u!114 &4405681972795220266
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class FieldOfViewEditor : Editor
 
         foreach (var visibleTarget in fow.visibleTargets)
         {
-            Handles.DrawLine(fow.transform.position, visibleTarget.position);
+            Handles.DrawLine(fow.transform.position, visibleTarget.transform.position);
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8221784237414739948}
   - component: {fileID: 6196199346557557542}
   - component: {fileID: 3630918237129591920}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Right Corr door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

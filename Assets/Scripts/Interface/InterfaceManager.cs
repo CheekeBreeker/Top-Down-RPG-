@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class InterfaceManager : MonoBehaviour
 {
+    [SerializeField] private CharacterStatus _characterStatus;
     [SerializeField] private Transform _cursor;
     [SerializeField] private GameObject _inventory;
     [SerializeField] private GameObject _journal;
@@ -23,11 +24,11 @@ public class InterfaceManager : MonoBehaviour
     {
         CursorMove();
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) && !_characterStatus.isTrade)
         {
             InventoryActive();
         }
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && !_characterStatus.isTrade)
         {
             JournalActive();
         }

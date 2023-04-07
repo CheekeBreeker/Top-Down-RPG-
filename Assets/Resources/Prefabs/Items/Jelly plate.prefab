@@ -99,9 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ec886770f5cf429d9c4e33a374738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInventory: {fileID: 0}
+  _npcInventory: {fileID: 0}
   nameItem: Jelly plate
   typeItem: ExpItems
-  price: 0
+  _owner: 
+  _description: "\u0416\u0435\u043B\u0435\u0439\u043D\u0430\u044F \u043F\u043B\u0430\u0441\u0442\u0438\u043D\u0430"
+  price: 12
   mass: 2
   addHealth: 0
   addExp: 10

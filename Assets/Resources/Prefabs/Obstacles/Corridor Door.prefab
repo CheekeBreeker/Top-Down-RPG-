@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 6170123117680871479}
   - component: {fileID: 8233803879634681085}
   - component: {fileID: 5628582722904243134}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Corridor Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7065995935364695954
 Transform:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7380330168337957354}
   - component: {fileID: 4722240154129069344}
   - component: {fileID: 4687168969844956855}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Left Corr door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

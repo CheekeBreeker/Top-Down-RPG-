@@ -10,6 +10,7 @@ public class PlayerJournal : MonoBehaviour
 
     public List<Item> _expItem = new List<Item>();
     public List<Drag> _drags = new List<Drag>();
+    public List<QuestGiver> _quests = new List<QuestGiver>();
 
     public GameObject _journal;
     public GameObject _journalCell;
@@ -59,7 +60,7 @@ public class PlayerJournal : MonoBehaviour
                 {
                     _drags[j]._item = it;
                     _drags[j]._image.sprite = Resources.Load<Sprite>(_expItem[i].pathSprite);
-                    _drags[j]._ownerItem = "myItem";
+                    _drags[j]._ownerItem = "myJourItem";
                     _drags[j]._nameItem.text = _expItem[i].nameItem;
                     _drags[j]._descriptionCell.text = "123";
                     _drags[j]._countItem++;

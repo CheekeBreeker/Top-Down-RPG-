@@ -129,9 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2ec886770f5cf429d9c4e33a374738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInventory: {fileID: 0}
+  _npcInventory: {fileID: 0}
   nameItem: Iron pipe
   typeItem: Weapon
-  price: 0
+  _owner: Npc
+  _description: "\u0422\u0440\u0443\u0431\u0430"
+  price: 5
   mass: 3
   addHealth: 0
   addExp: 0
@@ -157,6 +161,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponRig: {fileID: 0}
   _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
+  _playerStats: {fileID: 0}
+  _npcStatus: {fileID: 0}
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}

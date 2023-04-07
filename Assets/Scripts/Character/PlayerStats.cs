@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private PlayerInventory _playerInventory;
+    private LevelUpgrade _levelUpgrade;
 
     public float _health;
     public float _maxHealth;
@@ -22,10 +23,17 @@ public class PlayerStats : MonoBehaviour
     public bool _isOverload;
     public bool _isHurt;
 
+    public float _wendingFluidUseTime;
+
+    [SerializeField] private List<GameObject> _skillsList;
+    [SerializeField] private GameObject _takeSkillButton;
+    [SerializeField] private Sprite _skillImg;
+
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _playerInventory = GetComponent<PlayerInventory>();
+        _levelUpgrade = GetComponent<LevelUpgrade>();
 
         _exp = 100 * _level;
     }
@@ -39,17 +47,40 @@ public class PlayerStats : MonoBehaviour
 
     public void AddHealth(float add)
     {
-        _health += add;
+        if (!GetComponent<LevelUpgrade>()._isHaveWelderSkill)
+        {
+            _health += add ;
 
-        _health = Mathf.Clamp(_health, 0f, _maxHealth);
+            _health = Mathf.Clamp(_health, 0f, _maxHealth);
+        }
+        else
+        {
+
+        }
     }
-
 
     public void hpRegeneration()
     {
-        if (_health < _maxHealth)
-            _health += _regenHP * Time.deltaTime;
+        if (GetComponent<LevelUpgrade>()._isHaveProletarianSkill)
+        {
+            _maxHealth = 125;
+
+            if (_health < _maxHealth)
+                _health += _regenHP * Time.deltaTime;
+        }
     }
+
+    public void WendingSkillhpRegeneration(float add, float time)
+    {
+        _wendingFluidUseTime = time;
+
+        while (time > 0)
+        {
+            _health += add;
+            time -= Time.deltaTime;
+        }
+    }
+
 
     public void TakeAwayHealth(float damage)
     {
