@@ -57,11 +57,6 @@ public class PlayerInput : MonoBehaviour
             _characterStatus.isAiming = Input.GetMouseButton(2);
         else _characterStatus.isAiming = isAiming;
 
-        if (!debagAttack && 
-            !_characterStatus.isDodge) 
-            isAttacking();
-        else _characterStatus.isAttack = isAttack;
-
         if (!debagUsing &&
             !_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAiming && !_characterStatus.isAttack)
             _characterStatus.isUsing = Input.GetKeyDown(KeyCode.E);
@@ -89,15 +84,6 @@ public class PlayerInput : MonoBehaviour
         yield return new WaitForSeconds(_playerMovement._dodgeActiveTime);
         _characterStatus.isDodge = false;
     }
-
-    private void isAttacking()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (!_characterStatus.isAttack) _characterStatus.isAttack = true;
-            else _characterStatus.isAttack = false;
-        }
-
         //_characterStatus.isAttack = false;
 
         //if (IsAnimPlaying("FirstAttack.FirstAttack") || IsAnimPlaying("SecondAttack.SecondAttack") || IsAnimPlaying("ThirdAttack.ThirdAttack") || Input.GetMouseButtonDown(0))
@@ -119,8 +105,6 @@ public class PlayerInput : MonoBehaviour
         //    StartCoroutine(AttackCor());
         //}
         //StopCoroutine(AttackCor());
-    }
-
     IEnumerator AttackCor()
     {
         _characterStatus.isAttack = false;

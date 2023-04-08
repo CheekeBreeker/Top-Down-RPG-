@@ -21,13 +21,13 @@ public class CharacterAnimation : MonoBehaviour
         _anim.SetBool("block", _characterStatus.isBlock);
         _anim.SetBool("dodge", _characterStatus.isDodge);
         _anim.SetBool("use", _characterStatus.isUsing);
-        _anim.SetFloat("attackNumber", _playerMovement._attackNumber);
-        _anim.SetFloat("stopAttackTimer", _playerMovement._stopAttackTimer);
+        _anim.SetBool("attack", _characterStatus.isAttack);
 
         if (_characterStatus.isNormal) AnimationNormal();
         if (_characterStatus.isSprint) AnimationSprint();
         if (_characterStatus.isDodge) AnimationDodge();
-        if (_characterStatus.isAttack) AnimationAttack();
+
+        AttackController();
     }
 
     void AnimationNormal()
@@ -36,6 +36,26 @@ public class CharacterAnimation : MonoBehaviour
             _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
         _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
             _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
+    }
+
+    void AttackController()
+    {
+        if (_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
+            _characterStatus.isAttackDamaging = true;
+        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
+            _anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
+            _characterStatus.isAttackDamaging = true;
+        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
+            _anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
+            _characterStatus.isAttackDamaging = true;
+        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
+            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack")) 
+            _characterStatus.isAttackDamaging = false;
     }
 
     void AnimationSprint()
@@ -54,13 +74,5 @@ public class CharacterAnimation : MonoBehaviour
     {
         _anim.SetFloat("vertical", 0f);
         _anim.SetFloat("horizontal", 0f);
-    }
-
-    void AnimationAttack()
-    {
-        _anim.SetFloat("vertical", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
-            _playerMovement._playerModel.transform.forward), 0.15f, Time.deltaTime);
-        _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_playerMovement.horizontal, 0f, _playerMovement.vertical),
-            _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
     }
 }

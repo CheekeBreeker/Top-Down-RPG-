@@ -27,9 +27,6 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 mousePosition;
 
-    public float _stopAttackTimer = 0.8f;
-    public float _attackNumber;
-
     private float distance;
 
     private void Start()
@@ -51,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
             MovementDepending();
 
             _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
-
-            AttackTimer();
         }
         else
         {
@@ -90,21 +85,6 @@ public class PlayerMovement : MonoBehaviour
         {
             NormalMove(_walkSpeed);
             ClickUpdate();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            _stopAttackTimer = 0.8f;
-            _attackNumber = 0;
-        }
-    }
-
-    private void AttackTimer()
-    {
-        _stopAttackTimer -= Time.deltaTime;
-        if (_stopAttackTimer < 0)
-        {
-            _attackNumber = 0;
         }
     }
 
@@ -144,24 +124,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void ClickUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (_characterStatus.isAttack)
-            {
-                if (_attackNumber <= 3)
-                {
-                    _stopAttackTimer = 0.8f;
-                    _attackNumber += 1;
-                }
-                if (_attackNumber > 4)
-                    _attackNumber = 4;
-                if (_stopAttackTimer < 0)
-                    _attackNumber = 0;
-            }
-            else if (Physics.Raycast(ray, out hit, 100f))
+            if (Physics.Raycast(ray, out hit, 100f))
             {
                 if (hit.transform.tag == "Item")
                 {
@@ -188,6 +156,13 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            _characterStatus.isAttack = true;
+            GetComponentInChildren<AudioManager>().PlaySwingClip();
+        }
+        else if (Input.GetMouseButtonUp(0))
+            _characterStatus.isAttack = false;
     }
 
     //private void Attacking()
@@ -209,11 +184,6 @@ public class PlayerMovement : MonoBehaviour
     //        _attackNumber = 0;
     //    }
     //}
-
-    IEnumerator StopAttackCor()
-    {
-        yield return new WaitForSeconds(_stopAttackTimer);
-    }
 
     private void NormalMove(float walkSpeed)
     {

@@ -249,7 +249,7 @@ public class NpcMovenment : MonoBehaviour
         {
             foreach (Transform target in _fieldOfHear.visibleTargets)
             {
-                if (target.GetComponent<PlayerMovement>()._attackNumber > 0
+                if (target.GetComponent<PlayerMovement>()._characterStatus.isAttackDamaging
                     || target.GetComponent<PlayerMovement>()._characterStatus.isSprint
                     || target.GetComponent<PlayerMovement>()._characterStatus.isDodge)
                 {
