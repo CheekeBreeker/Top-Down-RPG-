@@ -10,6 +10,7 @@ public class NpcStats : MonoBehaviour
     [SerializeField] private GameObject _spine;
     [SerializeField] private NpcController _npcController;
     [SerializeField] private NpcStatus _npcStatus;
+    [SerializeField] private NpcInventory _npcInventory;
 
 
     public float _health;
@@ -26,6 +27,7 @@ public class NpcStats : MonoBehaviour
         _collider = GetComponent<Collider>();
         _npcController = GetComponent<NpcController>();
         _npcStatus = GetComponent<NpcStatus>();
+        _npcInventory = GetComponent<NpcInventory>();
     }
 
     private void Update()
@@ -36,6 +38,8 @@ public class NpcStats : MonoBehaviour
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
+        if (_health < _maxHealth / 2)
+            GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
         if (_isHurt)
         {
             _npcStatus.isHurt = true;
@@ -71,8 +75,10 @@ public class NpcStats : MonoBehaviour
         }
     }
 
-    public void MainWeapon()
+    public void AttackSpeed()
     {
-
+        if (_npcStatus.isAttackDamage)
+            _anim.speed = _npcInventory._mainWeapon._attackSpeed;
+        else _anim.speed = 1;
     }
 }

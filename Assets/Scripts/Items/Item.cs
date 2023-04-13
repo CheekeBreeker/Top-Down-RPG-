@@ -33,7 +33,10 @@ public class Item : MonoBehaviour
 
     public Vector3 _posWeapAttack;
     public Vector3 _rotWeapAttack;
-    public float _weaponDamage; 
+    public float _weaponDamage;
+    [Range (0.1f,1)]
+    public float _attackSpeed;
+
 
     [SerializeField] private GameObject activeView;
 

@@ -27,16 +27,18 @@ public class DealingDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_item._owner == "Player")   
+        if (_item._owner == "Player")
         {
             if (other.gameObject.CompareTag("EnemySpine"))
             {
+                GetComponentInParent<AudioManager>().PlayDamagingClip();
                 _item._weaponDamage *= 2;
                 Debug.Log("damage 2x " + _item._weaponDamage);
             }
 
             if (_characterStatus.isAttackDamaging && other.gameObject.CompareTag("Enemy"))
             {
+                GetComponentInParent<AudioManager>().PlayDamagingClip();
                 _npcStats = other.gameObject.GetComponent<NpcStats>();
 
                 if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
@@ -52,12 +54,14 @@ public class DealingDamage : MonoBehaviour
 
             if (other.gameObject.CompareTag("PlayerSpine"))
             {
+                GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
                 _item._weaponDamage *= 2;
                 Debug.Log("enemy damage 2x " + _item._weaponDamage);
             }
 
-            if (_npcStatus.isAttack && other.gameObject.CompareTag("Player"))
+            if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
             {
+                GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
                 _playerStats = other.gameObject.GetComponent<PlayerStats>();
 
                 if (_playerStats._wendingFluidUseTime > 0)
@@ -67,6 +71,7 @@ public class DealingDamage : MonoBehaviour
                 Debug.Log("enemy damage " + _item._weaponDamage);
             }
         }
+        else return;
     }
 
     private void OnTriggerExit(Collider other)

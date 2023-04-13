@@ -239,6 +239,7 @@ public class NpcMovenment : MonoBehaviour
             foreach (Transform target in _fieldOfView.visibleTargets)
             {
                 _curWayPointPos.position = target.position;
+                target.GetComponent<PlayerMovement>()._characterStatus.isScream = true;
                 _ActualcurWayPointPos = target.position;
                 Vector3 direction = (target.position - transform.position).normalized;
                 float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
@@ -249,9 +250,10 @@ public class NpcMovenment : MonoBehaviour
         {
             foreach (Transform target in _fieldOfHear.visibleTargets)
             {
-                if (target.GetComponent<PlayerMovement>()._characterStatus.isAttackDamaging
+                if (target.GetComponent<PlayerMovement>()._characterStatus.isAttack
                     || target.GetComponent<PlayerMovement>()._characterStatus.isSprint
-                    || target.GetComponent<PlayerMovement>()._characterStatus.isDodge)
+                    || target.GetComponent<PlayerMovement>()._characterStatus.isDodge
+                    || target.GetComponent<PlayerMovement>()._characterStatus.isScream)
                 {
                     _curWayPointPos.gameObject.SetActive(true);
                     _curWayPointPos.position = target.position;

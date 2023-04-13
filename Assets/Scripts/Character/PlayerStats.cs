@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     private PlayerInventory _playerInventory;
     private LevelUpgrade _levelUpgrade;
 
+    public CharacterStatus _characterStatus;
     public float _health;
     public float _maxHealth;
     public Image _imgHealth;
@@ -25,15 +26,20 @@ public class PlayerStats : MonoBehaviour
 
     public float _wendingFluidUseTime;
 
+
+    [SerializeField] private Animator _animator;
     [SerializeField] private List<GameObject> _skillsList;
     [SerializeField] private GameObject _takeSkillButton;
     [SerializeField] private Sprite _skillImg;
+
 
     private void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _playerInventory = GetComponent<PlayerInventory>();
         _levelUpgrade = GetComponent<LevelUpgrade>();
+        _animator = GetComponent<Animator>();
+        _characterStatus = _playerInventory._characterStatus;
 
         _exp = 100 * _level;
     }
@@ -43,6 +49,7 @@ public class PlayerStats : MonoBehaviour
         hpRegeneration();
         SpeedControl();
         InterfaceUpdate();
+        AttackSpeed();
     }
 
     public void AddHealth(float add)
@@ -86,6 +93,9 @@ public class PlayerStats : MonoBehaviour
     {
         _health -= damage;
 
+        if (_health < _maxHealth / 2)
+            GetComponent<AudioManager>().PlayDamagedClip();
+
         if (_health < 0)
             Die();
     }
@@ -122,7 +132,14 @@ public class PlayerStats : MonoBehaviour
             _playerMovement._walkSpeed = _playerMovement._walkSpeed * 2;
             _playerMovement._sprintSpeed = _playerMovement._walkSpeed * 2;
         }
-    }    
+    }
+
+    public void AttackSpeed()
+    {
+        if (_characterStatus.isAttackDamaging)
+            _animator.speed = _playerInventory._weaponInHand.GetComponent<Item>()._attackSpeed;
+        else _animator.speed = 1;
+    }
 
     public void AddExp(float add)
     {

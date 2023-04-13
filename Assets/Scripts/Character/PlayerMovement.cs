@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 mousePosition;
 
     private float distance;
+    public bool _isCanLook;
 
     private void Start()
     {
@@ -156,10 +157,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(0))
+        else if (Input.GetMouseButtonDown(0) && _playerInventory._weaponInHand != null)
         {
             _characterStatus.isAttack = true;
-            GetComponentInChildren<AudioManager>().PlaySwingClip();
         }
         else if (Input.GetMouseButtonUp(0))
             _characterStatus.isAttack = false;
@@ -202,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SprintMove(float speed)
     {
+        _isCanLook = true;
         LookForward(5f);
 
         transform.position += new Vector3(-vertical, 0f, horizontal) * speed * Time.deltaTime;
@@ -210,37 +211,32 @@ public class PlayerMovement : MonoBehaviour
     private void DodgeMove()
     {
         float dodgeVertical = 0f;
-        float dodgeHorizontal = 0f;
-        StartCoroutine(DodgeCor());
-        transform.position += new Vector3(dodgeHorizontal, 0f, dodgeVertical) * _sprintSpeed * Time.deltaTime;
-        StopCoroutine(DodgeCor());
-    }
-
-    IEnumerator DodgeCor()
-    {
+        float dodgeHorizontal = 0f; 
         LookForward(15f);
-
-        yield return new WaitForSeconds(_dodgeActiveTime);
+        transform.position += new Vector3(dodgeHorizontal, 0f, dodgeVertical) * _sprintSpeed * Time.deltaTime; 
     }
 
     private void LookForward(float rotationSpeed)
     {
-        if (Input.GetKey(KeyCode.W))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.S))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 180f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.D))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 90f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.A))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 270f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 3150f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 45f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 225f, 0.0f), Time.deltaTime * rotationSpeed);
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 135f, 0.0f), Time.deltaTime * rotationSpeed);
+        if (_isCanLook)
+        {
+            if (Input.GetKey(KeyCode.W))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, 0f, 0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.S))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 180f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.D))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 90f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.A))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 270f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 3150f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 45f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 225f, 0.0f), Time.deltaTime * rotationSpeed);
+            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+                _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0.0f, 135f, 0.0f), Time.deltaTime * rotationSpeed);
+        }
     }
 
     private void TakeItem(RaycastHit hit)

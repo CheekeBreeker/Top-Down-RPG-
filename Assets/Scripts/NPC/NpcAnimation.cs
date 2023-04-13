@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class NpcAnimation : MonoBehaviour
 {
@@ -32,6 +33,23 @@ public class NpcAnimation : MonoBehaviour
         Debug.Log(_anim.speed);
     }
 
+    public void WalkControllTrue_AnimEvent()
+    {
+        _npcStatus.isAttackDamage = true;
+    }
+    public void WalkControllFalse_AnimEvent()
+    {
+        _npcStatus.isAttackDamage = true;
+    }
+    public void AttackControllTrue_AnimEvent()
+    {
+        _npcStatus.isAttackDamage = true;
+    }
+
+    public void AttackControllFalls_AnimEvent()
+    {
+        _npcStatus.isAttackDamage = false;
+    }
     public bool isAnimationHurtPlaying(string animation)
     {
         var animStateInfo = _anim.GetCurrentAnimatorStateInfo(0);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioListener _audioListener;
     private AudioSource _audioSource;
 
     [SerializeField] private AudioClip _walkClip;
@@ -14,32 +13,39 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        _audioListener = GetComponent<AudioListener>();
-        _audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponentInChildren<AudioSource>();
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.A) ||
+        if ((Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.W) ||
             Input.GetKey(KeyCode.S) ||
-            Input.GetKey(KeyCode.D))
-            _audioSource.Play(_walkClip, transform.position);
-        else _audioSource.clip = null;
+            Input.GetKey(KeyCode.D)) &&
+            !_audioSource.isPlaying)
+        {
+            _audioSource.clip = _walkClip;
+            _audioSource.Play();
+        }
+        else if (!Input.GetKey(KeyCode.A) &&
+            !Input.GetKey(KeyCode.W) &&
+            !Input.GetKey(KeyCode.S) &&
+            !Input.GetKey(KeyCode.D))
+            _audioSource.clip = null;
     }
 
-    public void PlaySwingClip()
+    public void PlaySwingClip_AnimEvent()
     {
         _audioSource.PlayOneShot(_attackClip);
     }
 
-    public void PlayDamagingClip()
+        public void PlayDamagingClip()
     {
-
+        _audioSource.PlayOneShot(_damagingClip);
     }
 
     public void PlayDamagedClip()
     {
-
+        _audioSource.PlayOneShot(_damagedClip);
     }
 }

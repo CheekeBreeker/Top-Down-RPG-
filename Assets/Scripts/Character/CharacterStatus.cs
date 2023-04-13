@@ -15,4 +15,5 @@ public class CharacterStatus : ScriptableObject
     public bool isUsing;
     public bool isTalk;
     public bool isTrade;
+    public bool isScream;
 }

@@ -26,8 +26,6 @@ public class CharacterAnimation : MonoBehaviour
         if (_characterStatus.isNormal) AnimationNormal();
         if (_characterStatus.isSprint) AnimationSprint();
         if (_characterStatus.isDodge) AnimationDodge();
-
-        AttackController();
     }
 
     void AnimationNormal()
@@ -38,26 +36,26 @@ public class CharacterAnimation : MonoBehaviour
             _playerMovement._playerModel.transform.right), 0.15f, Time.deltaTime);
     }
 
-    void AttackController()
+    void AttackControllerTrue_AnimEvent()
     {
-        if (_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
-            _characterStatus.isAttackDamaging = true;
-        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
-            _anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
-            _characterStatus.isAttackDamaging = true;
-        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
-            _anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack"))
-            _characterStatus.isAttackDamaging = true;
-        else if (!_anim.GetCurrentAnimatorStateInfo(0).IsName("FirstAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("SecondAttack") &&
-            !_anim.GetCurrentAnimatorStateInfo(0).IsName("ThirdAttack")) 
-            _characterStatus.isAttackDamaging = false;
+        _characterStatus.isAttackDamaging = true;
     }
-
+    void AttackControllerFalls_AnimEvent()
+    {
+        _characterStatus.isAttackDamaging = false;
+    }
+    void DodgeControllerTrue_AnimEvent()
+    {
+        _playerMovement._isCanLook = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        GetComponentInChildren<BoxCollider>().enabled = false;
+    }
+    void DodgeControllerFalls_AnimEvent()
+    {
+        _playerMovement._isCanLook = true;
+        GetComponent<CapsuleCollider>().enabled = true;
+        GetComponentInChildren<BoxCollider>().enabled = true;
+    }
     void AnimationSprint()
     {
         //_anim.SetFloat("vertical", Mathf.Clamp01(Mathf.Abs(_playerMovement.vertical) 
