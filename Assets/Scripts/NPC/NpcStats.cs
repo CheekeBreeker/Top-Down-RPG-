@@ -17,8 +17,9 @@ public class NpcStats : MonoBehaviour
     public float _maxHealth;
     public bool _isHurt;
 
+    public float _handDamage;
+
     public Transform[] RagdollElem;
-    public Transform weapon;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class NpcStats : MonoBehaviour
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
+        _anim.SetTrigger("impact");
         if (_health < _maxHealth / 2)
             GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
         if (_isHurt)

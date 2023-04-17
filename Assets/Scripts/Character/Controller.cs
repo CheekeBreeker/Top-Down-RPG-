@@ -8,6 +8,7 @@ public class Controller : MonoBehaviour
     private PlayerMovement _playerMovement;
     private CharacterAnimation _characterAnimation;
     private PlayerInput _playerInput;
+    [SerializeField] private CharacterStatus _characterStatus;
 
     [SerializeField] private float _screamTime = 1f;
 
@@ -16,7 +17,19 @@ public class Controller : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _characterAnimation = GetComponent<CharacterAnimation>();
         _playerInput = GetComponent<PlayerInput>();
-        Cursor.visible = false;
+
+        _characterStatus.isAiming = false;
+        _characterStatus.isNormal = false;
+        _characterStatus.isSprint = false;
+        _characterStatus.isBlock = false;
+        _characterStatus.isDodge = false;
+        _characterStatus.isAiming = false;
+        _characterStatus.isAttack = false;
+        _characterStatus.isAttackDamaging = false;
+        _characterStatus.isUsing = false;
+        _characterStatus.isTalk = false;
+        _characterStatus.isTrade = false;
+        _characterStatus.isScream = false;
     }
 
     public void Update()

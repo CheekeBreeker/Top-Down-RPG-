@@ -92,6 +92,7 @@ public class PlayerStats : MonoBehaviour
     public void TakeAwayHealth(float damage)
     {
         _health -= damage;
+        _animator.SetTrigger("impact");
 
         if (_health < _maxHealth / 2)
             GetComponent<AudioManager>().PlayDamagedClip();

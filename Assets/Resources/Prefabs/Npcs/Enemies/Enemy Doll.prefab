@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1251379958}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Current Way Point
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
@@ -593,9 +593,11 @@ MonoBehaviour:
   _spine: {fileID: 6482542621388306920}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
+  _npcInventory: {fileID: 0}
   _health: 100
   _maxHealth: 0
   _isHurt: 0
+  _handDamage: 0
   RagdollElem:
   - {fileID: 1422907148669546420}
   - {fileID: 4889666927890333683}
@@ -608,7 +610,6 @@ MonoBehaviour:
   - {fileID: 6302320351795100481}
   - {fileID: 4038990003165238501}
   - {fileID: 1094106377019538812}
-  weapon: {fileID: 0}
 --- !u!114 &6351054059444278977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,6 +641,7 @@ MonoBehaviour:
   _curWayPointPos: {fileID: 1251379958}
   _isWaiting: 0
   _walkSpeed: 0
+  _fastAttackWalkSpeed: 0
   _acceleration: 2.5
   _actualAcceleration: 0
   _actualSpeed: 1.25
@@ -649,6 +651,7 @@ MonoBehaviour:
   _rotateSpeed: 2.5
   _waitTime: 3
   _actualWaitTime: 0
+  _distance: 0
 --- !u!114 &8985786181452971781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,9 +664,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNormalDoll: 0
+  isBrokenDoll: 0
   isWalk: 0
   isAttack: 0
   isAttackDamage: 0
+  isCanLook: 1
+  isCanMove: 1
   isHurt: 0
   isWounded: 0
   isPatroling: 0

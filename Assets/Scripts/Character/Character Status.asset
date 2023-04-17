@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a421d54d2191c9746b42ee88c155ae7e, type: 3}
   m_Name: Character Status
   m_EditorClassIdentifier: 
-  isNormal: 1
+  isNormal: 0
   isSprint: 0
   isBlock: 0
   isDodge: 0

@@ -45,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4807706152485229303}
-  m_Mesh: {fileID: 2534964839176971238, guid: aedb20844e7ecab42879a378b3a915f9, type: 3}
+  m_Mesh: {fileID: 4300000, guid: cc38b1ab1195b884694e74a6785a8ecc, type: 2}
 --- !u!23 &6465087920481514274
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -66,7 +66,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0260b408c6e06fb4a9d8714c79df5b55, type: 2}
+  - {fileID: 2100000, guid: 3ebe407894f183643b6dbc42f90b7a82, type: 2}
+  - {fileID: 2100000, guid: be0087baeb9522348aaac4e2d3a95faf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInventory: {fileID: 0}
   _npcInventory: {fileID: 0}
-  nameItem: Iron pipe
+  nameItem: Steel pipe
   typeItem: Weapon
   _owner: 
   _description: "\u0421\u0442\u0430\u043B\u044C\u043D\u0430\u044F \u0442\u0440\u0443\u0431\u0430.\n\u0425\u043E\u0440\u043E\u0448\u043E
@@ -150,6 +151,7 @@ MonoBehaviour:
   _posWeapAttack: {x: -0.00843, y: 0.00737, z: -0.00171}
   _rotWeapAttack: {x: 11.063, y: -102.072, z: 29.93}
   _weaponDamage: 15
+  _attackSpeed: 0
   activeView: {fileID: 6421450801742607589}
 --- !u!114 &337222713365989655
 MonoBehaviour:

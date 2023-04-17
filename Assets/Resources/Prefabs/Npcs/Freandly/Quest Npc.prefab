@@ -1202,7 +1202,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -1415339942678587125, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 29524e2384db73644834959c69496825, type: 2}
   m_Bones:
   - {fileID: 720655600707256935}
   - {fileID: 3846594857979048135}
@@ -2635,7 +2635,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8945410058687022292}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: ce74e0e527e841246aeeb1a9bf1be8b1, type: 2}
   m_Controller: {fileID: 9100000, guid: 162183ebc03a4424d852078c2e189f4e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -2697,9 +2697,11 @@ MonoBehaviour:
   _spine: {fileID: 3408329527689115356}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
+  _npcInventory: {fileID: 0}
   _health: 100
   _maxHealth: 0
   _isHurt: 0
+  _handDamage: 0
   RagdollElem:
   - {fileID: 7279331085245243520}
   - {fileID: 3846594857979048135}
@@ -2712,7 +2714,6 @@ MonoBehaviour:
   - {fileID: 2435349496305661045}
   - {fileID: 5672054536660523985}
   - {fileID: 8760983954971079240}
-  weapon: {fileID: 0}
 --- !u!114 &3357773864811960821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2744,6 +2745,7 @@ MonoBehaviour:
   _curWayPointPos: {fileID: 8555237917488383426}
   _isWaiting: 0
   _walkSpeed: 0
+  _fastAttackWalkSpeed: 0
   _acceleration: 2.5
   _actualAcceleration: 0
   _actualSpeed: 1.25
@@ -2753,6 +2755,7 @@ MonoBehaviour:
   _rotateSpeed: 2.5
   _waitTime: 3
   _actualWaitTime: 0
+  _distance: 0
 --- !u!114 &723288860352688177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2765,8 +2768,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNormalDoll: 0
+  isBrokenDoll: 0
   isWalk: 0
   isAttack: 0
+  isAttackDamage: 0
+  isCanLook: 0
+  isCanMove: 0
   isHurt: 0
   isWounded: 0
   isPatroling: 0
@@ -2903,11 +2911,13 @@ MonoBehaviour:
   _questDone: "\u0441\u043F\u0430\u0441\u0438\u0431\u043E"
   _greetings: "\u041F\u0435\u0440\u0435\u0434 \u0432\u0430\u043C\u0438, \u0441\u043E\u0431\u0440\u0430\u043D\u043D\u0430\u044F
     \u0438\u0437 \u043C\u0443\u0441\u043E\u0440\u0430, \u043A\u0443\u043A\u043B\u0430."
+  _attention: 
   _DoneQuestDescription: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C"
   _barterText: 1
   _questText: "\u0447\u0442\u043E \u043C\u043D\u0435 \u0434\u0435\u043B\u0430\u0442\u044C?"
   _exitText: "\u043F\u043E\u043A\u0430"
   _doneText: 1
+  _isLiar: 0
   _isTrader: 0
   _isQuest: 1
   _isAdventure: 0

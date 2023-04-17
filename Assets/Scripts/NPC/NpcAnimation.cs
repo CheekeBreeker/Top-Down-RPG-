@@ -18,14 +18,10 @@ public class NpcAnimation : MonoBehaviour
 
     public void AnimationUpdate()
     {
-        _anim.SetBool("hurt", _npcStatus.isHurt);
+        if (_npcStatus.isNormalDoll) _anim.SetBool("hurt", _npcStatus.isHurt);
         _anim.SetBool("attack", _npcStatus.isAttack);
         _anim.SetFloat("speed", _npcMovenment._walkSpeed);
-
-        _anim.SetFloat("vertical", Vector3.Dot(new Vector3(_npcMovenment._horizontal, 0f, _npcMovenment._vertical),
-            _npcMovenment.transform.forward), 0.15f, Time.deltaTime);
-        _anim.SetFloat("horizontal", Vector3.Dot(new Vector3(_npcMovenment._horizontal, 0f, _npcMovenment._vertical),
-            _npcMovenment.transform.right), 0.15f, Time.deltaTime);
+        if (_npcStatus.isBrokenDoll) _anim.SetFloat("distance", _npcMovenment._distance);
 
         if (_npcStatus.isHurt) AnimationHurt();
         if (_npcStatus.isWounded) AnimationHurt();
@@ -50,6 +46,25 @@ public class NpcAnimation : MonoBehaviour
     {
         _npcStatus.isAttackDamage = false;
     }
+    public void LookControllTrue_AnimEvent()
+    {
+        _npcStatus.isCanLook = true;
+    }
+
+    public void LookControllFalls_AnimEvent()
+    {
+        _npcStatus.isCanLook = false;
+    }
+    public void MoveControllTrue_AnimEvent()
+    {
+        _npcStatus.isCanMove = true;
+    }
+
+    public void MoveControllFalls_AnimEvent()
+    {
+        _npcStatus.isCanMove = false;
+    }
+
     public bool isAnimationHurtPlaying(string animation)
     {
         var animStateInfo = _anim.GetCurrentAnimatorStateInfo(0);

@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4745805934727075119
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4123205737036993563}
+  - component: {fileID: 677187642561742588}
+  - component: {fileID: 5541221557786287022}
+  - component: {fileID: 5332400239871645918}
+  - component: {fileID: 8008726374883134357}
+  - component: {fileID: 9156291701638794974}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4123205737036993563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.276, y: 0.106, z: -1.289}
+  m_LocalScale: {x: 71.981895, y: 71.98186, z: 71.981895}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &677187642561742588
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_Mesh: {fileID: 4300000, guid: b352e622de74dc143bed4fe3f1704249, type: 2}
+--- !u!23 &5541221557786287022
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 16a198fb2f68eed40b3dcd8ded961ef3, type: 2}
+  - {fileID: 2100000, guid: b562cb82e081c524386c9735cba86bff, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &5332400239871645918
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &8008726374883134357
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.004884887, y: 0.0040200558, z: 0.0169013}
+  m_Center: {x: -0.0013798241, y: 0.00005857373, z: -0.0037578843}
+--- !u!114 &9156291701638794974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2ec886770f5cf429d9c4e33a374738, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventory: {fileID: 0}
+  _npcInventory: {fileID: 0}
+  nameItem: Board
+  typeItem: Weapon
+  _owner: 
+  _description: "\u0414\u043B\u0438\u043D\u043D\u0430\u044F \u0434\u043E\u0441\u043A\u0430
+    \u0441 \u0433\u0432\u043E\u0437\u0434\u044F\u043C\u0438.\n\u0414\u043E\u0441\u043A\u0430
+    \u0441\u0442\u0430\u0440\u0430\u044F, \u043D\u043E \u043D\u0430 \u0443\u0434\u0438\u0432\u043B\u0435\u043D\u0438\u0435
+    \u043A\u0440\u0435\u043F\u043A\u0430\u044F.\n\u0418\u0437 \u043F\u043E\u0434
+    \u0433\u0432\u043E\u0437\u0434\u0435\u0439 \u0432\u0438\u0434\u043D\u0435\u0435\u0442\u0441\u044F
+    \u0441\u043B\u0438\u0437\u044C."
+  price: 15
+  mass: 2
+  addHealth: 0
+  addExp: 0
+  maxCountExpItems: 0
+  pathSprite: Arts/Sprites/Items/Axe
+  pathPrefab: Prefabs/Items/Board
+  isStackable: 0
+  isWendingFluid: 0
+  wendingFluidUseTime: 0
+  wendingFluidDamage: 0
+  _posWeapAttack: {x: -0.0207, y: 0.0101, z: 0.001}
+  _rotWeapAttack: {x: -5.812, y: -88.684, z: -60.944}
+  _weaponDamage: 10
+  _attackSpeed: 1
+  activeView: {fileID: 0}

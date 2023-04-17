@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -20,6 +21,7 @@ public class NpcMovenment : MonoBehaviour
     public bool _isWaiting;
 
     public float _walkSpeed;
+    public float _fastAttackWalkSpeed;
     public float _acceleration;
     public float _actualAcceleration;
     public float _actualSpeed;
@@ -32,6 +34,8 @@ public class NpcMovenment : MonoBehaviour
 
     public float _waitTime;
     public float _actualWaitTime;
+
+    [DoNotSerialize] public float _distance;
 
     private void Start()
     {
@@ -53,8 +57,12 @@ public class NpcMovenment : MonoBehaviour
     public void MoveUpdate()
     {
 
-        if (!_npcAnimation.isAnimationHurtPlaying("Base Layer.Hurt"))
-            _meshAgent.speed = _walkSpeed;
+        if (!_npcAnimation.isAnimationHurtPlaying("Base Layer.Hurt") && _npcStatus.isCanMove)
+        {
+            if (!_npcStatus.isCanLook) 
+                _meshAgent.speed = _fastAttackWalkSpeed;
+            else _meshAgent.speed = _walkSpeed;
+        }
         else _meshAgent.speed = 0;
 
         _horizontal = Mathf.Clamp(transform.localPosition.x, -1f, 1f); ;
@@ -65,7 +73,12 @@ public class NpcMovenment : MonoBehaviour
             Patrol();
         }
         else
-            Movenment();
+        {
+            if (_npcStatus.isNormalDoll)
+                MovenmentNormalDoll();
+            else if (_npcStatus.isBrokenDoll)
+                MovenmentBrokenDoll();
+        }
 
         if (_npcStatus.isWounded)
         {
@@ -165,7 +178,7 @@ public class NpcMovenment : MonoBehaviour
         }
     }
 
-    private void Movenment()
+    private void MovenmentNormalDoll()
     {
         Debug.Log("Movenment");
         _npcStatus.isWalk = true;
@@ -185,6 +198,67 @@ public class NpcMovenment : MonoBehaviour
         if (distance > 1.75f)
         {
             Looking();
+
+            if (_fieldOfView.visibleTargets.Count == 0)
+                foreach (Transform target in _fieldOfView.visibleTargets)
+                {
+                    _ActualcurWayPointPos = target.position;
+                }
+
+            _walkSpeed += _acceleration * Time.deltaTime;
+            if (_walkSpeed > _maxSpeed) _walkSpeed = _maxSpeed;
+
+            _waitTime = _actualWaitTime;
+
+            _npcStatus.isAttack = false;
+        }
+        else
+        {
+            if (_waitTime > 0)
+            {
+                _waitTime -= Time.deltaTime;
+                _isWaiting = true;
+                if (_fieldOfView.visibleTargets.Count != 0 || _fieldOfHear.visibleTargets.Count != 0)
+                    _waitTime = 0;
+            }
+            else _isWaiting = false;
+
+            if (!_isWaiting)
+            {
+                Looking();
+            }
+            if (!_isWaiting)
+                _walkSpeed = 0;
+
+            _curWayPointPos.gameObject.SetActive(false);
+
+            if (_fieldOfView.visibleTargets.Count != 0 && !_npcStatus.isFreandly && distance != 0)
+                _npcStatus.isAttack = true;
+        }
+    }
+
+    private void MovenmentBrokenDoll()
+    {
+        Debug.Log("Movenment");
+        _npcStatus.isWalk = true;
+        _npcStatus.isPatroling = false;
+
+        _fieldOfView.viewRadius = 100f;
+        _fieldOfView.viewAngle = 240f;
+
+        if ((_fieldOfView.visibleTargets.Count == 0 ||
+            _fieldOfHear.visibleTargets.Count == 0) &&
+            _curWayPointPos.position != _ActualcurWayPointPos)
+            _curWayPointPos.position = _ActualcurWayPointPos;
+
+        _meshAgent.SetDestination(_curWayPointPos.position);
+        float distance = Vector3.Distance(transform.position, _curWayPointPos.position);
+        _distance = distance;
+
+        if (distance > 1.75f)
+        {
+            if(_npcStatus.isCanLook)
+                Looking();
 
             if (_fieldOfView.visibleTargets.Count == 0)
                 foreach (Transform target in _fieldOfView.visibleTargets)
