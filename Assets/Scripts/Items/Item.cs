@@ -15,6 +15,7 @@ public class Item : MonoBehaviour
     public string _owner;
 
     [Multiline(10)] public string _description;
+    public string[] _partsDescr;
 
     public int price;
     public float mass;
@@ -44,6 +45,7 @@ public class Item : MonoBehaviour
     {
         _playerInventory = GetComponentInParent<PlayerInventory>();
         _npcInventory = GetComponentInParent<NpcInventory>();
+        _partsDescr = _description.Split('$');
 
         if (_playerInventory != null)
             _owner = "Player";

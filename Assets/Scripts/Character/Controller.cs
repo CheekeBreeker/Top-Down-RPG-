@@ -8,15 +8,19 @@ public class Controller : MonoBehaviour
     private PlayerMovement _playerMovement;
     private CharacterAnimation _characterAnimation;
     private PlayerInput _playerInput;
+
+    [SerializeField] private GameObject _fade;
     [SerializeField] private CharacterStatus _characterStatus;
 
-    [SerializeField] private float _screamTime = 1f;
+    [SerializeField] private float _screamTime = 3f;
 
     public void Start()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _characterAnimation = GetComponent<CharacterAnimation>();
         _playerInput = GetComponent<PlayerInput>();
+
+        _fade.SetActive(true);
 
         _characterStatus.isAiming = false;
         _characterStatus.isNormal = false;
@@ -37,13 +41,17 @@ public class Controller : MonoBehaviour
         _characterAnimation.AnimationUpdate();
         _playerInput.InputUpdate();
 
+        if (_playerMovement._characterStatus.isAttackDamaging)
+        {
+            _playerMovement._characterStatus.isScream = true;
+        }
         if (_playerMovement._characterStatus.isScream)
         {
             if (_screamTime > 0) _screamTime -= Time.deltaTime;
             else
             {
                 _playerMovement._characterStatus.isScream = false;
-                _screamTime = 1;
+                _screamTime = 3;
             }
         }
     }

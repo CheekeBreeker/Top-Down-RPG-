@@ -531,7 +531,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765106724153625568}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: ce74e0e527e841246aeeb1a9bf1be8b1, type: 2}
   m_Controller: {fileID: 9100000, guid: 162183ebc03a4424d852078c2e189f4e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNormalDoll: 0
+  isNormalDoll: 1
   isBrokenDoll: 0
   isWalk: 0
   isAttack: 0
@@ -753,9 +753,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
+  _items: []
   _mainWeapon: {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
+  _hiddenWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0
@@ -1816,7 +1816,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -1415339942678587125, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 29524e2384db73644834959c69496825, type: 2}
   m_Bones:
   - {fileID: 8987504793467669843}
   - {fileID: 4889666927890333683}

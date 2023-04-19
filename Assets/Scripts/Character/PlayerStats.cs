@@ -93,6 +93,7 @@ public class PlayerStats : MonoBehaviour
     {
         _health -= damage;
         _animator.SetTrigger("impact");
+        GetComponent<CharacterAnimation>()._interfaceAnim.SetTrigger("Damaged");
 
         if (_health < _maxHealth / 2)
             GetComponent<AudioManager>().PlayDamagedClip();
@@ -103,7 +104,8 @@ public class PlayerStats : MonoBehaviour
 
     public void Die()
     {
-        Time.timeScale = 0;
+        GetComponentInChildren<FadeAnimation>()._anim.SetBool("isDead", true);
+        GetComponent<AudioManager>().enabled = false;
     }
 
     public void SpeedControl()

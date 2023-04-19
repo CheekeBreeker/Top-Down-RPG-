@@ -8,6 +8,7 @@ public class NpcInventory : MonoBehaviour
     private NpcStatus _npcStatus;
     public List<Item> _items = new List<Item>();
     public Item _mainWeapon;
+    public Item _hiddenWeapon;
     private GameObject _objWeapon;
     public int _reputation;
     public QuestGiver _questGiver;
@@ -21,6 +22,11 @@ public class NpcInventory : MonoBehaviour
         _npcStatus = GetComponent<NpcStatus>();
         _questGiver = GetComponent<QuestGiver>();
 
+        TakeWeapon();
+    }
+
+    public void TakeWeapon()
+    {
         if (_mainWeapon != null)
         {
             _mainWeapon._owner = "Npc";
@@ -34,13 +40,12 @@ public class NpcInventory : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void DeleteQuestGiver()
     {
-        if (_npcStatus.isDead) RemoveAllItems();
-        if (_isDeleteQuestGiver) _questGiver = null;
+        _questGiver = null;
     }
 
-    private void RemoveAllItems()
+    public void RemoveAllItems()
     {
         for (var i = 0; i < _items.Count; i ++)
         {

@@ -18,11 +18,16 @@ public class QuestGiver : MonoBehaviour
     public int _plusRep;
     public Item _itemReward;
 
+    public QuestGiver _questCompetitor;
+    public bool _isQuestGiverWillBeEnemy;
+
     private void Start()
     {
         _npcInventory = GetComponent<NpcInventory>();
         _npcDIalogs = GetComponent<NpcDialogs>();
         _npcDIalogs._questDescription = _npcDIalogs._questActualDescription;
+        if (_scoutTarget != null)
+            _scoutTarget.GetComponent<ScoutTarget>()._questGiver.Add(this);
     }
 
     public void QuestAccept(PlayerInventory playerInventory, Transform playerTransform)
@@ -46,6 +51,7 @@ public class QuestGiver : MonoBehaviour
                     {
                         _npcInventory._items.Add(item);
                         _isDone = true;
+                        _isActive = false;
                     }
                 }
             }
@@ -58,6 +64,7 @@ public class QuestGiver : MonoBehaviour
                     {
                         _npcInventory._items.Add(item);
                         _isDone = true;
+                        _isActive = false;
                     }
                 }
             }
@@ -70,6 +77,7 @@ public class QuestGiver : MonoBehaviour
                     {
                         _npcInventory._items.Add(item);
                         _isDone = true;
+                        _isActive = false;
                     }
                 }
             }
@@ -93,13 +101,16 @@ public class QuestGiver : MonoBehaviour
                 }
             }
         }
-        if (_killTargets.Count == 0) _isDone = true;
+        if (_killTargets.Count == 0)
+        {
+            _isDone = true;
+            _isActive = false;
+        }
     }
-
 
     public void QuestTypeScout(Transform playerTransform)
     {
-        if (!_isActive)
+        if (!_isActive && !_isDone)
         {
             _isActive = true;
             _scoutTarget.SetActive(true);
@@ -107,6 +118,7 @@ public class QuestGiver : MonoBehaviour
         if (_isWasOnScoutTarget)
         {
             _isDone = true;
+            _isActive = false;
             Destroy(_scoutTarget);
         }
     }

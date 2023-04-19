@@ -196,7 +196,12 @@ public class Dialog : MonoBehaviour
             _attentionText.text = _npcDialogs._attention;
         else _attentionText.text = "";
 
-        if (_questGiver._isDone)
+        if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
+        {
+            _DoneQuestBut.SetActive(true);
+            _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+        }
+        else if (_questGiver._questCompetitor._isDone)
         {
             _DoneQuestBut.SetActive(true);
             _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
@@ -205,27 +210,42 @@ public class Dialog : MonoBehaviour
 
     public void DoneQuestButton()
     {
-        if (_questGiver._itemReward.typeItem == "Consumables")
-            _playerInventory.consumables.Add(_questGiver._itemReward);
-        else if (_questGiver._itemReward.typeItem == "Weapon")
-            _playerInventory.weapon.Add(_questGiver._itemReward);
-        else if (_questGiver._itemReward.typeItem == "ExpItems")
-            _playerInventory.expItems.Add(_questGiver._itemReward);
-        _npcInventory._reputation += _questGiver._plusRep;
-
-        if (_questGiver._questType == 1)
+        if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
         {
-            DeletingItems(_playerInventory.consumables);
-            DeletingItems(_playerInventory.weapon);
-            DeletingItems(_playerInventory.expItems);
+            if (_questGiver._itemReward.typeItem == "Consumables")
+                _playerInventory.consumables.Add(_questGiver._itemReward);
+            else if (_questGiver._itemReward.typeItem == "Weapon")
+                _playerInventory.weapon.Add(_questGiver._itemReward);
+            else if (_questGiver._itemReward.typeItem == "ExpItems")
+                _playerInventory.expItems.Add(_questGiver._itemReward);
+            _npcInventory._reputation += _questGiver._plusRep;
+
+            if (_questGiver._questType == 1)
+            {
+                DeletingItems(_playerInventory.consumables);
+                DeletingItems(_playerInventory.weapon);
+                DeletingItems(_playerInventory.expItems);
+            }
+
+            _questText.text = _npcDialogs._questDone;
+
+            _npcInventory.DeleteQuestGiver();
+            _questGiver = null;
+            _DoneQuestBut.SetActive(false);
         }
+        else if (_questGiver._questCompetitor._isDone)
+        {
+            if (_questGiver._isQuestGiverWillBeEnemy)
+            {
+                _questGiver.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+            }
 
-        _questText.text = _npcDialogs._questDone;
+            _questText.text = _npcDialogs._questCompete;
 
-        Destroy(_questGiver.gameObject.GetComponent<QuestGiver>());
-        _npcInventory._isDeleteQuestGiver= true;
-        _questGiver = null;
-        _DoneQuestBut.SetActive(false);
+            _npcInventory.DeleteQuestGiver();
+            _questGiver = null;
+            _DoneQuestBut.SetActive(false);
+        }
     }
 
     public void DeletingItems(List<Item> type)
@@ -240,7 +260,7 @@ public class Dialog : MonoBehaviour
             }
         }
     }
-        public void ExitDialogButton()
+    public void ExitDialogButton()
     {
         _characterStatus.isTalk = false;
         Time.timeScale = 1;

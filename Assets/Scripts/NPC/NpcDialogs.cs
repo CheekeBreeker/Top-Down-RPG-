@@ -12,6 +12,7 @@ public class NpcDialogs : MonoBehaviour
     [Multiline(10)] public string _questDone;
     [Multiline(10)] public string _greetings;
     [Multiline(10)] public string _attention;
+    [Multiline(10)] public string _questCompete;
     public string _DoneQuestDescription;
 
     public string _barterText;

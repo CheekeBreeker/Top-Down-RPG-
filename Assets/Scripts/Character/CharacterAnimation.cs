@@ -9,7 +9,9 @@ public class CharacterAnimation : MonoBehaviour
     private PlayerMovement _playerMovement;
     public CharacterStatus _characterStatus;
 
-    private void Awake()
+    public Animator _interfaceAnim;
+
+    private void Start()
     {
         _anim = GetComponent<Animator>();
         _playerMovement = GetComponent<PlayerMovement>();

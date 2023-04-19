@@ -19,14 +19,17 @@ public class NpcAudioManager : MonoBehaviour
 
     private void Update()
     {
-        if (GetComponent<NavMeshAgent>().speed > 0 &&
-            !_audioSource.isPlaying)
-        {
-            _audioSource.clip = _walkClip;
-            _audioSource.Play();
-        }
-        else if (GetComponent<NavMeshAgent>().speed <= 0 && Time.deltaTime != 0)
-            _audioSource.clip = null;
+    }
+
+    public void PlayStartWalkClip()
+    {
+        _audioSource.clip = _walkClip;
+        _audioSource.Play();
+    }
+
+    public void PlayStopWalkClip()
+    {
+        _audioSource.clip = null;
     }
 
     public void PlaySwingClip_AnimEvent()

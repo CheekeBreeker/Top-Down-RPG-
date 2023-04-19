@@ -2599,6 +2599,8 @@ GameObject:
   - component: {fileID: 3357773864811960819}
   - component: {fileID: 1151826005652829940}
   - component: {fileID: 8688481650617221664}
+  - component: {fileID: 8161134209640375380}
+  - component: {fileID: 7705787429606594479}
   m_Layer: 0
   m_Name: Quest Npc
   m_TagString: Freandly Npc
@@ -2768,7 +2770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNormalDoll: 0
+  isNormalDoll: 1
   isBrokenDoll: 0
   isWalk: 0
   isAttack: 0
@@ -2864,6 +2866,7 @@ MonoBehaviour:
   - {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
   - {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
   _mainWeapon: {fileID: 0}
+  _hiddenWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 1151826005652829940}
   _isDeleteQuestGiver: 0
@@ -2892,6 +2895,8 @@ MonoBehaviour:
   _isDone: 0
   _plusRep: 10
   _itemReward: {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
+  _questCompetitor: {fileID: 0}
+  _isQuestGiverWillBeEnemy: 0
 --- !u!114 &8688481650617221664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2912,6 +2917,7 @@ MonoBehaviour:
   _greetings: "\u041F\u0435\u0440\u0435\u0434 \u0432\u0430\u043C\u0438, \u0441\u043E\u0431\u0440\u0430\u043D\u043D\u0430\u044F
     \u0438\u0437 \u043C\u0443\u0441\u043E\u0440\u0430, \u043A\u0443\u043A\u043B\u0430."
   _attention: 
+  _questCompete: 
   _DoneQuestDescription: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C"
   _barterText: 1
   _questText: "\u0447\u0442\u043E \u043C\u043D\u0435 \u0434\u0435\u043B\u0430\u0442\u044C?"
@@ -2921,6 +2927,118 @@ MonoBehaviour:
   _isTrader: 0
   _isQuest: 1
   _isAdventure: 0
+--- !u!82 &8161134209640375380
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945410058687022292}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &7705787429606594479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945410058687022292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5886f204af2234b4f97d2c284cfb942d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _walkClip: {fileID: 8300000, guid: 359e79b8eef896d4fb698b28903ffba5, type: 3}
+  _attackClip: {fileID: 8300000, guid: a4e6c44c32170c347b77567cfb4944f3, type: 3}
+  _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
+  _damagedClip: {fileID: 8300000, guid: 82f8d4f2ae02bb340a3ca2563557bc2f, type: 3}
 --- !u!1 &8951683545920177505
 GameObject:
   m_ObjectHideFlags: 0

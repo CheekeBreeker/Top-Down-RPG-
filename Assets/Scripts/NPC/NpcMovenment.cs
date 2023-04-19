@@ -7,8 +7,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class NpcMovenment : MonoBehaviour
 {
-    [SerializeField] private FieldOfView _fieldOfView;
-    [SerializeField] private FieldOfView _fieldOfHear;
+    [SerializeField] public FieldOfView _fieldOfView;
+    [SerializeField] public FieldOfView _fieldOfHear;
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
     [SerializeField] private Transform _lookPoint;
     [SerializeField] private Transform _curWayPointPos;
@@ -16,6 +16,7 @@ public class NpcMovenment : MonoBehaviour
     private NpcStatus _npcStatus;
     private NpcAnimation _npcAnimation;
     private NavMeshAgent _meshAgent;
+    private NpcAudioManager _audioManager;
     private Vector3 _ActualcurWayPointPos;
     private int _curWayPoints;
     public bool _isWaiting;
@@ -42,6 +43,7 @@ public class NpcMovenment : MonoBehaviour
         _meshAgent = GetComponent<NavMeshAgent>();
         _npcStatus = GetComponent<NpcStatus>();
         _npcAnimation = GetComponent<NpcAnimation>();
+        _audioManager = GetComponent<NpcAudioManager>();
 
         _meshAgent.updateRotation = false;
         _walkSpeed = _actualSpeed;
@@ -140,6 +142,7 @@ public class NpcMovenment : MonoBehaviour
 
             if (distance > 2.5f)
             {
+                _audioManager.PlayStartWalkClip();
                 if (_waitTime > 0)
                 {
                     _waitTime -= Time.deltaTime;
@@ -159,10 +162,12 @@ public class NpcMovenment : MonoBehaviour
             }
             else if (distance <= 2.5f && distance > 1f)
             {
+                _audioManager.PlayStartWalkClip();
                 Looking();
             }
             else
             {
+                _audioManager.PlayStopWalkClip();
                 _walkSpeed = 0;
                 Looking();
                 _curWayPoints++;
@@ -197,6 +202,7 @@ public class NpcMovenment : MonoBehaviour
 
         if (distance > 1.75f)
         {
+            _audioManager.PlayStartWalkClip();
             Looking();
 
             if (_fieldOfView.visibleTargets.Count == 0)
@@ -214,6 +220,7 @@ public class NpcMovenment : MonoBehaviour
         }
         else
         {
+            _audioManager.PlayStopWalkClip();
             if (_waitTime > 0)
             {
                 _waitTime -= Time.deltaTime;
@@ -257,7 +264,8 @@ public class NpcMovenment : MonoBehaviour
 
         if (distance > 1.75f)
         {
-            if(_npcStatus.isCanLook)
+            _audioManager.PlayStartWalkClip();
+            if (_npcStatus.isCanLook)
                 Looking();
 
             if (_fieldOfView.visibleTargets.Count == 0)
@@ -275,6 +283,7 @@ public class NpcMovenment : MonoBehaviour
         }
         else
         {
+            _audioManager.PlayStopWalkClip();
             if (_waitTime > 0)
             {
                 _waitTime -= Time.deltaTime;

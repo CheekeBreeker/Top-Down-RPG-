@@ -251,16 +251,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInventory: {fileID: 1799391162, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
   _playerJournal: {fileID: 4500716798864694492, guid: cd98fbc05a9411f4786e6c9090047157, type: 3}
+  _trading: {fileID: 0}
   _item: {fileID: 0}
   _ownerItem: 
   _countItem: 0
   _isNotRemovingCell: 1
   _isJourCell: 1
+  _isSkillCell: 0
   _image: {fileID: 2424993683614000922}
   _defaultSprite: {fileID: 0}
   _nameItem: {fileID: 2424993683406693688}
   _count: {fileID: 6507591821105462019}
   _descriptionCell: {fileID: 2424993684109824537}
+  _descriptionObj: {fileID: 0}
+  _descriptionItem: {fileID: 0}
+  _discriptionSkill: 
 --- !u!1 &2424993684109824539
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,10 +334,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 7
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 6
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0

@@ -35,7 +35,7 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             if ((_ownerItem != "myJourItem" || _ownerItem != "myWeapon" || _ownerItem != "TraderItem" || _ownerItem != "myItemInBarter") && !_isNotRemovingCell)
             {
                 _descriptionObj.SetActive(true);
-                _descriptionItem.text = _item._description;
+                _descriptionItem.text = _item._partsDescr[0];
             }
         }
         if (_isSkillCell)

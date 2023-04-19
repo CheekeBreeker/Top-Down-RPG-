@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NpcStats : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class NpcStats : MonoBehaviour
 
     public Transform[] RagdollElem;
 
+    private FieldOfView _fieldOfView;
+    private FieldOfView _fieldOfHear;
+
     private void Start()
     {
         _maxHealth = _health;
@@ -29,6 +33,8 @@ public class NpcStats : MonoBehaviour
         _npcController = GetComponent<NpcController>();
         _npcStatus = GetComponent<NpcStatus>();
         _npcInventory = GetComponent<NpcInventory>();
+        _fieldOfView = GetComponent<NpcMovenment>()._fieldOfView;
+        _fieldOfHear = GetComponent<NpcMovenment>()._fieldOfHear;
     }
 
     private void Update()
@@ -60,7 +66,16 @@ public class NpcStats : MonoBehaviour
 
         foreach (Transform body in RagdollElem)
             body.GetComponent<Rigidbody>().isKinematic = false;
-        
+        Destroy(_npcController);
+        Destroy(GetComponent<CapsuleCollider>());
+        Destroy(GetComponent<NavMeshAgent>());
+        Destroy(GetComponent<NpcMovenment>());
+        Destroy(_fieldOfView);
+        Destroy(_fieldOfHear);
+        _npcInventory.RemoveAllItems();
+        Destroy(_npcInventory);
+        Destroy(GetComponent<NpcAnimation>());
+        Destroy(_anim);
     }
 
     public void SpeedControl()
@@ -82,5 +97,19 @@ public class NpcStats : MonoBehaviour
         if (_npcStatus.isAttackDamage)
             _anim.speed = _npcInventory._mainWeapon._attackSpeed;
         else _anim.speed = 1;
+    }
+
+    public void BecomeAnEnemy()
+    {
+        _npcStatus.isFreandly = false;
+        gameObject.tag = "Enemy";
+        _npcInventory._mainWeapon = _npcInventory._hiddenWeapon;
+        _npcInventory.TakeWeapon();
+
+        if(gameObject.TryGetComponent<NpcDialogs>(out NpcDialogs npcDialogs))
+        {
+            if (npcDialogs._isQuest) Destroy(gameObject.GetComponent<QuestGiver>());
+            Destroy(npcDialogs);
+        }
     }
 }

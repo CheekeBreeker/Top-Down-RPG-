@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ScoutTarget : MonoBehaviour
 {
-    public QuestGiver _questGiver;
+    public List<QuestGiver> _questGiver;
     public float _scoutTime;
 
     private void Start()
@@ -17,8 +17,11 @@ public class ScoutTarget : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _scoutTime -= Time.deltaTime;
-            if (_questGiver._isActive && _scoutTime < 0)
-                _questGiver._isWasOnScoutTarget = true;
+            foreach (QuestGiver giver in _questGiver)
+            {
+                if (giver._isActive && _scoutTime < 0)
+                    giver._isWasOnScoutTarget = true;
+            }
         }
     }
 }

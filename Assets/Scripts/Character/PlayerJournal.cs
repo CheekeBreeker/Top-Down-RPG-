@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using static UnityEditor.Timeline.Actions.MenuPriority;
@@ -23,69 +24,18 @@ public class PlayerJournal : MonoBehaviour
 
     void Update()
     {
-        //JournalActive();
-        foreach (Drag drag in _drags)
-            Destroy(drag.gameObject);
-        _drags.Clear();
-
-        for (int i = 0; i < _expItem.Count; i++)
-        {
-            GameObject newCell = Instantiate(_journalCell);
-            newCell.transform.SetParent(_cellParent, false);
-            _drags.Add(newCell.GetComponent<Drag>());
-        }
-
-        for (int i = 0; i < _expItem.Count; i++)
-        {
-            Item it = _expItem[i];
-
-            for (int j = 0; j < _drags.Count; j++)
-            {
-                if (_drags[j]._ownerItem != "")
-                {
-                    if (_expItem[i].isStackable)
-                    {
-                        if (_drags[j]._item.nameItem == it.nameItem)
-                        {
-                            _drags[j]._countItem++;
-                            _drags[j]._count.text = _drags[j]._countItem.ToString();
-                            _drags[j]._descriptionCell.text += " " + "321";
-                            break;
-                        }
-                    }
-                    else continue;
-
-                }
-                else
-                {
-                    _drags[j]._item = it;
-                    _drags[j]._image.sprite = Resources.Load<Sprite>(_expItem[i].pathSprite);
-                    _drags[j]._ownerItem = "myJourItem";
-                    _drags[j]._nameItem.text = _expItem[i].nameItem;
-                    _drags[j]._descriptionCell.text = "123";
-                    _drags[j]._countItem++;
-                    _drags[j]._count.text = "" + _drags[j]._countItem;
-                    _drags[j]._playerJournal = this;
-                    break;
-                }
-            }
-        }
-
-        for (int i = _drags.Count - 1; i >= 0; i--)
-        {
-            if (_drags[i]._ownerItem == "")
-            {
-                Destroy(_drags[i].gameObject);
-                _drags.RemoveAt(i);
-            }
-        }
+        JournalActive();
+        
     }
 
     public void JournalActive()
     {
-        if (_journal.activeSelf)
-            JournalDisable();
-        else JournalEnabled();
+        if (Input.GetKeyDown(KeyCode.J) && !_playerStats._characterStatus.isTrade)
+        {
+            if (!_journal.activeSelf)
+                JournalDisable();
+            else JournalEnabled();
+        }
     }
 
     public void JournalDisable()
@@ -101,7 +51,7 @@ public class PlayerJournal : MonoBehaviour
             Destroy(drag.gameObject);
         _drags.Clear();
 
-        for (int i = 0; i < _expItem.Count; i ++)
+        for (int i = 0; i < _expItem.Count; i++)
         {
             GameObject newCell = Instantiate(_journalCell);
             newCell.transform.SetParent(_cellParent, false);
@@ -122,7 +72,8 @@ public class PlayerJournal : MonoBehaviour
                         {
                             _drags[j]._countItem++;
                             _drags[j]._count.text = _drags[j]._countItem.ToString();
-                            _drags[j]._descriptionCell.text += " " + "321";
+                            if (_drags[j]._item._partsDescr.Length > _drags[j]._countItem)
+                                _drags[j]._descriptionCell.text += "\n" + _drags[j]._item._partsDescr[_drags[j]._countItem - 1];
                             break;
                         }
                     }
@@ -133,9 +84,9 @@ public class PlayerJournal : MonoBehaviour
                 {
                     _drags[j]._item = it;
                     _drags[j]._image.sprite = Resources.Load<Sprite>(_expItem[i].pathSprite);
-                    _drags[j]._ownerItem = "myItem";
-                    _drags[j]._nameItem.text = _expItem[j].nameItem;
-                    _drags[j]._descriptionCell.text = "123";
+                    _drags[j]._ownerItem = "myJourItem";
+                    _drags[j]._nameItem.text = _expItem[i].nameItem;
+                    _drags[j]._descriptionCell.text = _drags[j]._item._partsDescr[j];
                     _drags[j]._countItem++;
                     _drags[j]._count.text = "" + _drags[j]._countItem;
                     _drags[j]._playerJournal = this;

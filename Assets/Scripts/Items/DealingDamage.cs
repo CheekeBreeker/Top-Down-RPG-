@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class DealingDamage : MonoBehaviour
 {
@@ -17,15 +18,15 @@ public class DealingDamage : MonoBehaviour
     {
         _weaponRig = GetComponent<Rigidbody>();
         _item = GetComponent<Item>();
+
+        if (_item == null)
+            _npcStats = GetComponentInParent<NpcStats>();
+        else if (_item._owner == "Npc")
+            _npcStatus = GetComponentInParent<NpcStatus>();
     }
 
     private void Update()
     {
-        _playerMovement = GetComponentInParent<PlayerMovement>();
-        _npcStatus = GetComponentInParent<NpcStatus>();
-
-        if (_item == null)
-            _npcStats = GetComponentInParent<NpcStats>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,7 +37,6 @@ public class DealingDamage : MonoBehaviour
             {
                 if (other.gameObject.CompareTag("EnemySpine"))
                 {
-                    GetComponentInParent<AudioManager>().PlayDamagingClip();
                     _item._weaponDamage *= 2;
                     Debug.Log("damage 2x " + _item._weaponDamage);
                 }
@@ -53,13 +53,26 @@ public class DealingDamage : MonoBehaviour
                     _npcStats.TakeAwayHealth(_item._weaponDamage);
                     Debug.Log("damage " + _item._weaponDamage);
                 }
+                else if (_characterStatus.isAttackDamaging && (other.gameObject.CompareTag("Trader") || other.gameObject.CompareTag("Freandly Npc")))
+                {
+                    GetComponentInParent<AudioManager>().PlayDamagingClip();
+                    _npcStats = other.gameObject.GetComponent<NpcStats>();
+
+                    if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
+                        && other.GetComponent<NpcStats>()._health <= other.GetComponent<NpcStats>()._maxHealth * 0.25f)
+                        _item._weaponDamage *= 1.25f;
+
+                    _npcStats.TakeAwayHealth(_item._weaponDamage);
+                    Debug.Log("damage " + _item._weaponDamage);
+
+                    other.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+                }
             }
+
             else if (_item._owner == "Npc")
             {
-
                 if (other.gameObject.CompareTag("PlayerSpine"))
                 {
-                    GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
                     _item._weaponDamage *= 2;
                     Debug.Log("enemy damage 2x " + _item._weaponDamage);
                 }
