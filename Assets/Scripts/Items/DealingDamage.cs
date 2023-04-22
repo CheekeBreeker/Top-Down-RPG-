@@ -14,15 +14,15 @@ public class DealingDamage : MonoBehaviour
     public NpcStats _npcStats;
     public Item _item;
 
+    [SerializeField] private bool _isHand;
+
     private void Start()
     {
         _weaponRig = GetComponent<Rigidbody>();
-        _item = GetComponent<Item>();
+        if (!_isHand) _item = GetComponent<Item>();
+        else _npcStats = GetComponentInParent<NpcStats>();
 
-        if (_item == null)
-            _npcStats = GetComponentInParent<NpcStats>();
-        else if (_item._owner == "Npc")
-            _npcStatus = GetComponentInParent<NpcStatus>();
+        _npcStatus = GetComponentInParent<NpcStatus>();
     }
 
     private void Update()

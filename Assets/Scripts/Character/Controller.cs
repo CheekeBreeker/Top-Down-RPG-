@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour
     private CharacterAnimation _characterAnimation;
     private PlayerInput _playerInput;
 
+    [SerializeField] private FieldOfView _fieldOfHear;
     [SerializeField] private GameObject _fade;
     [SerializeField] private CharacterStatus _characterStatus;
 
@@ -41,7 +42,7 @@ public class Controller : MonoBehaviour
         _characterAnimation.AnimationUpdate();
         _playerInput.InputUpdate();
 
-        if (_playerMovement._characterStatus.isAttackDamaging)
+        if (_playerMovement._characterStatus.isAttackDamaging || _fieldOfHear.visibleTargets.Count != 0)
         {
             _playerMovement._characterStatus.isScream = true;
         }

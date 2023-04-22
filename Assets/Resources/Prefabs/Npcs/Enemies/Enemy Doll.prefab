@@ -495,7 +495,7 @@ GameObject:
   - component: {fileID: 6351054059444278983}
   - component: {fileID: 6351054059444278984}
   - component: {fileID: 6351054059444278985}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy Doll
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1789,7 +1789,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 3e3a6122098c1c24aa6cc3e8e684e70f, type: 2}
-  - {fileID: 2100000, guid: 0540c9052973a584585985abda239842, type: 2}
+  - {fileID: 2100000, guid: bcc902130d2b3f94b973a33a85eb65fe, type: 2}
   - {fileID: 2100000, guid: 325254bc81a543d4c805934eafecbbe8, type: 2}
   - {fileID: 2100000, guid: 4517e2817647ba8408941f4bed7cbf23, type: 2}
   m_StaticBatchInfo:

@@ -34,6 +34,8 @@ public class PlayerInventory : MonoBehaviour
     public GameObject _descriptionObj;
     public Text _descriptionItem;
 
+    private bool _isInvActive;
+
     private void Start()
     {
         typeOutput = 1;
@@ -51,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I) && !_characterStatus.isTrade)
         {
-            if (!_inventory.activeSelf)
+            if (!_isInvActive)
                 InventoryDisable();
             else InventoryEnabled();
         }
@@ -63,13 +65,13 @@ public class PlayerInventory : MonoBehaviour
             Destroy(drag.gameObject);
         _drags.Clear();
 
-        _inventory.SetActive(false);
+        _isInvActive = false;
         _descriptionObj.SetActive(false);
     }
 
     public void InventoryEnabled()
     {
-        _inventory.SetActive(true);
+        _isInvActive = true;
         foreach (Drag drag in _drags)
             Destroy(drag.gameObject);
         _drags.Clear();

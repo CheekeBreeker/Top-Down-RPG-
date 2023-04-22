@@ -2578,7 +2578,7 @@ MonoBehaviour:
   - {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
   - {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
   _mainWeapon: {fileID: 0}
-  _hiddenWeapon: {fileID: 0}
+  _hiddenWeapon: {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0

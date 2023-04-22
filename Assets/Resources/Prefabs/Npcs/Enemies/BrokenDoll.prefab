@@ -1420,7 +1420,7 @@ GameObject:
   - component: {fileID: 3549289724905848560}
   - component: {fileID: 3549289724905848555}
   - component: {fileID: 3549289724905848554}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrokenDoll
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1616,6 +1616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items: []
   _mainWeapon: {fileID: 0}
+  _hiddenWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0
@@ -1692,7 +1693,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7848191176795061823}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -1928,6 +1929,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _isHand: 1
 --- !u!1 &8676443203502702503
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,3 +2093,4 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _isHand: 1

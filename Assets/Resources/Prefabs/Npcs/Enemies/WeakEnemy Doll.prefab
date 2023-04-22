@@ -114,7 +114,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -1415339942678587125, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 29524e2384db73644834959c69496825, type: 2}
   m_Bones:
   - {fileID: 4092471859643041508}
   - {fileID: 552518537683170372}
@@ -1799,7 +1799,7 @@ GameObject:
   - component: {fileID: 2040724918759726448}
   - component: {fileID: 2040724918759726463}
   - component: {fileID: 2040724918759726462}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WeakEnemy Doll
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1813,7 +1813,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5687855048117977175}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.590504, y: -2.3586283, z: -32.9135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1897,9 +1897,11 @@ MonoBehaviour:
   _spine: {fileID: 2127942783177159263}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
+  _npcInventory: {fileID: 0}
   _health: 25
   _maxHealth: 0
   _isHurt: 0
+  _handDamage: 0
   RagdollElem:
   - {fileID: 6327073723958649859}
   - {fileID: 552518537683170372}
@@ -1912,7 +1914,6 @@ MonoBehaviour:
   - {fileID: 1371117924281659638}
   - {fileID: 8970051734546685778}
   - {fileID: 5430898559265388235}
-  weapon: {fileID: 5328804997107271757, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
 --- !u!114 &2040724918759726454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,12 +1940,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fieldOfView: {fileID: 2040724918759726451}
   _fieldOfHear: {fileID: 2040724918759726450}
-  _wayPoints:
-  - {fileID: 0}
+  _wayPoints: []
   _lookPoint: {fileID: 0}
   _curWayPointPos: {fileID: 4931835786654515521}
   _isWaiting: 0
   _walkSpeed: 0
+  _fastAttackWalkSpeed: 0
   _acceleration: 2.5
   _actualAcceleration: 0
   _actualSpeed: 1.25
@@ -1954,6 +1955,7 @@ MonoBehaviour:
   _rotateSpeed: 2.5
   _waitTime: 3
   _actualWaitTime: 0
+  _distance: 0
 --- !u!114 &4089983593262265522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1966,9 +1968,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNormalDoll: 1
+  isBrokenDoll: 0
   isWalk: 0
   isAttack: 0
   isAttackDamage: 0
+  isCanLook: 0
+  isCanMove: 0
   isHurt: 0
   isWounded: 0
   isPatroling: 0
@@ -2053,6 +2059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _items: []
   _mainWeapon: {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
+  _hiddenWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0

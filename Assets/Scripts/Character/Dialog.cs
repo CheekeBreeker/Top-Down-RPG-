@@ -12,6 +12,7 @@ public class Dialog : MonoBehaviour
     [SerializeField] public QuestGiver _questGiver;
     [SerializeField] public NpcDialogs _npcDialogs;
     [SerializeField] private CharacterStatus _characterStatus;
+    [SerializeField] private InterfaceManager _interfaceManager;
 
     public List<Drag> _drags = new List<Drag>();
     public GameObject _inventory;
@@ -38,6 +39,7 @@ public class Dialog : MonoBehaviour
     {
         _playerInventory = GetComponent<PlayerInventory>();
         _playerJournal = GetComponent<PlayerJournal>();
+        _interfaceManager = GetComponentInChildren<InterfaceManager>();
     }
 
     private void Update()
@@ -47,13 +49,13 @@ public class Dialog : MonoBehaviour
 
     public void DialogManager()
     {
-        Time.timeScale = 0;
         //_npcInventory = hit.transform.GetComponent<NpcInventory>();
         //_questGiver = hit.transform.GetComponent<QuestGiver>();
         //_npcDialogs = hit.transform.GetComponent<NpcDialogs>();
 
         _characterStatus.isTalk = true;
         _dialog.SetActive(true);
+        _interfaceManager.DialogTrigger();
         _talkingAboutQuest.SetActive(false);
         _exitBut.SetActive(true);
         _greetingsText.gameObject.SetActive(true);
@@ -89,6 +91,7 @@ public class Dialog : MonoBehaviour
         _questBut.SetActive(false);
         _exitBut.SetActive(false);
         _greetingsText.gameObject.SetActive(false);
+        _interfaceManager.TradeTrigger();
         InventoryUpdate();
     }
 
@@ -161,14 +164,8 @@ public class Dialog : MonoBehaviour
         _drags.Clear();
 
         _playerInventory.InventoryDisable();
-        _inventory.SetActive(false);
-        _barterBut.SetActive(true);
-        if (_questGiver == null)
-            _questBut.SetActive(false);
-        else _questBut.SetActive(true);
-        _exitBut.SetActive(true);
-        _greetingsText.gameObject.SetActive(true);
         _characterStatus.isTrade = false;
+        _interfaceManager.TradeTrigger();
     }
 
     public void TradeDisableButton()
@@ -263,11 +260,11 @@ public class Dialog : MonoBehaviour
     public void ExitDialogButton()
     {
         _characterStatus.isTalk = false;
-        Time.timeScale = 1;
         _npcInventory = null;
         _questGiver = null;
         _npcDialogs = null;
-        _dialog.SetActive(false);
+
+        _interfaceManager.DialogTrigger();
     }
     public void NpcToBarter(Drag drag)
     {

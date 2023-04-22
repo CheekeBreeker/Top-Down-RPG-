@@ -262,7 +262,7 @@ public class NpcMovenment : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _curWayPointPos.position);
         _distance = distance;
 
-        if (distance > 1.75f)
+        if (distance > 1.5f)
         {
             _audioManager.PlayStartWalkClip();
             if (_npcStatus.isCanLook)

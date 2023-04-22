@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5332400239871645918}
   - component: {fileID: 8008726374883134357}
   - component: {fileID: 9156291701638794974}
+  - component: {fileID: 6899575487194580925}
   m_Layer: 0
   m_Name: Board
   m_TagString: Item
@@ -157,6 +158,26 @@ MonoBehaviour:
   _weaponDamage: 10
   _attackSpeed: 1
   activeView: {fileID: 9123769978273484860}
+--- !u!114 &6899575487194580925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745805934727075119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686c5825b7038f142bc39d7be1ed12aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponRig: {fileID: 0}
+  _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
+  _playerStats: {fileID: 0}
+  _npcStatus: {fileID: 0}
+  _playerMovement: {fileID: 0}
+  _npcStats: {fileID: 0}
+  _item: {fileID: 0}
+  _isHand: 0
 --- !u!1 &9123769978273484860
 GameObject:
   m_ObjectHideFlags: 0
