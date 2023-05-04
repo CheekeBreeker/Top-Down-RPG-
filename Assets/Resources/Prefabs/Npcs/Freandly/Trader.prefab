@@ -632,6 +632,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8738764660773712690}
+  - {fileID: 7795267628929715303}
   m_Father: {fileID: 8688481652008102046}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1634,6 +1635,37 @@ Transform:
   m_Father: {fileID: 7677761924294203567}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6035296373133114092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7795267628929715303}
+  m_Layer: 0
+  m_Name: PanicPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7795267628929715303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6035296373133114092}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3356740301737505215}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6246873764393094671
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2345,8 @@ GameObject:
   - component: {fileID: 4856586356910149329}
   - component: {fileID: 132262658491097708}
   - component: {fileID: 132262658491097707}
+  - component: {fileID: 2567368365584619192}
+  - component: {fileID: 5636366446873669740}
   m_Layer: 0
   m_Name: Trader
   m_TagString: Trader
@@ -2457,6 +2491,7 @@ MonoBehaviour:
   _wayPoints: []
   _lookPoint: {fileID: 0}
   _curWayPointPos: {fileID: 8738764660773712690}
+  _panicWayPointPos: {fileID: 7795267628929715303}
   _isWaiting: 0
   _walkSpeed: 0
   _fastAttackWalkSpeed: 0
@@ -2482,8 +2517,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dollID: 0
+  _npcSaver: {fileID: 0}
   isNormalDoll: 1
   isBrokenDoll: 0
+  isStartFreandlyDoll: 0
   isWalk: 0
   isAttack: 0
   isAttackDamage: 0
@@ -2495,6 +2533,8 @@ MonoBehaviour:
   isDead: 0
   isFreandly: 1
   isFollow: 0
+  isPanic: 0
+  _panicTime: 5
 --- !u!114 &2406380344389103366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,7 +2566,7 @@ MonoBehaviour:
     m_Bits: 128
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
   visibleTargets: []
   meshResolution: 3
   edgeResolveIterations: 4
@@ -2552,7 +2592,7 @@ MonoBehaviour:
     m_Bits: 128
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   visibleTargets: []
   meshResolution: 3
   edgeResolveIterations: 4
@@ -2726,6 +2766,55 @@ MonoBehaviour:
   _attackClip: {fileID: 8300000, guid: a4e6c44c32170c347b77567cfb4944f3, type: 3}
   _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
   _damagedClip: {fileID: 8300000, guid: 82f8d4f2ae02bb340a3ca2563557bc2f, type: 3}
+--- !u!114 &2567368365584619192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347528200976429604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b81aa85cf36aa7498f55d20466ac62c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcStats: {fileID: 3407101215745258825}
+  _npcStatus: {fileID: 429452494166279873}
+  _npcInventory: {fileID: 2406380344389103363}
+  _questGiver: {fileID: 0}
+  _isDeadToSave: 0
+  _isFreandlyToSave: 0
+  _isFollowToSave: 0
+  _reputationForSave: 0
+  _isQuestActiveToSave: 0
+  _isQuestDoneToSave: 0
+  _isWasOnScoutTargetSave: 0
+  _isKilledTargetsSave: 0
+--- !u!114 &5636366446873669740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347528200976429604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450f015fd2add744297607aa95ed54f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcInventory: {fileID: 2406380344389103363}
+  _npcDIalogs: {fileID: 0}
+  _questType: 3
+  _itemTarget: {fileID: 0}
+  _killTargets: []
+  _isWasOnScoutTarget: 0
+  _scoutTarget: {fileID: 0}
+  _isActive: 0
+  _isDone: 0
+  _plusRep: 0
+  _itemReward: {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
+  _questCompetitor: {fileID: 0}
+  _isQuestGiverWillBeEnemy: 0
 --- !u!1 &8467537074341405943
 GameObject:
   m_ObjectHideFlags: 0

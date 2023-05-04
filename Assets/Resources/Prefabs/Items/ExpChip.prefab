@@ -132,6 +132,7 @@ MonoBehaviour:
   _playerInventory: {fileID: 0}
   _npcInventory: {fileID: 0}
   nameItem: ExpChip
+  _itemID: 1
   typeItem: ExpItems
   _owner: 
   _description: "\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0439

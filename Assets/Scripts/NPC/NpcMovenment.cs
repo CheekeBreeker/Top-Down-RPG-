@@ -12,6 +12,7 @@ public class NpcMovenment : MonoBehaviour
     [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
     [SerializeField] private Transform _lookPoint;
     [SerializeField] private Transform _curWayPointPos;
+    [SerializeField] private Transform _panicWayPointPos;
 
     private NpcStatus _npcStatus;
     private NpcAnimation _npcAnimation;
@@ -36,7 +37,7 @@ public class NpcMovenment : MonoBehaviour
     public float _waitTime;
     public float _actualWaitTime;
 
-    [DoNotSerialize] public float _distance;
+    public float _distance;
 
     private void Start()
     {
@@ -192,13 +193,29 @@ public class NpcMovenment : MonoBehaviour
         _fieldOfView.viewRadius = 100f;
         _fieldOfView.viewAngle = 240f;
 
+        
+
         if ((_fieldOfView.visibleTargets.Count == 0 ||
             _fieldOfHear.visibleTargets.Count == 0) &&
             _curWayPointPos.position != _ActualcurWayPointPos)
+        {
             _curWayPointPos.position = _ActualcurWayPointPos;
+        }
+        if (!_npcStatus.isPanic)
+        {
+            _meshAgent.SetDestination(_curWayPointPos.position);
+            _fieldOfView.viewRadius = 100f;
+            _fieldOfView.viewAngle = 300f;
+        }
+        else
+        {
+            _meshAgent.SetDestination(_panicWayPointPos.position);
+            _fieldOfView.viewRadius = 100f;
+            _fieldOfView.viewAngle = 300f;
+        }
 
-        _meshAgent.SetDestination(_curWayPointPos.position);
         float distance = Vector3.Distance(transform.position, _curWayPointPos.position);
+        _distance = distance;
 
         if (distance > 1.75f)
         {
@@ -215,8 +232,6 @@ public class NpcMovenment : MonoBehaviour
             if (_walkSpeed > _maxSpeed) _walkSpeed = _maxSpeed;
 
             _waitTime = _actualWaitTime;
-
-            _npcStatus.isAttack = false;
         }
         else
         {
@@ -230,7 +245,7 @@ public class NpcMovenment : MonoBehaviour
             }
             else _isWaiting = false;
 
-            if (!_isWaiting)
+            if (!_isWaiting || _npcStatus.isPanic)
             {
                 Looking();
             }
@@ -238,10 +253,15 @@ public class NpcMovenment : MonoBehaviour
                 _walkSpeed = 0;
 
             _curWayPointPos.gameObject.SetActive(false);
-
-            if (_fieldOfView.visibleTargets.Count != 0 && !_npcStatus.isFreandly && distance != 0)
-                _npcStatus.isAttack = true;
+            if (!_npcStatus.isPanic)
+                _panicWayPointPos.gameObject.SetActive(false);
         }
+
+        if (distance > 2)
+            _npcStatus.isAttack = false;
+        else if (distance <= 2 && _fieldOfView.visibleTargets.Count != 0 
+                && !_npcStatus.isFreandly && !_npcStatus.isPanic)
+                _npcStatus.isAttack = true;
     }
 
     private void MovenmentBrokenDoll()
@@ -309,26 +329,37 @@ public class NpcMovenment : MonoBehaviour
 
     private void Looking()
     {
+        // patrol
         if (_npcStatus.isPatroling && (_fieldOfView.visibleTargets.Count == 0 || _fieldOfHear.visibleTargets.Count == 0) && !_isWaiting && _wayPoints.Count != 0)
         {
             Vector3 direction = (_wayPoints[_curWayPoints].position - transform.position).normalized;
             float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
         }
-
+        //move
         else if (_fieldOfView.visibleTargets.Count != 0 && (!_npcStatus.isFreandly || _npcStatus.isFollow))
         {
             _curWayPointPos.gameObject.SetActive(true);
+            if (_npcStatus.isPanic)
+                _panicWayPointPos.gameObject.SetActive(true);
+
             foreach (Transform target in _fieldOfView.visibleTargets)
             {
                 _curWayPointPos.position = target.position;
+                _panicWayPointPos.position = new Vector3(-target.position.x,
+                    target.position.y, -target.position.z);
                 target.GetComponent<PlayerMovement>()._characterStatus.isScream = true;
                 _ActualcurWayPointPos = target.position;
+
                 Vector3 direction = (target.position - transform.position).normalized;
-                float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
+                float rotationY;
+                if (_npcStatus.isPanic && !_npcStatus.isFollow)
+                    rotationY = Mathf.Atan2(-direction.x, -direction.z) * Mathf.Rad2Deg + 90f;
+                else rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
             }
         }
+        //move
         else if (_fieldOfHear.visibleTargets.Count != 0 && (!_npcStatus.isFreandly || _npcStatus.isFollow))
         {
             foreach (Transform target in _fieldOfHear.visibleTargets)
@@ -339,17 +370,23 @@ public class NpcMovenment : MonoBehaviour
                     || target.GetComponent<PlayerMovement>()._characterStatus.isScream)
                 {
                     _curWayPointPos.gameObject.SetActive(true);
+                    if (_npcStatus.isPanic)
+                        _panicWayPointPos.gameObject.SetActive(true);
                     _curWayPointPos.position = target.position;
                     _ActualcurWayPointPos = target.position;
                 }
                 if (_curWayPointPos.gameObject.activeSelf)
                 {
                     Vector3 direction = (target.position - transform.position).normalized;
-                    float rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
+                    float rotationY;
+                    if (_npcStatus.isPanic && !_npcStatus.isFollow)
+                        rotationY = Mathf.Atan2(-direction.x, -direction.z) * Mathf.Rad2Deg + 90f;
+                    else rotationY = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + 90f;
                     transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * _rotateSpeed);
                 }
             }
         }
+        //patrol
         else if(_lookPoint != null && !_curWayPointPos.gameObject.activeSelf && _isWaiting)
         {
             Vector3 direction = (_lookPoint.position - transform.position).normalized;

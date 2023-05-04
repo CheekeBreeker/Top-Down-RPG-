@@ -5,6 +5,7 @@ using static UnityEditor.Progress;
 
 public class QuestGiver : MonoBehaviour
 {
+    private NpcStatus _npcStatus;
     public NpcInventory _npcInventory;
     public NpcDialogs _npcDIalogs;
     public int _questType;
@@ -23,6 +24,8 @@ public class QuestGiver : MonoBehaviour
 
     private void Start()
     {
+        _npcStatus = GetComponent<NpcStatus>();
+
         _npcInventory = GetComponent<NpcInventory>();
         _npcDIalogs = GetComponent<NpcDialogs>();
         _npcDIalogs._questDescription = _npcDIalogs._questActualDescription;

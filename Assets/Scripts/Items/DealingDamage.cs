@@ -13,6 +13,7 @@ public class DealingDamage : MonoBehaviour
     public PlayerMovement _playerMovement;
     public NpcStats _npcStats;
     public Item _item;
+    public bool _isWasOnSpineCollider;
 
     [SerializeField] private bool _isHand;
 
@@ -35,72 +36,57 @@ public class DealingDamage : MonoBehaviour
         {
             if (_item._owner == "Player")
             {
-                if (other.gameObject.CompareTag("EnemySpine"))
+                if (_characterStatus.isAttackDamaging && other.gameObject.CompareTag("EnemySpine"))
                 {
-                    _item._weaponDamage *= 2;
-                    Debug.Log("damage 2x " + _item._weaponDamage);
+                    _isWasOnSpineCollider = true;
+                    if (!_isWasOnSpineCollider)
+                        _item._weaponDamage *= 2;
+                    return;
                 }
-
-                if (_characterStatus.isAttackDamaging && other.gameObject.CompareTag("Enemy"))
+                else if (_characterStatus.isAttackDamaging && other.gameObject.CompareTag("Enemy"))
                 {
                     GetComponentInParent<AudioManager>().PlayDamagingClip();
-                    _npcStats = other.gameObject.GetComponent<NpcStats>();
-
-                    if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
-                        && other.GetComponent<NpcStats>()._health <= other.GetComponent<NpcStats>()._maxHealth * 0.25f)
-                        _item._weaponDamage *= 1.25f;
-
-                    _npcStats.TakeAwayHealth(_item._weaponDamage);
-                    Debug.Log("damage " + _item._weaponDamage);
+                    Attacking(true, other);
+                    return;
                 }
                 else if (_characterStatus.isAttackDamaging && (other.gameObject.CompareTag("Trader") || other.gameObject.CompareTag("Freandly Npc")))
                 {
                     GetComponentInParent<AudioManager>().PlayDamagingClip();
-                    _npcStats = other.gameObject.GetComponent<NpcStats>();
-
-                    if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
-                        && other.GetComponent<NpcStats>()._health <= other.GetComponent<NpcStats>()._maxHealth * 0.25f)
-                        _item._weaponDamage *= 1.25f;
-
-                    _npcStats.TakeAwayHealth(_item._weaponDamage);
-                    Debug.Log("damage " + _item._weaponDamage);
+                    Attacking(true, other);
 
                     other.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+                    return;
                 }
             }
 
             else if (_item._owner == "Npc")
             {
-                if (other.gameObject.CompareTag("PlayerSpine"))
+                if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("PlayerSpine"))
                 {
-                    _item._weaponDamage *= 2;
-                    Debug.Log("enemy damage 2x " + _item._weaponDamage);
+                    _isWasOnSpineCollider = true;
+                    if (!_isWasOnSpineCollider)
+                        _item._weaponDamage *= 1.3f;
+                    return;
                 }
-
-                if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
+                else if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
                 {
                     GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
-                    _playerStats = other.gameObject.GetComponent<PlayerStats>();
-
-                    if (_playerStats._wendingFluidUseTime > 0)
-                        _playerStats.TakeAwayHealth(GetComponent<Item>().wendingFluidDamage);
-
-                    _playerStats.TakeAwayHealth(_item._weaponDamage);
-                    Debug.Log("enemy damage " + _item._weaponDamage);
+                    Attacking(false, other);
+                    return;
                 }
             }
             else return;
         }
         else
         {
-            if (other.gameObject.CompareTag("PlayerSpine"))
+            if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("PlayerSpine"))
             {
-                GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
-                _npcStats._handDamage *= 2;
-                Debug.Log("enemy damage 2x " + _npcStats._handDamage);
+                _isWasOnSpineCollider = true;
+                if (!_isWasOnSpineCollider)
+                    _item._weaponDamage *= 1.3f;
+                return;
             }
-
-            if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
+            else if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
             {
                 GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
                 _playerStats = other.gameObject.GetComponent<PlayerStats>();
@@ -110,6 +96,12 @@ public class DealingDamage : MonoBehaviour
 
                 _playerStats.TakeAwayHealth(_npcStats._handDamage);
                 Debug.Log("enemy damage " + _npcStats._handDamage);
+                if (_isWasOnSpineCollider)
+                {
+                    _item._weaponDamage /= 1.3f;
+                    _isWasOnSpineCollider = false;
+                }
+                return;
             }
         }
     }
@@ -120,32 +112,46 @@ public class DealingDamage : MonoBehaviour
         {
             _npcStats = null;
             _playerStats = null;
-
-            if (other.gameObject.CompareTag("EnemySpine"))
-            {
-                _item._weaponDamage /= 2;
-            }
-
-            if (other.gameObject.CompareTag("PlayerSpine"))
-            {
-                _item._weaponDamage /= 2;
-            }
         }
         else
         {
             _playerStats = null;
-
-            if (other.gameObject.CompareTag("PlayerSpine"))
-            {
-                _npcStats._handDamage /= 2;
-            }
         }
     }
 
-    //private bool IsAttacking()
-    //{
-    //    if (_playerMovement._attackNumber > 0)
-    //        return true;
-    //    else return false;
-    //}
+    private void Attacking(bool isPlayer, Collider other)
+    {
+        if (isPlayer)
+        {
+            _npcStats = other.gameObject.GetComponent<NpcStats>();
+
+            if (GetComponentInParent<LevelUpgrade>()._isHaveProrabSkill
+                && other.GetComponent<NpcStats>()._health <= other.GetComponent<NpcStats>()._maxHealth * 0.25f)
+                _item._weaponDamage *= 1.25f;
+
+            _npcStats.TakeAwayHealth(_item._weaponDamage);
+            Debug.Log("damage " + _item._weaponDamage);
+
+            if (_isWasOnSpineCollider)
+            {
+                _item._weaponDamage /= 2;
+                _isWasOnSpineCollider = false;
+            }
+        }
+        else if (!isPlayer)
+        {
+            _playerStats = other.gameObject.GetComponent<PlayerStats>();
+
+            if (_playerStats._wendingFluidUseTime > 0)
+                _playerStats.TakeAwayHealth(GetComponent<Item>().wendingFluidDamage);
+
+            _playerStats.TakeAwayHealth(_item._weaponDamage);
+            Debug.Log("enemy damage " + _item._weaponDamage);
+            if (_isWasOnSpineCollider)
+            {
+                _item._weaponDamage /= 1.3f;
+                _isWasOnSpineCollider = false;
+            }
+        }
+    }
 }

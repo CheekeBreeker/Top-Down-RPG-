@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -168,5 +170,28 @@ public class PlayerStats : MonoBehaviour
         _imgHealth.fillAmount = _health / _maxHealth;
 
         _imgExp.fillAmount = _curExp / _exp; 
+    }
+}
+
+[Serializable]
+public class PlayerStatsForSave : PlayerStats
+{
+    public float _healthforSave;
+    public float _maxHealthforSave;
+    public int _levelforSave;
+    public float _expforSave;
+    public float _curExpforSave;
+    public bool _isOverloadforSave;
+    public bool _isHurtforSave;
+
+    private void Update()
+    {
+        _healthforSave = _health;
+        _maxHealthforSave = _maxHealth;
+        _levelforSave = _level;
+        _expforSave = _exp;
+        _curExpforSave = _curExp;
+        _isOverloadforSave = _isOverload;
+        _isHurtforSave = _isHurt;
     }
 }

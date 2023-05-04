@@ -254,6 +254,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _playerInventory.consumables.Add(it);
                         //Destroy(hit.transform.gameObject);
+                        _playerInventory._consItemsIDs.Add(it._itemID);
                         hit.transform.gameObject.SetActive(false);
                         _characterStatus.isUsing = true;
                     }
@@ -261,6 +262,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _playerInventory.weapon.Add(it);
                         //Destroy(hit.transform.gameObject);
+                        _playerInventory._weapItemsIDs.Add(it._itemID);
                         hit.transform.gameObject.SetActive(false);
                         _characterStatus.isUsing = true;
                     }
@@ -268,6 +270,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _playerInventory.expItems.Add(it);
                         //Destroy(hit.transform.gameObject);
+                        _playerInventory._expItemsIDs.Add(it._itemID);
                         hit.transform.gameObject.SetActive(false);
                         _characterStatus.isUsing = true;
                     }

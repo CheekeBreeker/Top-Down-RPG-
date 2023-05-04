@@ -73,6 +73,11 @@ public class Drag : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, I
             {
                 if ((_ownerItem == "myItem" || _ownerItem == "myWeapon") && !_playerInventory._characterStatus.isTrade)
                     _playerInventory.UseItem(this);
+                //else if (_ownerItem == "myWeapon" && !_playerInventory._characterStatus.isTrade)
+                //{
+                //    _playerInventory.UseItem(this);
+                //    _playerInventory.InventoryEnabled();
+                //}
                 else if (_ownerItem == "myItem" && _playerInventory._characterStatus.isTrade)
                     _playerInventory.PlayerToBarter(this);
                 else if (_ownerItem == "TraderItem")

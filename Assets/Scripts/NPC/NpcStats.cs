@@ -45,13 +45,12 @@ public class NpcStats : MonoBehaviour
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
-        _anim.SetTrigger("impact");
         if (_health < _maxHealth / 2)
-            GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
-        if (_isHurt)
         {
+            GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
+            _anim.SetTrigger("impact");
             _npcStatus.isHurt = true;
-        }    
+        }
         if (_health <= 0)
             Die();
     }

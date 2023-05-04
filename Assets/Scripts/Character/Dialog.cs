@@ -232,6 +232,8 @@ public class Dialog : MonoBehaviour
         }
         else if (_questGiver._questCompetitor._isDone)
         {
+            _npcInventory._reputation -= _questGiver._plusRep * 2;
+
             if (_questGiver._isQuestGiverWillBeEnemy)
             {
                 _questGiver.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();

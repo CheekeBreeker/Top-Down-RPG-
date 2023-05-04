@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &70271910809352273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7202367529255736201}
+  m_Layer: 0
+  m_Name: PanicPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7202367529255736201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70271910809352273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.9199998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2407616156131346255}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &395030376612544803
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +633,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8555237917488383426}
+  - {fileID: 7202367529255736201}
   m_Father: {fileID: 8606286121653984878}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2601,6 +2633,7 @@ GameObject:
   - component: {fileID: 8688481650617221664}
   - component: {fileID: 8161134209640375380}
   - component: {fileID: 7705787429606594479}
+  - component: {fileID: 7003636402734087292}
   m_Layer: 0
   m_Name: Quest Npc
   m_TagString: Freandly Npc
@@ -2745,6 +2778,7 @@ MonoBehaviour:
   _wayPoints: []
   _lookPoint: {fileID: 0}
   _curWayPointPos: {fileID: 8555237917488383426}
+  _panicWayPointPos: {fileID: 7202367529255736201}
   _isWaiting: 0
   _walkSpeed: 0
   _fastAttackWalkSpeed: 0
@@ -2770,8 +2804,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dollID: 0
+  _npcSaver: {fileID: 0}
   isNormalDoll: 1
   isBrokenDoll: 0
+  isStartFreandlyDoll: 0
   isWalk: 0
   isAttack: 0
   isAttackDamage: 0
@@ -2783,6 +2820,8 @@ MonoBehaviour:
   isDead: 0
   isFreandly: 1
   isFollow: 0
+  isPanic: 0
+  _panicTime: 5
 --- !u!114 &3357773864811960822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2814,7 +2853,7 @@ MonoBehaviour:
     m_Bits: 128
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 512
   visibleTargets: []
   meshResolution: 3
   edgeResolveIterations: 4
@@ -2840,7 +2879,7 @@ MonoBehaviour:
     m_Bits: 128
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   visibleTargets: []
   meshResolution: 3
   edgeResolveIterations: 4
@@ -2859,12 +2898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
-  - {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
-  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
-  - {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
-  - {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
+  _items: []
   _mainWeapon: {fileID: 0}
   _hiddenWeapon: {fileID: 3325101178867313200, guid: af18ce5bba92faf4bac24fcc85f4214d, type: 3}
   _reputation: 0
@@ -2887,14 +2921,14 @@ MonoBehaviour:
   _npcInventory: {fileID: 3357773864811960819}
   _npcDIalogs: {fileID: 0}
   _questType: 3
-  _itemTarget: {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
+  _itemTarget: {fileID: 0}
   _killTargets: []
   _isWasOnScoutTarget: 0
   _scoutTarget: {fileID: 0}
   _isActive: 0
   _isDone: 0
   _plusRep: 10
-  _itemReward: {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
+  _itemReward: {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
   _questCompetitor: {fileID: 0}
   _isQuestGiverWillBeEnemy: 0
 --- !u!114 &8688481650617221664
@@ -2910,18 +2944,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _avatar: {fileID: 21300000, guid: 9fcfc10ea17f3a942b1f2a5bbfa60c94, type: 3}
-  _questDescription: 1
-  _questActualDescription: "\u0441\u0445\u043E\u0434\u0438 \u043E\u0441\u043C\u043E\u0442\u0440\u0438\u0441\u044C"
-  _questHelpDescription: "\u0441\u0437\u0430\u0434\u0438"
-  _questDone: "\u0441\u043F\u0430\u0441\u0438\u0431\u043E"
-  _greetings: "\u041F\u0435\u0440\u0435\u0434 \u0432\u0430\u043C\u0438, \u0441\u043E\u0431\u0440\u0430\u043D\u043D\u0430\u044F
-    \u0438\u0437 \u043C\u0443\u0441\u043E\u0440\u0430, \u043A\u0443\u043A\u043B\u0430."
+  _questDescription: 0
+  _questActualDescription: "\u041E\u0431\u043E\u0436\u0430\u044E \u0434\u0432\u0435\u0440\u0438!
+    \u0417\u043D\u0430\u0435\u0448\u044C \u043A\u0430\u043A \u043E\u043D\u0438 \u0443\u043C\u0435\u044E\u0442
+    \u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0441\u0435\u043A\u0440\u0435\u0442\u044B.\n\u0422\u043E\u043B\u044C\u043A\u043E
+    \u0438\u0437-\u0437\u0430 \u044D\u0442\u043E\u0433\u043E \u044F \u0438\u0445
+    \u043D\u0438\u043A\u043E\u0433\u0434\u0430 \u043D\u0435 \u043E\u0442\u043A\u0440\u044B\u0432\u0430\u044E.\n\u0421\u0435\u043A\u0440\u0435\u0442\u044B
+    \u0445\u0440\u0430\u043D\u044F\u0442 \u0437\u0430 \u0441\u043E\u0431\u043E\u0439
+    \u043D\u0435 \u0432\u0441\u0435\u0433\u0434\u0430 \u043F\u0440\u0438\u044F\u0442\u043D\u044B\u0435
+    \u0441\u044E\u0440\u043F\u0440\u0438\u0437\u044B.\n\u0414\u0430 \u0438 \u044D\u0442\u0430
+    \u0434\u0432\u0435\u0440\u044C \u0441\u0442\u0440\u0430\u043D\u043D\u0430\u044F
+    \u043A\u0430\u043A\u0430\u044F-\u0442\u043E."
+  _questHelpDescription: "\u041A\u0430\u043A \u044F \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0433\u0430\u044E\u0441\u044C
+    \u043F\u043E \u0444\u0430\u0431\u0440\u0438\u043A\u0435?\n\u041D\u0443 \u0442\u044B
+    \u0438 \u0434\u0443\u0440\u0430\u043A, \u043A\u043E\u043D\u0435\u0447\u043D\u043E.\n\u0412\u0435\u043D\u0442\u0438\u043B\u044F\u0446\u0438\u0438
+    \u0442\u0435\u0431\u0435 \u0432 \u043F\u043E\u043C\u043E\u0449\u044C, \u0443\u0449\u0435\u0440\u0431\u043D\u044B\u0439."
+  _questDone: "\u0422\u044B \u043E\u0442\u043A\u0440\u044B\u043B \u0434\u0432\u0435\u0440\u044C!
+    \u042F \u0442\u0435\u0431\u044F \u043E\u0442\u0441\u044E\u0434\u0430 \u0432\u0438\u0434\u0435\u043B!\n\u041D\u0443
+    \u0442\u044B \u0431\u0435\u0437\u0431\u0430\u0448\u0435\u043D\u043D\u044B\u0439,
+    \u043A\u043E\u043D\u0435\u0447\u043D\u043E.\n\u0414\u0435\u0440\u0436\u0438 \u044D\u0442\u0443
+    \u0431\u0430\u043D\u043A\u0443. \u0412 \u043D\u0435\u0439 \u043C\u043D\u043E\u0433\u043E
+    \u043E\u0433\u043D\u044F!\n\u041F\u043E\u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0447\u0438\u043D\u0438\u0442\u044C\u0441\u044F.\n\u0421\u0443\u0434\u044F
+    \u043F\u043E \u0442\u0435\u0431\u0435, \u0442\u044B \u0432 \u044D\u0442\u043E\u043C
+    \u0431\u043E\u043B\u044C\u0448\u0435 \u043D\u0443\u0436\u0434\u0430\u0435\u0448\u044C\u0441\u044F."
+  _greetings: "<color=grey>\u041F\u0435\u0440\u0435\u0434 \u0432\u0430\u043C\u0438
+    \u043A\u0443\u043A\u043B\u0430, \u0436\u0443\u0442\u043A\u043E \u0441\u043C\u043E\u0442\u0440\u044F\u0449\u0430\u044F
+    \u043D\u0430 \u0434\u0432\u0435\u0440\u044C \u0432\u043F\u0435\u0440\u0435\u0434\u0438.\n\u0421\u0443\u0434\u044F
+    \u043F\u043E \u0432\u0441\u0435\u043C\u0443, \u043E\u043D\u0430 \u0432\u0430\u0441
+    \u043D\u0435 \u0437\u0430\u043C\u0435\u0447\u0430\u0435\u0442.</color>"
   _attention: 
   _questCompete: 
   _DoneQuestDescription: "\u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C"
   _barterText: 1
-  _questText: "\u0447\u0442\u043E \u043C\u043D\u0435 \u0434\u0435\u043B\u0430\u0442\u044C?"
-  _exitText: "\u043F\u043E\u043A\u0430"
+  _questText: "\u0414\u0435\u0440\u043D\u0443\u0442\u044C \u0437\u0430 \u043F\u043B\u0435\u0447\u043E"
+  _exitText: "\u0423\u0439\u0442\u0438 \u043D\u0435\u043E\u0431\u043E\u0440\u0430\u0447\u0438\u0432\u0430\u044F\u0441\u044C"
   _doneText: 1
   _isLiar: 0
   _isTrader: 0
@@ -3039,6 +3095,30 @@ MonoBehaviour:
   _attackClip: {fileID: 8300000, guid: a4e6c44c32170c347b77567cfb4944f3, type: 3}
   _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
   _damagedClip: {fileID: 8300000, guid: 82f8d4f2ae02bb340a3ca2563557bc2f, type: 3}
+--- !u!114 &7003636402734087292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945410058687022292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b81aa85cf36aa7498f55d20466ac62c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _npcStats: {fileID: 2356630719585993657}
+  _npcStatus: {fileID: 723288860352688177}
+  _npcInventory: {fileID: 3357773864811960819}
+  _questGiver: {fileID: 1151826005652829940}
+  _isDeadToSave: 0
+  _isFreandlyToSave: 0
+  _isFollowToSave: 0
+  _reputationForSave: 0
+  _isQuestActiveToSave: 0
+  _isQuestDoneToSave: 0
+  _isWasOnScoutTargetSave: 0
+  _isKilledTargetsSave: 0
 --- !u!1 &8951683545920177505
 GameObject:
   m_ObjectHideFlags: 0

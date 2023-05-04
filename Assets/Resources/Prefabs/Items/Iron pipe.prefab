@@ -132,6 +132,7 @@ MonoBehaviour:
   _playerInventory: {fileID: 0}
   _npcInventory: {fileID: 0}
   nameItem: Iron pipe
+  _itemID: 1
   typeItem: Weapon
   _owner: 
   _description: "\u041A\u0443\u0441\u043E\u043A \u0440\u0436\u0430\u0432\u043E\u0439
@@ -173,6 +174,8 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _isWasOnSpineCollider: 0
+  _isHand: 0
 --- !u!1 &6421450801742607589
 GameObject:
   m_ObjectHideFlags: 0

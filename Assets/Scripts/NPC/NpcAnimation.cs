@@ -18,13 +18,11 @@ public class NpcAnimation : MonoBehaviour
 
     public void AnimationUpdate()
     {
-        if (_npcStatus.isNormalDoll) _anim.SetBool("hurt", _npcStatus.isHurt);
         _anim.SetBool("attack", _npcStatus.isAttack);
         _anim.SetFloat("speed", _npcMovenment._walkSpeed);
         if (_npcStatus.isBrokenDoll) _anim.SetFloat("distance", _npcMovenment._distance);
 
         if (_npcStatus.isHurt) AnimationHurt();
-        if (_npcStatus.isWounded) AnimationHurt();
 
         Debug.Log(_anim.speed);
     }
@@ -75,7 +73,6 @@ public class NpcAnimation : MonoBehaviour
 
     private void AnimationHurt()
     {
-        _npcStatus.isHurt = false;
         _anim.speed = 0.5f;
     }
 

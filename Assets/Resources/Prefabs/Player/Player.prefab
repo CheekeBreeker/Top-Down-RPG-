@@ -1409,6 +1409,7 @@ GameObject:
   - component: {fileID: 1929228611}
   - component: {fileID: 1638400942}
   - component: {fileID: 1979111079}
+  - component: {fileID: 1142565411}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1599,6 +1600,7 @@ MonoBehaviour:
   typeOutput: 0
   _mainWeapon: {fileID: 5952712694929494187}
   _weaponInHand: {fileID: 0}
+  _weaponInHandID: 
   _weight: 0
   _maxWeight: 50
   _inventory: {fileID: 5952712694931368013}
@@ -1607,6 +1609,9 @@ MonoBehaviour:
   _rightHand: {fileID: 5785951476948627985}
   _descriptionObj: {fileID: 1109457234131922104}
   _descriptionItem: {fileID: 1109457234289867203}
+  _consItemsIDs: []
+  _weapItemsIDs: []
+  _expItemsIDs: []
 --- !u!114 &1799391177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1654,6 +1659,7 @@ MonoBehaviour:
   _journal: {fileID: 7231174468914441032}
   _journalCell: {fileID: 2424993683920590989, guid: 6bdf6f671a3cd2c42a53a37913777b6d, type: 3}
   _cellParent: {fileID: 7231174468394776561}
+  _itemsIDs: []
 --- !u!114 &1929228611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,6 +1750,35 @@ MonoBehaviour:
   _attackClip: {fileID: 8300000, guid: a4e6c44c32170c347b77567cfb4944f3, type: 3}
   _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
   _damagedClip: {fileID: 8300000, guid: 82f8d4f2ae02bb340a3ca2563557bc2f, type: 3}
+--- !u!114 &1142565411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952712693886245903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab59a0eafe157e744ac12a92b633886a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerStats: {fileID: 1799391177}
+  _playerInventory: {fileID: 1799391162}
+  _playerJournal: {fileID: 4500716798864694492}
+  _levelUpgrade: {fileID: 1638400942}
+  _healthToSave: 0
+  _maxHealthToSave: 0
+  _weaponInHandIDToSave: 
+  _consIDInInvToSave: []
+  _weapIDInInvToSave: []
+  _expIDInInvToSave: []
+  _itemsIDInJourToSave: []
+  _isHaveSelfDefenceSkillToSave: 0
+  _isHaveProrabSkillToSave: 0
+  _isHaveProletarianSkillToSave: 0
+  _isHaveWelderSkillToSave: 0
+  _isHaveMetallistSkillToSave: 0
+  _currentSceneNameToSave: 
 --- !u!1 &5952712695190874850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2660,11 +2695,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 103081958, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000013530254
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 103081958, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.6810212
+      value: -0.00000011205284
       objectReference: {fileID: 0}
     - target: {fileID: 276418276, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2747,8 +2782,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1726618005, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: m_Size
+      value: 0.44619495
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726618005, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_Value
-      value: 1.0132936
+      value: 1.0000001
       objectReference: {fileID: 0}
     - target: {fileID: 1883512921, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2816,7 +2855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3946844827709035239, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00048828125
+      value: 0.000052928925
       objectReference: {fileID: 0}
     - target: {fileID: 3946844827709035239, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2836,6 +2875,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3946844828171021174, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946844828706827922, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
+      propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3946844828706827923, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
@@ -2976,11 +3019,11 @@ PrefabInstance:
       objectReference: {fileID: 1929228611}
     - target: {fileID: 8098247790529197937, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00012207031
+      value: 6.9670806
       objectReference: {fileID: 0}
     - target: {fileID: 8098247790529197937, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00024414062
+      value: 0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 8535643746244203907, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchorMax.x

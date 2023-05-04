@@ -102,6 +102,7 @@ MonoBehaviour:
   _playerInventory: {fileID: 0}
   _npcInventory: {fileID: 0}
   nameItem: Welding fluid
+  _itemID: 2
   typeItem: Consumables
   _owner: 
   _description: "\u0415\u043C\u043A\u043E\u0441\u0442\u044C \u0441\u043E \u0441\u0432\u0430\u0440\u043E\u0447\u043D\u043E\u0439

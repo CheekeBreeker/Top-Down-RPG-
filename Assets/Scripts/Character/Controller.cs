@@ -10,7 +10,7 @@ public class Controller : MonoBehaviour
     private PlayerInput _playerInput;
 
     [SerializeField] private FieldOfView _fieldOfHear;
-    [SerializeField] private GameObject _fade;
+    [SerializeField] public GameObject _fade;
     [SerializeField] private CharacterStatus _characterStatus;
 
     [SerializeField] private float _screamTime = 3f;

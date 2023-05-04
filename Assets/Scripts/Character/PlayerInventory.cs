@@ -20,6 +20,7 @@ public class PlayerInventory : MonoBehaviour
 
     public Drag _mainWeapon;
     public GameObject _weaponInHand;
+    public string _weaponInHandID;
 
     public float _weight;
     public float _maxWeight;
@@ -35,6 +36,10 @@ public class PlayerInventory : MonoBehaviour
     public Text _descriptionItem;
 
     private bool _isInvActive;
+
+    public List<string> _consItemsIDs;
+    public List<string> _weapItemsIDs;
+    public List<string> _expItemsIDs;
 
     private void Start()
     {
@@ -173,6 +178,9 @@ public class PlayerInventory : MonoBehaviour
         consumables.Remove(it);
         weapon.Remove(it);
         expItems.Remove(it);
+        _consItemsIDs.Remove(it._itemID);
+        _weapItemsIDs.Remove(it._itemID);
+        _expItemsIDs.Remove(it._itemID);
         InventoryEnabled();
     }
 
@@ -193,37 +201,20 @@ public class PlayerInventory : MonoBehaviour
 
             _weight -= it.mass;
             consumables.Remove(drag._item);
+            _consItemsIDs.Remove(it._itemID);
             _descriptionObj.SetActive(false);
         }
         else if (it.typeItem == "Weapon")
         {
             if (drag._ownerItem == "myItem" && _weaponInHand == null)
             {
-                GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
-                weaponObj.transform.SetParent(_rightHand);
-                weaponObj.transform.localPosition = it._posWeapAttack;
-                weaponObj.transform.localRotation = Quaternion.Euler(it._rotWeapAttack);
-
-                weaponObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                weaponObj.GetComponent<BoxCollider>().isTrigger = true;
-                _weaponInHand = weaponObj;
-
-                _mainWeapon._item = it;
-                _weaponInHand.GetComponent<Item>()._owner = "Player";
-                _mainWeapon._image.sprite = Resources.Load<Sprite>(it.pathSprite);
-                _mainWeapon._ownerItem = "myWeapon";
-                _mainWeapon._countItem++;
-                _mainWeapon._count.text = "";
-                _mainWeapon._playerInventory = this;
-
-                _weight -= it.mass / 2;
-                weapon.Remove(it);
-                _descriptionObj.SetActive(false);
+                TakeWeapon(it);
             }
             else if (drag._ownerItem == "myWeapon")
             {
                 weapon.Add(drag._item);
                 _weaponInHand.GetComponent<Item>()._owner = "Player";
+                _weapItemsIDs.Add(_weaponInHand.GetComponent<Item>()._itemID);
 
                 Destroy(_weaponInHand);
                 _weaponInHand = null;
@@ -234,6 +225,8 @@ public class PlayerInventory : MonoBehaviour
                 _mainWeapon._countItem = 0;
                 _mainWeapon._count.text = "";
                 _mainWeapon._playerInventory = null;
+
+                _weaponInHandID = null;
 
                 _weight += it.mass / 2;
             }
@@ -263,9 +256,37 @@ public class PlayerInventory : MonoBehaviour
 
             _weight -= it.mass;
             expItems.Remove(drag._item);
+            _playerJournal._itemsIDs.Add(it._itemID);
+            _expItemsIDs.Remove(it._itemID);
             _descriptionObj.SetActive(false);
         }
         InventoryEnabled();
+    }
+
+    public void TakeWeapon(Item it)
+    {
+        GameObject weaponObj = Instantiate<GameObject>(Resources.Load<GameObject>(it.pathPrefab));
+        weaponObj.transform.SetParent(_rightHand);
+        weaponObj.transform.localPosition = it._posWeapAttack;
+        weaponObj.transform.localRotation = Quaternion.Euler(it._rotWeapAttack);
+
+        weaponObj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        weaponObj.GetComponent<BoxCollider>().isTrigger = true;
+        _weaponInHand = weaponObj;
+
+        _mainWeapon._item = it;
+        _weaponInHand.GetComponent<Item>()._owner = "Player";
+        _mainWeapon._image.sprite = Resources.Load<Sprite>(it.pathSprite);
+        _mainWeapon._ownerItem = "myWeapon";
+        _mainWeapon._countItem++;
+        _mainWeapon._count.text = "";
+        _mainWeapon._playerInventory = this;
+
+        _weight -= it.mass / 2;
+        weapon.Remove(it);
+        _weapItemsIDs.Remove(it._itemID);
+        _weaponInHandID = it._itemID;
+        _descriptionObj.SetActive(false);
     }
 
     public void PlayerToBarter(Drag drag)
@@ -277,6 +298,78 @@ public class PlayerInventory : MonoBehaviour
         consumables.Remove(it);
         weapon.Remove(it);
         expItems.Remove(it);
+        _consItemsIDs.Remove(it._itemID);
+        _weapItemsIDs.Remove(it._itemID);
+        _expItemsIDs.Remove(it._itemID);
         _trading.InventoryUpdate();
+    }
+
+    public void LoadItems()
+    {
+        foreach (string id in _consItemsIDs)
+        {
+            if (id == "1")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Jelly plate"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "2")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Welding fluid"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+        }
+        foreach (var id in _weapItemsIDs)
+        {
+            if (id == "1")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Iron pipe"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                weapon.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "2")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Steel pipe"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                weapon.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "3")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Board"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                weapon.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "4")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Axe"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                weapon.Add(it);
+                itemObj.SetActive(false);
+            }
+        }
+        foreach (var id in _expItemsIDs)
+        {
+            if (id == "1")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/ExpChip"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                expItems.Add(it);
+                itemObj.SetActive(false);
+            }
+        }
     }
 }

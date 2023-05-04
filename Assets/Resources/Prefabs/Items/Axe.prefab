@@ -219,6 +219,7 @@ MonoBehaviour:
   _playerInventory: {fileID: 0}
   _npcInventory: {fileID: 0}
   nameItem: Axe
+  _itemID: 4
   typeItem: Weapon
   _owner: 
   _description: "\u0421\u0434\u0435\u043B\u0430\u043D\u043D\u044B\u0439 \u0438\u0437
@@ -264,3 +265,5 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _isWasOnSpineCollider: 0
+  _isHand: 0

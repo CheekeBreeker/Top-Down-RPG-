@@ -17,6 +17,8 @@ public class PlayerJournal : MonoBehaviour
     public GameObject _journalCell;
     public Transform _cellParent;
 
+    public List<string> _itemsIDs;
+
     private void Start()
     {
         _playerStats = GetComponent<PlayerStats>();
@@ -108,5 +110,20 @@ public class PlayerJournal : MonoBehaviour
     public void AddItem(Drag drag, Item item)
     {
         _expItem.Add(drag._item);
+    }
+
+    public void LoadItems()
+    {
+        foreach (string id in _itemsIDs)
+        {
+            if (id == "1")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/ExpChip"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                _expItem.Add(it);
+                itemObj.SetActive(false);
+            }
+        }
     }
 }

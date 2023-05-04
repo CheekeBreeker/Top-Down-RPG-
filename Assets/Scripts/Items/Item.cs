@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
 
 
     public string nameItem;
+    public string _itemID;
     public string typeItem;
     public string _owner;
 
@@ -37,7 +38,6 @@ public class Item : MonoBehaviour
     public float _weaponDamage;
     [Range (0.1f,1)]
     public float _attackSpeed;
-
 
     [SerializeField] private GameObject activeView;
 

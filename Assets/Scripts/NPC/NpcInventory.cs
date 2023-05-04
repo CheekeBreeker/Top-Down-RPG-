@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEditor.Progress;
 
 public class NpcInventory : MonoBehaviour
 {
@@ -19,9 +20,6 @@ public class NpcInventory : MonoBehaviour
 
     private void Start()
     {
-        _npcStatus = GetComponent<NpcStatus>();
-        _questGiver = GetComponent<QuestGiver>();
-
         TakeWeapon();
     }
 
@@ -30,7 +28,6 @@ public class NpcInventory : MonoBehaviour
         if (_mainWeapon != null)
         {
             _mainWeapon._owner = "Npc";
-            _items.Add(_mainWeapon);
             _objWeapon = Instantiate<GameObject>(Resources.Load<GameObject>(_mainWeapon.pathPrefab));
             _objWeapon.transform.SetParent(_rightHand);
             _objWeapon.transform.localPosition = _mainWeapon._posWeapAttack;
@@ -55,6 +52,5 @@ public class NpcInventory : MonoBehaviour
         }
 
         _mainWeapon = null;
-        Destroy(_objWeapon);
     }
 }
