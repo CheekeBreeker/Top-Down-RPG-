@@ -95,9 +95,6 @@ public class NpcSaver : MonoBehaviour
                 _isKilledTargetToSave = saveData._savedIsKilledTargets;
             }
 
-            if (_isDeadToSave) gameObject.SetActive(false);
-            if (!_isFreandlyToSave) _npcStats.BecomeAnEnemy();
-
             _npcStatus.isDead = _isDeadToSave;
             _npcStatus.isFreandly = _isFreandlyToSave;
             _npcStatus.isFollow = _isFollowToSave;
@@ -111,6 +108,9 @@ public class NpcSaver : MonoBehaviour
                 if (_isKilledTargetToSave)
                     _questGiver._killTargets = null;
             }
+
+            if (!_isFreandlyToSave) _npcStats.BecomeAnEnemy();
+            if (_isDeadToSave) gameObject.SetActive(false);
 
             Debug.Log(gameObject.name + "Npc data loaded");
         }

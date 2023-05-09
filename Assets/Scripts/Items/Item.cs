@@ -21,14 +21,21 @@ public class Item : MonoBehaviour
     public int price;
     public float mass;
     public int addHealth;
+    public int addBlock;
     public float addExp;
     public int maxCountExpItems;
+    public float timeToWork;
 
     public string pathSprite;
     public string pathPrefab;
 
     public bool isStackable;
     public bool isWendingFluid;
+    public bool isJellyPlate;
+    public bool isDieselFuel;
+    public bool isMetalPlate;
+    public bool isAntiShockFiber;
+    public bool isImprovedProcessor;
 
     public float wendingFluidUseTime;
     public float wendingFluidDamage;
@@ -61,7 +68,7 @@ public class Item : MonoBehaviour
 
     private void ActiveMaterial()
     {
-        if(Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.LeftAlt) && _owner == "")
         {
             activeView.SetActive(true);
         }

@@ -205,13 +205,13 @@ public class NpcMovenment : MonoBehaviour
         {
             _meshAgent.SetDestination(_curWayPointPos.position);
             _fieldOfView.viewRadius = 100f;
-            _fieldOfView.viewAngle = 300f;
+            _fieldOfView.viewAngle = 360f;
         }
         else
         {
-            _meshAgent.SetDestination(_panicWayPointPos.position);
+            _meshAgent.SetDestination(transform.position - _curWayPointPos.position);
             _fieldOfView.viewRadius = 100f;
-            _fieldOfView.viewAngle = 300f;
+            _fieldOfView.viewAngle = 360f;
         }
 
         float distance = Vector3.Distance(transform.position, _curWayPointPos.position);

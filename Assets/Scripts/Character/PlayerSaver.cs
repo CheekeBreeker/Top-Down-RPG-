@@ -17,7 +17,9 @@ public class PlayerSaver : MonoBehaviour
     [SerializeField] private LevelUpgrade _levelUpgrade;
     [Space]
     public float _healthToSave;
-    public float _maxHealthToSave;
+    public float _hpBlockToSave;
+    public int _levelToSave;
+    public float _curExpToSave;
     public string _weaponInHandIDToSave;
     public List<string> _consIDInInvToSave;
     public List<string> _weapIDInInvToSave;
@@ -53,7 +55,9 @@ public class PlayerSaver : MonoBehaviour
     public void Saver()
     {
         _healthToSave = _playerStats._health;
-        _maxHealthToSave = _playerStats._maxHealth;
+        _hpBlockToSave = _playerStats._blockHP;
+        _levelToSave = _playerStats._level;
+        _curExpToSave = _playerStats._curExp;
         if (_playerInventory._weaponInHand != default)
             _weaponInHandIDToSave = _playerInventory._weaponInHand.GetComponent<Item>()._itemID;
         _consIDInInvToSave = _playerInventory._consItemsIDs;
@@ -72,7 +76,9 @@ public class PlayerSaver : MonoBehaviour
         FileStream file = File.Create(Application.persistentDataPath + "/PlayerSaveData.dat");
         PlayerSaveData data = new PlayerSaveData();
         data._savedHealth = _healthToSave;
-        data._savedMaxHealth = _maxHealthToSave;
+        data._savedHpBlock = _hpBlockToSave;
+        data._savedLevel = _levelToSave;
+        data._savedCurExp = _curExpToSave;
         if (_playerInventory._weaponInHand != default)
             data._savedWeaponInHandID = _weaponInHandIDToSave;
         data._savedConsIDInInv = _consIDInInvToSave;
@@ -100,7 +106,9 @@ public class PlayerSaver : MonoBehaviour
             PlayerSaveData data = (PlayerSaveData)bf.Deserialize(file);
             file.Close();
             _healthToSave = data._savedHealth;
-            _maxHealthToSave = data._savedMaxHealth;
+            _hpBlockToSave = data._savedHpBlock;
+            _levelToSave = data._savedLevel;
+            _curExpToSave = data._savedCurExp;
             _weaponInHandIDToSave = data._savedWeaponInHandID;
             _consIDInInvToSave = data._savedConsIDInInv;
             _weapIDInInvToSave = data._savedWeapIDInInv;
@@ -115,7 +123,9 @@ public class PlayerSaver : MonoBehaviour
             _currentSceneNameToSave = data._savedCurrentSceneName;
 
             _playerStats._health = _healthToSave;
-            _playerStats._maxHealth = _maxHealthToSave;
+            _playerStats._blockHP = _hpBlockToSave;
+            _playerStats._level = _levelToSave;
+            _playerStats._curExp = _curExpToSave;
 
             _playerInventory._weaponInHandID = _weaponInHandIDToSave;
             if (_weaponInHandIDToSave != null)
@@ -179,7 +189,9 @@ public class PlayerSaver : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/PlayerSaveData.dat");
             _healthToSave = default;
-            _maxHealthToSave = default;
+            _hpBlockToSave = default;
+            _levelToSave = 1;
+            _curExpToSave = 0;
             _weaponInHandIDToSave = default;
             _consIDInInvToSave = default;
             _weapIDInInvToSave = default;
@@ -201,7 +213,9 @@ public class PlayerSaver : MonoBehaviour
 class PlayerSaveData
 {
     public float _savedHealth;
-    public float _savedMaxHealth;
+    public float _savedHpBlock;
+    public int _savedLevel;
+    public float _savedCurExp;
     public string _savedWeaponInHandID;
     public List<string> _savedConsIDInInv;
     public List<string> _savedWeapIDInInv;

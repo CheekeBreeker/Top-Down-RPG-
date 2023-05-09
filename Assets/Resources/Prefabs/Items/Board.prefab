@@ -146,12 +146,19 @@ MonoBehaviour:
   price: 15
   mass: 2
   addHealth: 0
+  addBlock: 0
   addExp: 0
   maxCountExpItems: 0
-  pathSprite: Arts/Sprites/Items/Axe
+  timeToWork: 0
+  pathSprite: Arts/Sprites/Items/Board
   pathPrefab: Prefabs/Items/Board
   isStackable: 0
   isWendingFluid: 0
+  isJellyPlate: 0
+  isDieselFuel: 0
+  isMetalPlate: 0
+  isAntiShockFiber: 0
+  isImprovedProcessor: 0
   wendingFluidUseTime: 0
   wendingFluidDamage: 0
   _posWeapAttack: {x: -0.0207, y: 0.0101, z: 0.001}
@@ -178,6 +185,8 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _damage: 0
+  _plusDamage: 0
   _isWasOnSpineCollider: 0
   _isHand: 0
 --- !u!1 &9123769978273484860

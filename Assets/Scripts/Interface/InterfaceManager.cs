@@ -40,6 +40,10 @@ public class InterfaceManager : MonoBehaviour
         {
             _JourAnim.ActiveAnim();
         }
+        if (Input.GetKeyDown(KeyCode.L) && !_characterStatus.isTrade)
+        {
+            _SkillsAnim.ActiveAnim();
+        }
         WeightInterface();
     }
 

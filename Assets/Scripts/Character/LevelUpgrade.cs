@@ -11,6 +11,7 @@ public class LevelUpgrade : MonoBehaviour
     public bool _isHaveSelfDefenceSkill;
     public bool _isHaveProrabSkill;
     public bool _isHaveProletarianSkill;
+    public bool _isHaveHumanExplSkill;
     public bool _isHaveWelderSkill;
 
     public bool _isHaveMetallistSkill;
@@ -21,6 +22,7 @@ public class LevelUpgrade : MonoBehaviour
     public bool _isTakedSelfDefenceSkill;
     public bool _isTakedProrabSkill;
     public bool _isTakedProletarianSkill;
+    public bool _isTakedHumanExpSkill;
     public bool _isTakedWelderSkill;
     public bool _isTakedMetallistSkill;
 
@@ -29,7 +31,7 @@ public class LevelUpgrade : MonoBehaviour
     public Button _selfDefenceSkillBut;
     public Button _prorabSkillBut;
     public Button _proletarianSkillBut;
-    public Button _nonBut;
+    public Button _HumanExplSkillBut;
     public Button _welderSkillBut;
     public Button _metallistSkillBut;
 
@@ -43,34 +45,20 @@ public class LevelUpgrade : MonoBehaviour
         _selfDefenceSkillBut.gameObject.SetActive(false);
         _prorabSkillBut.gameObject.SetActive(false);
         _proletarianSkillBut.gameObject.SetActive(false);
-        _nonBut.gameObject.SetActive(false);
+        _HumanExplSkillBut.gameObject.SetActive(false);
         _welderSkillBut.gameObject.SetActive(false);
         _metallistSkillBut.gameObject.SetActive(false);
 
         _selfDefenceSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
         _prorabSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
         _proletarianSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
-        _nonBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
+        _HumanExplSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
         _welderSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
         _metallistSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LookSkills();
-            if (_skillsView.activeSelf)
-            {
-                _skillsView.SetActive(false);
-                Time.timeScale = 1f;
-            }
-            else
-            {
-                _skillsView.SetActive(true);
-                Time.timeScale = 0f;
-            }
-        }
     }
 
     private void LookSkills()
@@ -87,7 +75,7 @@ public class LevelUpgrade : MonoBehaviour
             _prorabSkillBut.interactable = false;
             _proletarianSkillBut.interactable = false;
 
-            _nonBut.gameObject.SetActive(false);
+            _HumanExplSkillBut.gameObject.SetActive(false);
             _welderSkillBut.gameObject.SetActive(false);
             _metallistSkillBut.gameObject.SetActive(false);
         }
@@ -111,6 +99,12 @@ public class LevelUpgrade : MonoBehaviour
             {
                 _isHaveSelfDefenceSkill = true;
                 _proletarianSkillBut.interactable = false;
+            }
+            if (_isTakedHumanExpSkill)
+            {
+                _playerStats._maxblockHP = 50;
+                _isHaveHumanExplSkill = true;
+                _HumanExplSkillBut.interactable = false;
             }
             if (_isTakedWelderSkill)
             {
@@ -150,6 +144,13 @@ public class LevelUpgrade : MonoBehaviour
         _proletarianSkillBut.GetComponent<Graphic>().color = new Color(255f / 255, 255f / 255, 255f / 255, 255f / 255);
     }
 
+    public void HumanExplSkill()
+    {
+        _isTakedHumanExpSkill = true; 
+        _isSelectedBadSkill = true;
+        _prorabSkillBut.GetComponent<Graphic>().color = new Color(200f / 255, 200f / 255, 200f / 255, 255f / 255);
+        _proletarianSkillBut.GetComponent<Graphic>().color = new Color(255f / 255, 255f / 255, 255f / 255, 255f / 255);
+    }
     private void WelderSkill()
     {
         _isTakedWelderSkill = true;

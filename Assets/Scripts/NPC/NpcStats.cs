@@ -71,6 +71,7 @@ public class NpcStats : MonoBehaviour
         Destroy(GetComponent<NpcMovenment>());
         Destroy(_fieldOfView);
         Destroy(_fieldOfHear);
+        Destroy(_npcInventory._objWeapon);
         _npcInventory.RemoveAllItems();
         Destroy(_npcInventory);
         Destroy(GetComponent<NpcAnimation>());

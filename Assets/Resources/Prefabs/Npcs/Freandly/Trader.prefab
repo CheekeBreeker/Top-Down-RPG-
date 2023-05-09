@@ -2334,14 +2334,14 @@ GameObject:
   - component: {fileID: 5739811879727395731}
   - component: {fileID: 2920955190423571329}
   - component: {fileID: 7088149516127688684}
-  - component: {fileID: 3407101215745258825}
   - component: {fileID: 2406380344389103365}
   - component: {fileID: 2406380344389103364}
   - component: {fileID: 429452494166279873}
   - component: {fileID: 2406380344389103366}
+  - component: {fileID: 2406380344389103363}
+  - component: {fileID: 3407101215745258825}
   - component: {fileID: 2406380344389103360}
   - component: {fileID: 2406380344389103361}
-  - component: {fileID: 2406380344389103363}
   - component: {fileID: 4856586356910149329}
   - component: {fileID: 132262658491097708}
   - component: {fileID: 132262658491097707}
@@ -2430,38 +2430,6 @@ NavMeshAgent:
   m_BaseOffset: 0.6
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3407101215745258825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8347528200976429604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spine: {fileID: 2355604723418791980}
-  _npcController: {fileID: 0}
-  _npcStatus: {fileID: 0}
-  _npcInventory: {fileID: 0}
-  _health: 100
-  _maxHealth: 0
-  _isHurt: 0
-  _handDamage: 0
-  RagdollElem:
-  - {fileID: 7708327115157804656}
-  - {fileID: 4223745343370626615}
-  - {fileID: 8154705634018780151}
-  - {fileID: 3561077213625519471}
-  - {fileID: 9065347910359596938}
-  - {fileID: 4474562795933969686}
-  - {fileID: 6212153636231158226}
-  - {fileID: 3086425567989850900}
-  - {fileID: 3328163221210645125}
-  - {fileID: 4704911594364431649}
-  - {fileID: 8532456363283760312}
 --- !u!114 &2406380344389103365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2497,12 +2465,12 @@ MonoBehaviour:
   _fastAttackWalkSpeed: 0
   _acceleration: 2.5
   _actualAcceleration: 0
-  _actualSpeed: 1.25
-  _maxSpeed: 2.5
+  _actualSpeed: 2.5
+  _maxSpeed: 5
   _vertical: 0
   _horizontal: 0
   _rotateSpeed: 2.5
-  _waitTime: 3
+  _waitTime: 1
   _actualWaitTime: 0
   _distance: 0
 --- !u!114 &429452494166279873
@@ -2547,6 +2515,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067532615ab9ce244a8884180012f96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2406380344389103363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347528200976429604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _items:
+  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
+  - {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
+  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
+  - {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
+  - {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
+  _mainWeapon: {fileID: 0}
+  _hiddenWeapon: {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
+  _objWeapon: {fileID: 0}
+  _reputation: 0
+  _questGiver: {fileID: 0}
+  _isDeleteQuestGiver: 0
+  _rightHand: {fileID: 9065347910359596938}
+  _model: {fileID: 7708327115157804656}
+--- !u!114 &3407101215745258825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347528200976429604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spine: {fileID: 2355604723418791980}
+  _npcController: {fileID: 0}
+  _npcStatus: {fileID: 0}
+  _npcInventory: {fileID: 0}
+  _health: 100
+  _maxHealth: 0
+  _isHurt: 0
+  _handDamage: 0
+  RagdollElem:
+  - {fileID: 7708327115157804656}
+  - {fileID: 4223745343370626615}
+  - {fileID: 8154705634018780151}
+  - {fileID: 3561077213625519471}
+  - {fileID: 9065347910359596938}
+  - {fileID: 4474562795933969686}
+  - {fileID: 6212153636231158226}
+  - {fileID: 3086425567989850900}
+  - {fileID: 3328163221210645125}
+  - {fileID: 4704911594364431649}
+  - {fileID: 8532456363283760312}
 --- !u!114 &2406380344389103360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,7 +2585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9d36e12b9510e4f95aa9cff6dfc3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 4.18
+  viewRadius: 9
   viewAngle: 98
   targetMask:
     serializedVersion: 2
@@ -2599,31 +2625,6 @@ MonoBehaviour:
   edgeDstThreshold: 0.5
   maskCutawayDst: 0.1
   viewMeshFilter: {fileID: 841468258009656460}
---- !u!114 &2406380344389103363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8347528200976429604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _items:
-  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
-  - {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
-  - {fileID: 1157373062205978859, guid: d51be390f67faab4b870bdf962bbf6f7, type: 3}
-  - {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
-  - {fileID: 7502665884280134853, guid: f227d5e1651d50f42aa7d42a565f2fef, type: 3}
-  _mainWeapon: {fileID: 0}
-  _hiddenWeapon: {fileID: 4202443481782993956, guid: 644abf0d21de5aa4d82ccf3c06861ba0, type: 3}
-  _reputation: 0
-  _questGiver: {fileID: 0}
-  _isDeleteQuestGiver: 0
-  _rightHand: {fileID: 9065347910359596938}
-  _model: {fileID: 7708327115157804656}
 --- !u!114 &4856586356910149329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2788,8 +2789,8 @@ MonoBehaviour:
   _reputationForSave: 0
   _isQuestActiveToSave: 0
   _isQuestDoneToSave: 0
-  _isWasOnScoutTargetSave: 0
-  _isKilledTargetsSave: 0
+  _isWasOnScoutTargetToSave: 0
+  _isKilledTargetToSave: 0
 --- !u!114 &5636366446873669740
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -115,13 +115,20 @@ MonoBehaviour:
   _partsDescr: []
   price: 12
   mass: 2
-  addHealth: 20
+  addHealth: 25
+  addBlock: 10
   addExp: 0
   maxCountExpItems: 2
+  timeToWork: 5
   pathSprite: Arts/Sprites/Items/Jelly plate
   pathPrefab: Prefabs/Items/Jelly plate
   isStackable: 1
   isWendingFluid: 0
+  isJellyPlate: 1
+  isDieselFuel: 0
+  isMetalPlate: 0
+  isAntiShockFiber: 0
+  isImprovedProcessor: 0
   wendingFluidUseTime: 0
   wendingFluidDamage: 0
   _posWeapAttack: {x: 0, y: 0, z: 0}

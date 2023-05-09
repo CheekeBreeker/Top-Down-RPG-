@@ -2621,14 +2621,14 @@ GameObject:
   - component: {fileID: 4637568351106336099}
   - component: {fileID: 2843261080048352625}
   - component: {fileID: 7899931433074663708}
-  - component: {fileID: 2356630719585993657}
   - component: {fileID: 3357773864811960821}
   - component: {fileID: 3357773864811960820}
   - component: {fileID: 723288860352688177}
   - component: {fileID: 3357773864811960822}
+  - component: {fileID: 3357773864811960819}
+  - component: {fileID: 2356630719585993657}
   - component: {fileID: 3357773864811960816}
   - component: {fileID: 3357773864811960817}
-  - component: {fileID: 3357773864811960819}
   - component: {fileID: 1151826005652829940}
   - component: {fileID: 8688481650617221664}
   - component: {fileID: 8161134209640375380}
@@ -2717,38 +2717,6 @@ NavMeshAgent:
   m_BaseOffset: 0.6
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2356630719585993657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945410058687022292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spine: {fileID: 3408329527689115356}
-  _npcController: {fileID: 0}
-  _npcStatus: {fileID: 0}
-  _npcInventory: {fileID: 0}
-  _health: 100
-  _maxHealth: 0
-  _isHurt: 0
-  _handDamage: 0
-  RagdollElem:
-  - {fileID: 7279331085245243520}
-  - {fileID: 3846594857979048135}
-  - {fileID: 9139859970499450119}
-  - {fileID: 4510187342599650207}
-  - {fileID: 8228795886225738106}
-  - {fileID: 3595223259608308710}
-  - {fileID: 6470014016282160930}
-  - {fileID: 2677728721741911524}
-  - {fileID: 2435349496305661045}
-  - {fileID: 5672054536660523985}
-  - {fileID: 8760983954971079240}
 --- !u!114 &3357773864811960821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2784,8 +2752,8 @@ MonoBehaviour:
   _fastAttackWalkSpeed: 0
   _acceleration: 2.5
   _actualAcceleration: 0
-  _actualSpeed: 1.25
-  _maxSpeed: 2.5
+  _actualSpeed: 2.5
+  _maxSpeed: 5
   _vertical: 0
   _horizontal: 0
   _rotateSpeed: 2.5
@@ -2834,6 +2802,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067532615ab9ce244a8884180012f96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3357773864811960819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945410058687022292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _items: []
+  _mainWeapon: {fileID: 0}
+  _hiddenWeapon: {fileID: 3325101178867313200, guid: af18ce5bba92faf4bac24fcc85f4214d, type: 3}
+  _objWeapon: {fileID: 0}
+  _reputation: 0
+  _questGiver: {fileID: 1151826005652829940}
+  _isDeleteQuestGiver: 0
+  _rightHand: {fileID: 8228795886225738106}
+  _model: {fileID: 7279331085245243520}
+--- !u!114 &2356630719585993657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945410058687022292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spine: {fileID: 3408329527689115356}
+  _npcController: {fileID: 0}
+  _npcStatus: {fileID: 0}
+  _npcInventory: {fileID: 0}
+  _health: 100
+  _maxHealth: 0
+  _isHurt: 0
+  _handDamage: 0
+  RagdollElem:
+  - {fileID: 7279331085245243520}
+  - {fileID: 3846594857979048135}
+  - {fileID: 9139859970499450119}
+  - {fileID: 4510187342599650207}
+  - {fileID: 8228795886225738106}
+  - {fileID: 3595223259608308710}
+  - {fileID: 6470014016282160930}
+  - {fileID: 2677728721741911524}
+  - {fileID: 2435349496305661045}
+  - {fileID: 5672054536660523985}
+  - {fileID: 8760983954971079240}
 --- !u!114 &3357773864811960816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2846,7 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9d36e12b9510e4f95aa9cff6dfc3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 4.18
+  viewRadius: 9
   viewAngle: 98
   targetMask:
     serializedVersion: 2
@@ -2886,26 +2907,6 @@ MonoBehaviour:
   edgeDstThreshold: 0.5
   maskCutawayDst: 0.1
   viewMeshFilter: {fileID: 311141219471252092}
---- !u!114 &3357773864811960819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8945410058687022292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f6636d94c69071458a063ded7d290a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _items: []
-  _mainWeapon: {fileID: 0}
-  _hiddenWeapon: {fileID: 3325101178867313200, guid: af18ce5bba92faf4bac24fcc85f4214d, type: 3}
-  _reputation: 0
-  _questGiver: {fileID: 1151826005652829940}
-  _isDeleteQuestGiver: 0
-  _rightHand: {fileID: 8228795886225738106}
-  _model: {fileID: 7279331085245243520}
 --- !u!114 &1151826005652829940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3117,8 +3118,8 @@ MonoBehaviour:
   _reputationForSave: 0
   _isQuestActiveToSave: 0
   _isQuestDoneToSave: 0
-  _isWasOnScoutTargetSave: 0
-  _isKilledTargetsSave: 0
+  _isWasOnScoutTargetToSave: 0
+  _isKilledTargetToSave: 0
 --- !u!1 &8951683545920177505
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class NpcInventory : MonoBehaviour
     public List<Item> _items = new List<Item>();
     public Item _mainWeapon;
     public Item _hiddenWeapon;
-    private GameObject _objWeapon;
+    public GameObject _objWeapon;
     public int _reputation;
     public QuestGiver _questGiver;
     public bool _isDeleteQuestGiver;

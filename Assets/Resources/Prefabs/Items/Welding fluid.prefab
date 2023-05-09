@@ -117,10 +117,16 @@ MonoBehaviour:
   addHealth: 50
   addExp: 0
   maxCountExpItems: 0
+  timeToWork: 0
   pathSprite: Arts/Sprites/Items/Welding fluid
   pathPrefab: Prefabs/Items/Welding fluid
   isStackable: 1
-  isWendingFluid: 0
+  isWendingFluid: 1
+  isJellyPlate: 0
+  isDieselFuel: 0
+  isMetalPlate: 0
+  isAntiShockFiber: 0
+  isImprovedProcessor: 0
   wendingFluidUseTime: 5
   wendingFluidDamage: 0
   _posWeapAttack: {x: 0, y: 0, z: 0}

@@ -190,13 +190,33 @@ public class PlayerInventory : MonoBehaviour
 
         if (it.typeItem == "Consumables")
         {
-            if (!it.isWendingFluid)
-                _playerStats.AddHealth(drag._item.addHealth);
-            else
+            if (it.isWendingFluid)
             {
                 if (GetComponent<LevelUpgrade>()._isHaveWelderSkill)
-                    _playerStats.WendingSkillhpRegeneration(drag._item.addHealth, drag._item.wendingFluidUseTime);
+                    _playerStats.WendingSkillhpRegeneration(drag._item.addHealth, 1);
                 return;
+            }
+            else if (it.isJellyPlate)
+            {
+                _playerStats.AddMaxHealth(it.addHealth, it.timeToWork);
+            }
+            else if(it.isDieselFuel)
+            {
+                _playerStats.AddDamage(it.addHealth, it.timeToWork);
+            }
+            else if (it.isMetalPlate)
+            {
+                _playerStats.AddBlockHP(it.addBlock);
+                _playerStats.AddHealth(it.addHealth);
+            }
+            else if (it.isAntiShockFiber)
+            {
+                _playerStats.AddBlockHP(it.addBlock);
+                _playerStats.AddHealth(it.addHealth);
+            }
+            else if (it.isImprovedProcessor)
+            {
+                _playerStats.BoostSpeed(it.addHealth, it.addHealth / 5, it.timeToWork);
             }
 
             _weight -= it.mass;
@@ -319,6 +339,38 @@ public class PlayerInventory : MonoBehaviour
             if (id == "2")
             {
                 GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Welding fluid"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "3")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Diesel Fuel"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "4")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Metal Plate"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "5")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/AntiShock Fiber"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "6")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Improved Processor"));
                 Item it = itemObj.GetComponent<Item>();
                 it._partsDescr = it._description.Split('$');
                 consumables.Add(it);
