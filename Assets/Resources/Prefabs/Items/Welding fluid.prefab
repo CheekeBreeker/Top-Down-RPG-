@@ -112,15 +112,17 @@ MonoBehaviour:
     \u043D\u0430\u0432\u044B\u043A\u043E\u0432 \u044D\u0442\u043E \u043D\u0435 \n\u043F\u0440\u0438\u043D\u0435\u0441\u0435\u0442
     \u043F\u043E\u043B\u044C\u0437\u044B."
   _partsDescr: []
-  price: 10
+  price: 15
   mass: 2
   addHealth: 50
+  addBlock: 0
   addExp: 0
   maxCountExpItems: 0
   timeToWork: 0
   pathSprite: Arts/Sprites/Items/Welding fluid
   pathPrefab: Prefabs/Items/Welding fluid
   isStackable: 1
+  isNonUsable: 0
   isWendingFluid: 1
   isJellyPlate: 0
   isDieselFuel: 0
@@ -128,7 +130,7 @@ MonoBehaviour:
   isAntiShockFiber: 0
   isImprovedProcessor: 0
   wendingFluidUseTime: 5
-  wendingFluidDamage: 0
+  wendingFluidDamage: 15
   _posWeapAttack: {x: 0, y: 0, z: 0}
   _rotWeapAttack: {x: 0, y: 0, z: 0}
   _weaponDamage: 0

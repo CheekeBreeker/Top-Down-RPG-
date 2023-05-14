@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void InventoryActive()
     {
-        if (Input.GetKeyDown(KeyCode.I) && !_characterStatus.isTrade)
+        if (Input.GetKeyDown(KeyCode.Tab) && !_characterStatus.isTrade)
         {
             if (!_isInvActive)
                 InventoryDisable();
@@ -188,99 +187,106 @@ public class PlayerInventory : MonoBehaviour
     {
         Item it = drag._item;
 
-        if (it.typeItem == "Consumables")
+        if (!it.isNonUsable)
         {
-            if (it.isWendingFluid)
+            if (it.typeItem == "Consumables")
             {
-                if (GetComponent<LevelUpgrade>()._isHaveWelderSkill)
-                    _playerStats.WendingSkillhpRegeneration(drag._item.addHealth, 1);
-                return;
-            }
-            else if (it.isJellyPlate)
-            {
-                _playerStats.AddMaxHealth(it.addHealth, it.timeToWork);
-            }
-            else if(it.isDieselFuel)
-            {
-                _playerStats.AddDamage(it.addHealth, it.timeToWork);
-            }
-            else if (it.isMetalPlate)
-            {
-                _playerStats.AddBlockHP(it.addBlock);
-                _playerStats.AddHealth(it.addHealth);
-            }
-            else if (it.isAntiShockFiber)
-            {
-                _playerStats.AddBlockHP(it.addBlock);
-                _playerStats.AddHealth(it.addHealth);
-            }
-            else if (it.isImprovedProcessor)
-            {
-                _playerStats.BoostSpeed(it.addHealth, it.addHealth / 5, it.timeToWork);
-            }
-
-            _weight -= it.mass;
-            consumables.Remove(drag._item);
-            _consItemsIDs.Remove(it._itemID);
-            _descriptionObj.SetActive(false);
-        }
-        else if (it.typeItem == "Weapon")
-        {
-            if (drag._ownerItem == "myItem" && _weaponInHand == null)
-            {
-                TakeWeapon(it);
-            }
-            else if (drag._ownerItem == "myWeapon")
-            {
-                weapon.Add(drag._item);
-                _weaponInHand.GetComponent<Item>()._owner = "Player";
-                _weapItemsIDs.Add(_weaponInHand.GetComponent<Item>()._itemID);
-
-                Destroy(_weaponInHand);
-                _weaponInHand = null;
-
-                _mainWeapon._item = null;
-                _mainWeapon._image.sprite = _mainWeapon._defaultSprite;
-                _mainWeapon._ownerItem = "";
-                _mainWeapon._countItem = 0;
-                _mainWeapon._count.text = "";
-                _mainWeapon._playerInventory = null;
-
-                _weaponInHandID = null;
-
-                _weight += it.mass / 2;
-            }
-            else return;
-        }
-        else if (it.typeItem == "ExpItems")
-        {
-            for (var i = 0; i < _playerJournal._expItem.Count; i++)
-            {
-                Item expItem = _playerJournal._expItem[i];
-                if (expItem.nameItem == drag._item.nameItem)
+                if (it.isWendingFluid)
                 {
-                    foreach (var drags in _playerJournal._drags)
-                    {
-                        //if (int.Parse(drags._count.text) >= drag._item.maxCountExpItems)
-                        if(drags._countItem >= drag._item.maxCountExpItems)
-                        {
-                            drag._item.addExp /= 2;
-                            break;
-                        }
-                    }
-                    break;
+                    if (GetComponent<LevelUpgrade>()._isHaveWelderSkill)
+                        _playerStats.WendingSkillhpRegeneration(drag._item.addHealth, 1);
+                    return;
                 }
-            }
-            _playerStats.AddExp(drag._item.addExp);
-            _playerJournal.AddItem(drag, it);
+                else if (it.isJellyPlate)
+                {
+                    _playerStats.AddMaxHealth(it.addHealth, it.timeToWork);
+                }
+                else if (it.isDieselFuel)
+                {
+                    _playerStats.AddDamage(it.addHealth, it.timeToWork);
+                }
+                else if (it.isMetalPlate)
+                {
+                    _playerStats.AddBlockHP(it.addBlock);
+                    _playerStats.AddHealth(it.addHealth);
+                }
+                else if (it.isAntiShockFiber)
+                {
+                    _playerStats.AddBlockHP(it.addBlock);
+                    _playerStats.AddHealth(it.addHealth);
+                }
+                else if (it.isImprovedProcessor)
+                {
+                    _playerStats.BoostSpeed(it.addHealth, it.addHealth / 5, it.timeToWork);
+                }
+                else if (it.isAcidIron)
+                {
+                    _playerStats.TakeAwayHealth(it.addHealth);
+                }
 
-            _weight -= it.mass;
-            expItems.Remove(drag._item);
-            _playerJournal._itemsIDs.Add(it._itemID);
-            _expItemsIDs.Remove(it._itemID);
-            _descriptionObj.SetActive(false);
+                _weight -= it.mass;
+                consumables.Remove(drag._item);
+                _consItemsIDs.Remove(it._itemID);
+                _descriptionObj.SetActive(false);
+            }
+            else if (it.typeItem == "Weapon")
+            {
+                if (drag._ownerItem == "myItem" && _weaponInHand == null)
+                {
+                    TakeWeapon(it);
+                }
+                else if (drag._ownerItem == "myWeapon")
+                {
+                    weapon.Add(drag._item);
+                    _weaponInHand.GetComponent<Item>()._owner = "Player";
+                    _weapItemsIDs.Add(_weaponInHand.GetComponent<Item>()._itemID);
+
+                    Destroy(_weaponInHand);
+                    _weaponInHand = null;
+
+                    _mainWeapon._item = null;
+                    _mainWeapon._image.sprite = _mainWeapon._defaultSprite;
+                    _mainWeapon._ownerItem = "";
+                    _mainWeapon._countItem = 0;
+                    _mainWeapon._count.text = "";
+                    _mainWeapon._playerInventory = null;
+
+                    _weaponInHandID = null;
+
+                    _weight += it.mass / 2;
+                }
+                else return;
+            }
+            else if (it.typeItem == "ExpItems")
+            {
+                for (var i = 0; i < _playerJournal._expItem.Count; i++)
+                {
+                    Item expItem = _playerJournal._expItem[i];
+                    if (expItem.nameItem == drag._item.nameItem)
+                    {
+                        foreach (var drags in _playerJournal._drags)
+                        {
+                            //if (int.Parse(drags._count.text) >= drag._item.maxCountExpItems)
+                            if (drags._countItem >= drag._item.maxCountExpItems)
+                            {
+                                drag._item.addExp /= 2;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                _playerStats.AddExp(drag._item.addExp);
+                _playerJournal.AddItem(drag, it);
+
+                _weight -= it.mass;
+                expItems.Remove(drag._item);
+                _playerJournal._itemsIDs.Add(it._itemID);
+                _expItemsIDs.Remove(it._itemID);
+                _descriptionObj.SetActive(false);
+            }
+            InventoryEnabled();
         }
-        InventoryEnabled();
     }
 
     public void TakeWeapon(Item it)
@@ -376,6 +382,14 @@ public class PlayerInventory : MonoBehaviour
                 consumables.Add(it);
                 itemObj.SetActive(false);
             }
+            if (id == "7")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/AcidIron"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                consumables.Add(it);
+                itemObj.SetActive(false);
+            }
         }
         foreach (var id in _weapItemsIDs)
         {
@@ -417,6 +431,30 @@ public class PlayerInventory : MonoBehaviour
             if (id == "1")
             {
                 GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/ExpChip"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                expItems.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "2")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/DollHand"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                expItems.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "3")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/QuestDollHand"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                expItems.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "4")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/Acid Key"));
                 Item it = itemObj.GetComponent<Item>();
                 it._partsDescr = it._description.Split('$');
                 expItems.Add(it);

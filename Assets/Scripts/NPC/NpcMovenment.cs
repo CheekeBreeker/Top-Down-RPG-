@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class NpcMovenment : MonoBehaviour
 {
@@ -79,8 +77,8 @@ public class NpcMovenment : MonoBehaviour
         {
             if (_npcStatus.isNormalDoll)
                 MovenmentNormalDoll();
-            else if (_npcStatus.isBrokenDoll)
-                MovenmentBrokenDoll();
+            else if (_npcStatus.isBrokenDoll || _npcStatus.isBiomass)
+                Movenment();
         }
 
         if (_npcStatus.isWounded)
@@ -264,7 +262,7 @@ public class NpcMovenment : MonoBehaviour
                 _npcStatus.isAttack = true;
     }
 
-    private void MovenmentBrokenDoll()
+    private void Movenment()
     {
         Debug.Log("Movenment");
         _npcStatus.isWalk = true;
@@ -282,7 +280,11 @@ public class NpcMovenment : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _curWayPointPos.position);
         _distance = distance;
 
-        if (distance > 1.5f)
+        float maxDist;
+        if (_npcStatus.isBiomass) maxDist = 2;
+        else maxDist = 1.5f;
+
+        if (distance > maxDist)
         {
             _audioManager.PlayStartWalkClip();
             if (_npcStatus.isCanLook)
@@ -346,8 +348,9 @@ public class NpcMovenment : MonoBehaviour
             foreach (Transform target in _fieldOfView.visibleTargets)
             {
                 _curWayPointPos.position = target.position;
-                _panicWayPointPos.position = new Vector3(-target.position.x,
-                    target.position.y, -target.position.z);
+                if (_npcStatus.isNormalDoll)
+                    _panicWayPointPos.position = new Vector3(-target.position.x,
+                        target.position.y, -target.position.z);
                 target.GetComponent<PlayerMovement>()._characterStatus.isScream = true;
                 _ActualcurWayPointPos = target.position;
 

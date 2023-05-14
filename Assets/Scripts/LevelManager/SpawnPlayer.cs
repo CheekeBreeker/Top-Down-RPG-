@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +8,7 @@ public class SpawnPlayer : MonoBehaviour
     [SerializeField] private GameObject _player;
     [Space]
     [SerializeField] private PlayerSaver _playerSaver;
-    [SerializeField] private List<NpcSaver> _npcSavers;
+    [SerializeField] public List<NpcSaver> _npcSavers;
 
     private void Start()
     {

@@ -6,6 +6,7 @@ public class NpcStatus : MonoBehaviour
     [Space]
     public bool isNormalDoll;
     public bool isBrokenDoll;
+    public bool isBiomass;
     public bool isStartFreandlyDoll;
     [Space]
     public bool isWalk;

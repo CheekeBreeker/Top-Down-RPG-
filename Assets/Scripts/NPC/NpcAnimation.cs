@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class NpcAnimation : MonoBehaviour
 {
@@ -20,7 +17,8 @@ public class NpcAnimation : MonoBehaviour
     {
         _anim.SetBool("attack", _npcStatus.isAttack);
         _anim.SetFloat("speed", _npcMovenment._walkSpeed);
-        if (_npcStatus.isBrokenDoll) _anim.SetFloat("distance", _npcMovenment._distance);
+        if (_npcStatus.isBrokenDoll || _npcStatus.isBiomass) 
+            _anim.SetFloat("distance", _npcMovenment._distance);
 
         if (_npcStatus.isHurt) AnimationHurt();
 

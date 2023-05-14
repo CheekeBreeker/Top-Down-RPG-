@@ -153,7 +153,7 @@ MonoBehaviour:
     \u043D\u0430\u043A\u0430\u0437\u0430\u0442\u044C \u0435\u0433\u043E \u043B\u0435\u0447\u0430\u0449\u0435\u0433\u043E
     \u0432\u0440\u0430\u0447\u0430.\n</color> $\n\n"
   _partsDescr: []
-  price: 0
+  price: 10
   mass: 1
   addHealth: 0
   addBlock: 0
@@ -163,12 +163,14 @@ MonoBehaviour:
   pathSprite: Arts/Sprites/Items/ExpChip
   pathPrefab: Prefabs/Items/ExpChip
   isStackable: 1
+  isNonUsable: 0
   isWendingFluid: 0
   isJellyPlate: 0
   isDieselFuel: 0
   isMetalPlate: 0
   isAntiShockFiber: 0
   isImprovedProcessor: 0
+  isAcidIron: 0
   wendingFluidUseTime: 0
   wendingFluidDamage: 0
   _posWeapAttack: {x: 0, y: 0, z: 0}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +14,7 @@ public class NpcStats : MonoBehaviour
 
     public float _health;
     public float _maxHealth;
+    public float _healthToStan;
     public bool _isHurt;
 
     public float _handDamage;
@@ -45,7 +44,7 @@ public class NpcStats : MonoBehaviour
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
-        if (_health < _maxHealth / 2)
+        if (_health < _healthToStan || !_npcStatus.isBiomass)
         {
             GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
             _anim.SetTrigger("impact");
@@ -58,7 +57,8 @@ public class NpcStats : MonoBehaviour
     public void Die()
     {
         _npcStatus.isDead = true;
-        _anim.enabled = false;
+        if (!_npcStatus.isBiomass)
+            _anim.enabled = false;
         _npcController.enabled = false;
         _collider.enabled = false;
         _spine.SetActive(false);
@@ -75,7 +75,9 @@ public class NpcStats : MonoBehaviour
         _npcInventory.RemoveAllItems();
         Destroy(_npcInventory);
         Destroy(GetComponent<NpcAnimation>());
-        Destroy(_anim);
+        if (_npcStatus.isBiomass)
+            _anim.SetTrigger("dead");
+        else Destroy(_anim);
     }
 
     public void SpeedControl()

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 713674411}
   - component: {fileID: 713674409}
   - component: {fileID: 713674412}
+  - component: {fileID: 1019122622}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -108,6 +109,107 @@ MonoBehaviour:
   _speed: 5
   _isOpening: 0
   _isOpenable: 1
+  _isKeyDoor: 0
+  _key: {fileID: 0}
+  _audioSource: {fileID: 1019122622}
+  _openClip: {fileID: 8300000, guid: 92c703d2e369a464c9f288e7253518f9, type: 3}
+  _closeClip: {fileID: 8300000, guid: 99f0dafbda98e304d9cbf4a8d5b8c4c5, type: 3}
+--- !u!82 &1019122622
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713674407}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 4.6273937
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1150414219
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +370,7 @@ GameObject:
   - component: {fileID: 2893945286572183953}
   - component: {fileID: 1138756144917767515}
   - component: {fileID: 7517460170068668941}
+  - component: {fileID: 1022039577}
   m_Layer: 6
   m_Name: Right Corr door
   m_TagString: Untagged
@@ -353,6 +456,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01130497, y: 0.015491105, z: 0.02183263}
   m_Center: {x: -0.00000000492059, y: -0.00085825473, z: -0.0000000051232334}
+--- !u!208 &1022039577
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1498943165819929742}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.006, y: 0.008, z: 0.011000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.001, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4397066580352768559
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +557,7 @@ GameObject:
   - component: {fileID: 8968447171378771615}
   - component: {fileID: 6598517164577358421}
   - component: {fileID: 6563516349037341122}
+  - component: {fileID: 2044574149}
   m_Layer: 6
   m_Name: Left Corr door
   m_TagString: Untagged
@@ -523,6 +643,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01130497, y: 0.015491105, z: 0.02183263}
   m_Center: {x: -0.000000004858297, y: 0.00085826265, z: -0.0000000018616859}
+--- !u!208 &2044574149
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652878219230061440}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.006, y: 0.008, z: 0.011000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.001, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6353505177874835622
 GameObject:
   m_ObjectHideFlags: 0

@@ -139,15 +139,22 @@ MonoBehaviour:
     \u0442\u0440\u0443\u0431\u044B. \n\u041B\u0443\u0447\u0448\u0435 \u0447\u0435\u043C
     \u043D\u0435\u0447\u0435\u0433\u043E. "
   _partsDescr: []
-  price: 10
+  price: 35
   mass: 3
   addHealth: 0
+  addBlock: 0
   addExp: 0
   maxCountExpItems: 0
+  timeToWork: 0
   pathSprite: Arts/Sprites/Items/Iron pipe
   pathPrefab: Prefabs/Items/Iron pipe
   isStackable: 0
   isWendingFluid: 0
+  isJellyPlate: 0
+  isDieselFuel: 0
+  isMetalPlate: 0
+  isAntiShockFiber: 0
+  isImprovedProcessor: 0
   wendingFluidUseTime: 0
   wendingFluidDamage: 0
   _posWeapAttack: {x: -0.00843, y: 0.00737, z: -0.00171}
@@ -174,6 +181,8 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _damage: 0
+  _plusDamage: 0
   _isWasOnSpineCollider: 0
   _isHand: 0
 --- !u!1 &6421450801742607589

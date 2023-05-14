@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -32,9 +30,7 @@ public class NpcSaver : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5)) Saver();
         if (Input.GetKeyDown(KeyCode.F6)) Loader();
-        if (Input.GetKeyDown(KeyCode.F7)) ResetData();
     }
 
     public void Saver()
@@ -48,9 +44,11 @@ public class NpcSaver : MonoBehaviour
         {
             _isQuestActiveToSave = _questGiver._isActive;
             _isQuestDoneToSave = _questGiver._isDone;
-            _isWasOnScoutTargetToSave = _questGiver._isWasOnScoutTarget;
-            if (_questGiver._killTargets.Count == 0)
-                _isKilledTargetToSave = true;
+            if (_questGiver._questType == 3)
+                _isWasOnScoutTargetToSave = _questGiver._isWasOnScoutTarget;
+            else if (_questGiver._questType == 2)
+                if (_questGiver._killTargets.Count == 0)
+                    _isKilledTargetToSave = true;
         }
 
         BinaryFormatter bf = new BinaryFormatter();

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -30,12 +26,14 @@ public class Item : MonoBehaviour
     public string pathPrefab;
 
     public bool isStackable;
+    public bool isNonUsable;
     public bool isWendingFluid;
     public bool isJellyPlate;
     public bool isDieselFuel;
     public bool isMetalPlate;
     public bool isAntiShockFiber;
     public bool isImprovedProcessor;
+    public bool isAcidIron;
 
     public float wendingFluidUseTime;
     public float wendingFluidDamage;

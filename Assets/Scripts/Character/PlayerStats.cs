@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
@@ -138,8 +137,9 @@ public class PlayerStats : MonoBehaviour
         fade._anim.SetBool("isDead", true);
         Time.timeScale = 0.0001f;
         fade._anim.speed = 10000f;
-        GetComponent<AudioListener>().enabled = false;
+        GetComponentInChildren<AudioListener>().enabled = false;
         GetComponent<AudioManager>().enabled = false;
+        SceneManager.LoadScene("Start");
     }
 
     public void HPControl()

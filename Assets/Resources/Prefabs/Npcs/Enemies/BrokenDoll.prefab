@@ -1519,8 +1519,9 @@ MonoBehaviour:
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
-  _health: 100
+  _health: 250
   _maxHealth: 0
+  _healthToStan: 70
   _isHurt: 0
   _handDamage: 15
   RagdollElem:
@@ -1564,6 +1565,7 @@ MonoBehaviour:
   _wayPoints: []
   _lookPoint: {fileID: 0}
   _curWayPointPos: {fileID: 6929643012350160467}
+  _panicWayPointPos: {fileID: 0}
   _isWaiting: 0
   _walkSpeed: 0
   _fastAttackWalkSpeed: 7
@@ -1589,8 +1591,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0150ae486e5934ca571fcb257595a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dollID: 0
+  _npcSaver: {fileID: 0}
   isNormalDoll: 0
   isBrokenDoll: 1
+  isBiomass: 0
+  isStartFreandlyDoll: 0
   isWalk: 0
   isAttack: 0
   isAttackDamage: 0
@@ -1602,6 +1608,8 @@ MonoBehaviour:
   isDead: 0
   isFreandly: 0
   isFollow: 0
+  isPanic: 0
+  _panicTime: 0
 --- !u!114 &3549289724905848567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,6 +1625,7 @@ MonoBehaviour:
   _items: []
   _mainWeapon: {fileID: 0}
   _hiddenWeapon: {fileID: 0}
+  _objWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0
@@ -1704,10 +1713,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 167
   DopplerLevel: 1
   MinDistance: 0.8791714
-  MaxDistance: 500
+  MaxDistance: 12.69779
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1794,10 +1803,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5886f204af2234b4f97d2c284cfb942d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkClip: {fileID: 0}
-  _attackClip: {fileID: 0}
-  _damagingClip: {fileID: 0}
-  _damagedClip: {fileID: 0}
+  _walkClip: {fileID: 8300000, guid: 75430fe6b97e12d4c86d10503d907d9a, type: 3}
+  _attackClip: {fileID: 8300000, guid: a4e6c44c32170c347b77567cfb4944f3, type: 3}
+  _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
+  _damagedClip: {fileID: 8300000, guid: 77929e9bbcba019429b29dbe066897ae, type: 3}
 --- !u!1 &7984751552436435076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1929,6 +1938,9 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _damage: 0
+  _plusDamage: 0
+  _isWasOnSpineCollider: 0
   _isHand: 1
 --- !u!1 &8676443203502702503
 GameObject:
@@ -2093,4 +2105,7 @@ MonoBehaviour:
   _playerMovement: {fileID: 0}
   _npcStats: {fileID: 0}
   _item: {fileID: 0}
+  _damage: 0
+  _plusDamage: 0
+  _isWasOnSpineCollider: 0
   _isHand: 1

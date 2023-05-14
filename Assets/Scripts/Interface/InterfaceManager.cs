@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +30,7 @@ public class InterfaceManager : MonoBehaviour
     {
         CursorMove();
 
-        if (Input.GetKeyDown(KeyCode.I) && !_characterStatus.isTrade)
+        if (Input.GetKeyDown(KeyCode.Tab) && !_characterStatus.isTrade)
         {
             _InventoryAnim.ActiveAnim();
         }

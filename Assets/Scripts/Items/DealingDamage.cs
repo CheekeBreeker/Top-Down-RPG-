@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class DealingDamage : MonoBehaviour
 {
@@ -43,51 +39,60 @@ public class DealingDamage : MonoBehaviour
         {
             if (_item._owner == "Player")
             {
-                if (_characterStatus.isAttackDamaging && other.gameObject.CompareTag("Enemy"))
+                if (_characterStatus.isAttackDamaging)
                 {
-                    GetComponentInParent<AudioManager>().PlayDamagingClip();
-                    Attacking(true, other);
-                    return;
-                }
-                else if (_characterStatus.isAttackDamaging && (other.gameObject.CompareTag("Trader") || other.gameObject.CompareTag("Freandly Npc")))
-                {
-                    GetComponentInParent<AudioManager>().PlayDamagingClip();
-                    Attacking(true, other);
+                    if (other.gameObject.CompareTag("Enemy"))
+                    {
+                        GetComponentInParent<AudioManager>().PlayDamagingClip();
+                        Attacking(true, other);
+                        return;
+                    }
+                    else if (other.gameObject.CompareTag("Trader") || other.gameObject.CompareTag("Freandly Npc"))
+                    {
+                        GetComponentInParent<AudioManager>().PlayDamagingClip();
+                        Attacking(true, other);
 
-                    other.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
-                    return;
+                        other.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+                        return;
+                    }
                 }
             }
 
             else if (_item._owner == "Npc")
             {
-                if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
+                if (_npcStatus.isAttackDamage)
                 {
-                    GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
-                    Attacking(false, other);
-                    return;
+                    if (other.gameObject.CompareTag("Player"))
+                    {
+                        GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
+                        Attacking(false, other);
+                        return;
+                    }
                 }
             }
             else return;
         }
         else
         {
-            if (_npcStatus.isAttackDamage && other.gameObject.CompareTag("Player"))
+            if (_npcStatus.isAttackDamage)
             {
-                GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
-                _playerStats = other.gameObject.GetComponent<PlayerStats>();
-
-                if (_playerStats._wendingFluidUseTime > 0)
-                    _playerStats.TakeAwayHealth(GetComponent<Item>().wendingFluidDamage);
-
-                _playerStats.TakeAwayHealth(_npcStats._handDamage);
-                Debug.Log("enemy damage " + _npcStats._handDamage);
-                if (_isWasOnSpineCollider)
+                if (other.gameObject.CompareTag("Player"))
                 {
-                    _plusDamage -= _item._weaponDamage * 1.3f;
-                    _isWasOnSpineCollider = false;
+                    GetComponentInParent<NpcAudioManager>().PlayDamagingClip();
+                    _playerStats = other.gameObject.GetComponent<PlayerStats>();
+
+                    if (_playerStats._wendingFluidUseTime > 0)
+                        _playerStats.TakeAwayHealth(GetComponent<Item>().wendingFluidDamage);
+
+                    _playerStats.TakeAwayHealth(_npcStats._handDamage);
+                    Debug.Log("enemy damage " + _npcStats._handDamage);
+                    if (_isWasOnSpineCollider)
+                    {
+                        _plusDamage -= _item._weaponDamage * 1.3f;
+                        _isWasOnSpineCollider = false;
+                    }
+                    return;
                 }
-                return;
             }
         }
     }

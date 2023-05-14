@@ -1,9 +1,4 @@
-using log4net.Util;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEditor;
-using UnityEngine.UIElements;
 
 [CustomEditor (typeof (FieldOfView))]
 public class FieldOfViewEditor : Editor

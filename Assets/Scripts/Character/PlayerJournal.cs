@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
-using static UnityEditor.Timeline.Actions.MenuPriority;
 
 public class PlayerJournal : MonoBehaviour
 {
@@ -119,6 +115,14 @@ public class PlayerJournal : MonoBehaviour
             if (id == "1")
             {
                 GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/ExpChip"));
+                Item it = itemObj.GetComponent<Item>();
+                it._partsDescr = it._description.Split('$');
+                _expItem.Add(it);
+                itemObj.SetActive(false);
+            }
+            if (id == "2")
+            {
+                GameObject itemObj = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Items/DollHand"));
                 Item it = itemObj.GetComponent<Item>();
                 it._partsDescr = it._description.Split('$');
                 _expItem.Add(it);

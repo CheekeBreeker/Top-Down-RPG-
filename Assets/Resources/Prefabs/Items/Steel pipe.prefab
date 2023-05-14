@@ -139,7 +139,7 @@ MonoBehaviour:
   _description: "\u0421\u0442\u0430\u043B\u044C\u043D\u0430\u044F \u0442\u0440\u0443\u0431\u0430.\n\u0425\u043E\u0440\u043E\u0448\u043E
     \u043B\u043E\u043C\u0430\u0435\u0442 \u0432\u0441\u0435 \u0447\u0442\u043E \u043C\u043E\u0436\u043D\u043E."
   _partsDescr: []
-  price: 20
+  price: 45
   mass: 2
   addHealth: 0
   addBlock: 0

@@ -1,13 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
-using System.Text;
-using Newtonsoft.Json;
-using System.Security.Cryptography;
 
 public class PlayerSaver : MonoBehaviour
 {
@@ -15,6 +11,7 @@ public class PlayerSaver : MonoBehaviour
     [SerializeField] private PlayerInventory _playerInventory;
     [SerializeField] private PlayerJournal _playerJournal;
     [SerializeField] private LevelUpgrade _levelUpgrade;
+    [SerializeField] private CurrentLevelPosition _currentLevelPosition;
     [Space]
     public float _healthToSave;
     public float _hpBlockToSave;
@@ -33,23 +30,19 @@ public class PlayerSaver : MonoBehaviour
     public bool _isHaveMetallistSkillToSave;
     [Space]
     public string _currentSceneNameToSave;
+    public int _currentLevelPositionToSave;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5)) Saver();
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/PlayerSaveData.dat", FileMode.Open);
-            PlayerSaveData data = (PlayerSaveData)bf.Deserialize(file);
-            file.Close();
-            SceneManager.LoadScene(data._savedCurrentSceneName);
-            Loader();
-        }
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
-            ResetData();
-        }
+
+        //{
+        //    BinaryFormatter bf = new BinaryFormatter();
+        //    FileStream file = File.Open(Application.persistentDataPath + "/PlayerSaveData.dat", FileMode.Open);
+        //    PlayerSaveData data = (PlayerSaveData)bf.Deserialize(file);
+        //    file.Close();
+        //    SceneManager.LoadScene(data._savedCurrentSceneName);
+        //    Loader();
+        //}
     }
 
     public void Saver()
@@ -71,6 +64,7 @@ public class PlayerSaver : MonoBehaviour
         _isHaveWelderSkillToSave = _levelUpgrade._isHaveWelderSkill;
         _isHaveMetallistSkillToSave = _levelUpgrade._isHaveMetallistSkill;
         _currentSceneNameToSave = SceneManager.GetActiveScene().name;
+        _currentLevelPositionToSave = _currentLevelPosition.numberOfCurrentPointPos; 
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/PlayerSaveData.dat");
@@ -92,6 +86,7 @@ public class PlayerSaver : MonoBehaviour
         data._savedIsHaveWelderSkill = _isHaveWelderSkillToSave;
         data._savedIsHaveMetallistSkill = _isHaveMetallistSkillToSave;
         data._savedCurrentSceneName = _currentSceneNameToSave;
+        data._savedCurrentLevelPosition = _currentLevelPositionToSave;
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Player new data saved");
@@ -121,6 +116,7 @@ public class PlayerSaver : MonoBehaviour
             _isHaveWelderSkillToSave = data._savedIsHaveWelderSkill;
             _isHaveMetallistSkillToSave = data._savedIsHaveMetallistSkill;
             _currentSceneNameToSave = data._savedCurrentSceneName;
+            _currentLevelPositionToSave = data._savedCurrentLevelPosition;
 
             _playerStats._health = _healthToSave;
             _playerStats._blockHP = _hpBlockToSave;
@@ -178,6 +174,8 @@ public class PlayerSaver : MonoBehaviour
             _levelUpgrade._isTakedWelderSkill = _isHaveWelderSkillToSave;
             _levelUpgrade._isTakedMetallistSkill = _isHaveMetallistSkillToSave;
 
+            _currentLevelPosition.numberOfCurrentPointPos = _currentLevelPositionToSave;
+
             Debug.Log("Player data loaded");
         }
         else Debug.LogError("There is no save data");
@@ -203,6 +201,8 @@ public class PlayerSaver : MonoBehaviour
             _isHaveProletarianSkillToSave = default;
             _isHaveWelderSkillToSave = default;
             _currentSceneNameToSave = "Test Level";
+            _currentLevelPositionToSave = 0;
+
             Debug.Log("Data reset complete");
         }
         else Debug.LogError("No save data to delete.");
@@ -228,4 +228,5 @@ class PlayerSaveData
     public bool _savedIsHaveWelderSkill;
     public bool _savedIsHaveMetallistSkill;
     public string _savedCurrentSceneName;
+    public int _savedCurrentLevelPosition;
 }

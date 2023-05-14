@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -17,18 +14,23 @@ public class SceneChanger : MonoBehaviour
     [Space]
     [SerializeField] private PlayerSaver _playerSaver;
     [SerializeField] private NpcLoader _npcLoader;
+    [SerializeField] private SpawnPlayer _spawnPlayer;
     private void Start()
     {
         _currentTimeToNext = _timeToNext;
         _playerSaver = GameObject.Find("Player").GetComponent<PlayerSaver>();
         _npcLoader = GameObject.Find("Environments").GetComponentInChildren<NpcLoader>();
+        _spawnPlayer = GetComponentInParent<SpawnPlayer>();
     }
 
     public void ChangeScene()
     {
         _levelPosition.numberOfCurrentPointPos = _nextSceneSpawnNumber;
         _playerSaver.Saver();
-        _npcLoader.SaveData();
+        foreach (var savers in _spawnPlayer._npcSavers)
+        {
+            savers.Saver();
+        }
         SceneManager.LoadScene(_nextSceneName);
     }
 

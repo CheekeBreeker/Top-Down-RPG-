@@ -594,8 +594,9 @@ MonoBehaviour:
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
-  _health: 100
+  _health: 175
   _maxHealth: 0
+  _healthToStan: 50
   _isHurt: 0
   _handDamage: 0
   RagdollElem:
@@ -669,6 +670,7 @@ MonoBehaviour:
   _npcSaver: {fileID: 0}
   isNormalDoll: 1
   isBrokenDoll: 0
+  isBiomass: 0
   isStartFreandlyDoll: 0
   isWalk: 0
   isAttack: 0
@@ -762,6 +764,7 @@ MonoBehaviour:
   _items: []
   _mainWeapon: {fileID: 3325101178867313200, guid: 756ac9c9d5c3d6c48853a76282cefd5c, type: 3}
   _hiddenWeapon: {fileID: 0}
+  _objWeapon: {fileID: 0}
   _reputation: 0
   _questGiver: {fileID: 0}
   _isDeleteQuestGiver: 0
@@ -788,7 +791,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 12.69779
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
