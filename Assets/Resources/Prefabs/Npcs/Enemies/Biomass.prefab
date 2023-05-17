@@ -743,8 +743,8 @@ MonoBehaviour:
   _npcController: {fileID: 3018716886715997632}
   _npcStatus: {fileID: 3018716886715997633}
   _npcInventory: {fileID: 3018716886715997634}
-  _health: 1
-  _maxHealth: 1
+  _health: 500
+  _maxHealth: 500
   _healthToStan: 0
   _isHurt: 0
   _handDamage: 15
@@ -763,7 +763,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fieldOfView: {fileID: 3018716886715997637}
   _fieldOfHear: {fileID: 3018716886715997638}
-  _wayPoints: []
+  _wayPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   _lookPoint: {fileID: 0}
   _curWayPointPos: {fileID: 177264229854140543}
   _panicWayPointPos: {fileID: 0}
@@ -940,10 +945,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5886f204af2234b4f97d2c284cfb942d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkClip: {fileID: 0}
-  _attackClip: {fileID: 0}
-  _damagingClip: {fileID: 0}
-  _damagedClip: {fileID: 0}
+  _walkClip: {fileID: 8300000, guid: 31bfb64f136d3d841b2e1eca57045ea8, type: 3}
+  _attackClip: {fileID: 8300000, guid: 926e2576059c54b4aa4b80c51c08c39c, type: 3}
+  _damagingClip: {fileID: 8300000, guid: 5d5cc2e5ee0cac34fab4413cb5713419, type: 3}
+  _damagedClip: {fileID: 8300000, guid: 659a1e369802f2346992b465285447b9, type: 3}
 --- !u!114 &3018716886715997661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,7 +1353,7 @@ GameObject:
   - component: {fileID: 6013583138643659629}
   m_Layer: 0
   m_Name: Sceleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

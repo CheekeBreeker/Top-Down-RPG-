@@ -43,8 +43,8 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.8598856, g: 1, b: 0.8039216, a: 1}
-  m_Intensity: 0.41
+  m_Color: {r: 1, g: 0.20000002, b: 0, a: 1}
+  m_Intensity: 1.29
   m_Range: 10
   m_SpotAngle: 75.090996
   m_InnerSpotAngle: 5
@@ -202,6 +202,14 @@ MonoBehaviour:
   _speed: 5
   _isOpening: 0
   _isOpenable: 0
+  _isBroken: 0
+  _isHaveKey: 0
+  _isKeyDoor: 0
+  _key: {fileID: 0}
+  _playerInventory: {fileID: 0}
+  _audioSource: {fileID: 0}
+  _openClip: {fileID: 0}
+  _closeClip: {fileID: 0}
 --- !u!1 &1357340384721895743
 GameObject:
   m_ObjectHideFlags: 0

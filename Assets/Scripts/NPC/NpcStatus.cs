@@ -37,18 +37,19 @@ public class NpcStatus : MonoBehaviour
 
     private void Update()
     {
-        PanicController();
+        if (!isDead)
+            PanicController();
     }
 
     private void PanicController()
     {
-        if (isHurt && isWalk && _panicTime > 0)
+        if (isWounded && isWalk && _panicTime > 0)
         {
             _panicTime -= Time.deltaTime;
             if (_panicTrigger == true) isPanic = true;
             else isPanic = false;
         }
-        else if (isHurt && isWalk && _panicTime < 0)
+        else if (isWounded && isWalk && _panicTime < 0)
         {
             PanicTrigger();
             _panicTime = _actualPanicTime;

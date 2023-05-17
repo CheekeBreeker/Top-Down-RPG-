@@ -44,12 +44,12 @@ public class NpcStats : MonoBehaviour
     public void TakeAwayHealth(float takeAway)
     {
         _health -= takeAway;
-        if (_health < _healthToStan || !_npcStatus.isBiomass)
+        if (_health < _healthToStan)
         {
             GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
             _anim.SetTrigger("impact");
             _npcStatus.isHurt = true;
-        }
+        }    
         if (_health <= 0)
             Die();
     }
