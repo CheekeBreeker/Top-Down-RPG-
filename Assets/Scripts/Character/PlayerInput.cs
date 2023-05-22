@@ -60,6 +60,9 @@ public class PlayerInput : MonoBehaviour
             !_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAiming && !_characterStatus.isAttack)
             _characterStatus.isUsing = Input.GetKeyDown(KeyCode.E);
         else _characterStatus.isUsing = isUsing;
+
+        if (!_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAiming && !_characterStatus.isAttack
+            && Input.GetKeyDown(KeyCode.Z) && _playerMovement._levelUpgrade._isHaveMetallistSkill) _animator.SetTrigger("down");
     }
 
     private bool IsAnimPlaying(string animName)

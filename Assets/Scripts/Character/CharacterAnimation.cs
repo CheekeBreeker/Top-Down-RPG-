@@ -5,6 +5,9 @@ public class CharacterAnimation : MonoBehaviour
     private Animator _anim;
     private PlayerMovement _playerMovement;
     public CharacterStatus _characterStatus;
+    public AudioManager _audioManager;
+
+    [SerializeField] private FieldOfView _fieldOfView;
 
     public Animator _interfaceAnim;
 
@@ -12,6 +15,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         _anim = GetComponent<Animator>();
         _playerMovement = GetComponent<PlayerMovement>();
+        _audioManager = GetComponent<AudioManager>();
     }
 
     public void AnimationUpdate()
@@ -45,15 +49,40 @@ public class CharacterAnimation : MonoBehaviour
     }
     void DodgeControllerTrue_AnimEvent()
     {
+        _audioManager.PlayDodgeClip();
         _playerMovement._isCanLook = false;
+        _playerMovement._isCanMove = false;
         GetComponent<CapsuleCollider>().enabled = false;
-        GetComponentInChildren<BoxCollider>().enabled = false;
+        //GetComponentInChildren<BoxCollider>().enabled = false;
     }
     void DodgeControllerFalls_AnimEvent()
     {
         _playerMovement._isCanLook = true;
+        _playerMovement._isCanMove = true;
         GetComponent<CapsuleCollider>().enabled = true;
-        GetComponentInChildren<BoxCollider>().enabled = true;
+        //GetComponentInChildren<BoxCollider>().enabled = true;
+    }
+    void InvisibleControllerTrue_AnimEvent()
+    {
+        _audioManager.PlayDodgeClip();
+        _playerMovement._isCanLook = false;
+        _playerMovement._isCanMove = false;
+        _playerMovement._isActiveSkill = true;
+        _fieldOfView.viewRadius = 3;
+        _fieldOfView.viewAngle = 360;
+        GetComponent<CapsuleCollider>().enabled = false;
+        //GetComponentInChildren<BoxCollider>().enabled = false;
+    }
+    void InvisibleControllerFalls_AnimEvent()
+    {
+        _audioManager.PlayDodgeClip();
+        _playerMovement._isCanLook = true;
+        _playerMovement._isCanMove = true;
+        _playerMovement._isActiveSkill = false;
+        _fieldOfView.viewRadius = 12.9f;
+        _fieldOfView.viewAngle = 124;
+        GetComponent<CapsuleCollider>().enabled = true;
+        //GetComponentInChildren<BoxCollider>().enabled = true;
     }
     void AnimationSprint()
     {

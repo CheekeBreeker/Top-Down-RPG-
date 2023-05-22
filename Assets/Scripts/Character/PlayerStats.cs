@@ -193,6 +193,7 @@ public class PlayerStats : MonoBehaviour
             _level += 1;
             _exp = 100 * _level;
             _curExp = 0;
+            GetComponent<AudioManager>().PlayLevelUpClip();
         }
 
         else if (_curExp > _exp)
@@ -200,6 +201,7 @@ public class PlayerStats : MonoBehaviour
             _curExp -= _exp;
             _level += 1;
             _exp = 100 * _level;
+            GetComponent<AudioManager>().PlayLevelUpClip();
         }
     }
 

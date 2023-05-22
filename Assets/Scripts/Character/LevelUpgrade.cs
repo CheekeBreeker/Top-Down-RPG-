@@ -11,11 +11,7 @@ public class LevelUpgrade : MonoBehaviour
     public bool _isHaveProletarianSkill;
     public bool _isHaveHumanExplSkill;
     public bool _isHaveWelderSkill;
-
     public bool _isHaveMetallistSkill;
-    public float _cooldownMetallistSkill;
-    public float _timeMetallistSkill;
-    public float _curTimeMetallistSkill;
 
     public bool _isTakedSelfDefenceSkill;
     public bool _isTakedProrabSkill;
@@ -90,12 +86,12 @@ public class LevelUpgrade : MonoBehaviour
             }
             if (_isTakedProrabSkill)
             {
-                _isHaveSelfDefenceSkill = true;
+                _isHaveProrabSkill = true;
                 _prorabSkillBut.interactable = false;
             }
             if (_isTakedProletarianSkill)
             {
-                _isHaveSelfDefenceSkill = true;
+                _isHaveProletarianSkill = true;
                 _proletarianSkillBut.interactable = false;
             }
             if (_isTakedHumanExpSkill)
@@ -106,12 +102,12 @@ public class LevelUpgrade : MonoBehaviour
             }
             if (_isTakedWelderSkill)
             {
-                _isHaveSelfDefenceSkill = true;
+                _isHaveWelderSkill = true;
                 _welderSkillBut.interactable = false;
             }
             if (_isTakedMetallistSkill)
             {
-                _isHaveSelfDefenceSkill = true;
+                _isHaveMetallistSkill = true;
                 _metallistSkillBut.interactable = false;
             }
         }

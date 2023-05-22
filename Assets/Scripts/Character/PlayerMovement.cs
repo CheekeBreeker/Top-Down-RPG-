@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     public InterfaceManager _interfaceManager;
     public PlayerInventory _playerInventory;
+    public LevelUpgrade _levelUpgrade;
     public Transform _playerModel;
 
     [SerializeField] public CharacterStatus _characterStatus;
@@ -23,37 +24,40 @@ public class PlayerMovement : MonoBehaviour
 
     private float distance;
     public bool _isCanLook;
+    public bool _isCanMove;
+    public bool _isActiveSkill;
+    private float _dodgeVertical;
+    private float _dodgeHorizontal;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _playerInventory = GetComponent<PlayerInventory>();
         _dialog = GetComponent<Dialog>();
+        _levelUpgrade = GetComponent<LevelUpgrade>();
         _playerModel = gameObject.transform.Find("PlayerModel").transform;
     }
 
     public void MoveUpdate()
     {
-        if (GetComponent<LevelUpgrade>()._curTimeMetallistSkill <= 0)
+        if (!_isActiveSkill)
         {
             vertical = Input.GetAxis("Vertical");
             horizontal = Input.GetAxis("Horizontal");
-
-
-            MovementDepending();
-
-            _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
         }
-        else
-        {
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            Vector3 difference = mousePosition - transform.position;
-            difference.Normalize();
-            float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+        MovementDepending();
 
-        }
+        _rb.MovePosition(_rb.position + moveVelocity * Time.deltaTime);
+
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector3 difference = mousePosition - transform.position;
+        difference.Normalize();
+        float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
+        _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+
+
         CameraPosition();
     }
 
@@ -69,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (_characterStatus.isAttack)
         {
-            ClickUpdate();
             if (!_characterStatus.isSprint)
                 NormalMove(_walkSpeed / 5);
             else SprintMove(_sprintSpeed / 2);
@@ -204,10 +207,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void DodgeMove()
     {
-        float dodgeVertical = 0f;
-        float dodgeHorizontal = 0f; 
+        if (_isCanMove)
+        {
+            _dodgeVertical = vertical;
+            _dodgeHorizontal = horizontal;
+        }
         LookForward(15f);
-        transform.position += new Vector3(dodgeHorizontal, 0f, dodgeVertical) * _sprintSpeed * Time.deltaTime; 
+        transform.position += new Vector3(-_dodgeVertical, 0f, _dodgeHorizontal) * _sprintSpeed * Time.deltaTime;
     }
 
     private void LookForward(float rotationSpeed)
