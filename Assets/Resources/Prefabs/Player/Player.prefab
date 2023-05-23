@@ -1682,12 +1682,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcInventory: {fileID: 0}
-  _playerInventory: {fileID: 0}
-  _playerJournal: {fileID: 0}
+  _playerInventory: {fileID: 1799391162}
+  _playerJournal: {fileID: 4500716798864694492}
   _questGiver: {fileID: 0}
   _npcDialogs: {fileID: 0}
   _characterStatus: {fileID: 11400000, guid: 7dc8853807789b94e8144715ec482419, type: 2}
-  _interfaceManager: {fileID: 0}
+  _interfaceManager: {fileID: 5952712694666013124}
   _drags: []
   _inventory: {fileID: 6313244379171064277}
   _dialog: {fileID: 1783842990067504711}
@@ -2842,7 +2842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 103081958, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0018859371
+      value: -0.0000034865172
       objectReference: {fileID: 0}
     - target: {fileID: 276418276, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2926,11 +2926,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1726618005, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_Size
-      value: 0.43897066
+      value: 0.446195
       objectReference: {fileID: 0}
     - target: {fileID: 1726618005, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_Value
-      value: 1.0000068
+      value: 0.9999999
       objectReference: {fileID: 0}
     - target: {fileID: 1883512921, guid: f8d68789b90e7f049aadec3beb01664e, type: 3}
       propertyPath: m_AnchorMax.x

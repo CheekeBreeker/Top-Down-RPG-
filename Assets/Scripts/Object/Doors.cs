@@ -20,11 +20,19 @@ public class Doors : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip _openClip;
     [SerializeField] private AudioClip _closeClip;
-    
+
+    [SerializeField] private GameObject _activeView;
 
     private void Update()
     {
         DoorControll();
+
+        if (_isOpenable)
+        {
+            if (Input.GetKey(KeyCode.LeftAlt))
+                _activeView.gameObject.SetActive(true);
+            else _activeView.gameObject.SetActive(false);
+        }
     }
 
     private void DoorControll()

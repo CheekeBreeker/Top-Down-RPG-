@@ -52,11 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        Vector3 difference = mousePosition - transform.position;
-        difference.Normalize();
-        float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
-        _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
-
+        if (_isCanLook)
+        {
+            Vector3 difference = mousePosition - transform.position;
+            difference.Normalize();
+            float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
+            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+        }
 
         CameraPosition();
     }
