@@ -191,57 +191,108 @@ public class Dialog : MonoBehaviour
             _attentionText.text = _npcDialogs._attention;
         else _attentionText.text = "";
 
-        if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
+        if (_questGiver._questCompetitor != null)
         {
-            _DoneQuestBut.SetActive(true);
-            _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+            if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
+            {
+                _DoneQuestBut.SetActive(true);
+                _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+            }
+            else if (_questGiver._questCompetitor._isDone)
+            {
+                _DoneQuestBut.SetActive(true);
+                _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+            }
         }
-        else if (_questGiver._questCompetitor._isDone)
+        else
         {
-            _DoneQuestBut.SetActive(true);
-            _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+            if (_questGiver._isDone)
+            {
+                _DoneQuestBut.SetActive(true);
+                _DoneQuestText.text = _npcDialogs._DoneQuestDescription;
+            }
         }
     }
 
     public void DoneQuestButton()
     {
-        if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
+        if (_questGiver._questCompetitor != null)
         {
-            if (_questGiver._itemReward.typeItem == "Consumables")
-                _playerInventory.consumables.Add(_questGiver._itemReward);
-            else if (_questGiver._itemReward.typeItem == "Weapon")
-                _playerInventory.weapon.Add(_questGiver._itemReward);
-            else if (_questGiver._itemReward.typeItem == "ExpItems")
-                _playerInventory.expItems.Add(_questGiver._itemReward);
-            _npcInventory._reputation += _questGiver._plusRep;
-
-            if (_questGiver._questType == 1)
+            if (_questGiver._isDone && !_questGiver._questCompetitor._isDone)
             {
-                DeletingItems(_playerInventory.consumables);
-                DeletingItems(_playerInventory.weapon);
-                DeletingItems(_playerInventory.expItems);
+                if (_questGiver._itemReward.typeItem == "Consumables")
+                    _playerInventory.consumables.Add(_questGiver._itemReward);
+                else if (_questGiver._itemReward.typeItem == "Weapon")
+                    _playerInventory.weapon.Add(_questGiver._itemReward);
+                else if (_questGiver._itemReward.typeItem == "ExpItems")
+                    _playerInventory.expItems.Add(_questGiver._itemReward);
+                _npcInventory._reputation += _questGiver._plusRep;
+
+                if (_questGiver._questType == 1)
+                {
+                    DeletingItems(_playerInventory.consumables);
+                    DeletingItems(_playerInventory.weapon);
+                    DeletingItems(_playerInventory.expItems);
+                }
+
+                _questText.text = _npcDialogs._questDone;
+
+                _npcInventory.DeleteQuestGiver();
+                _questGiver = null;
+                _DoneQuestBut.SetActive(false);
             }
+            else if (_questGiver._questCompetitor._isDone)
+            {
+                _npcInventory._reputation -= _questGiver._plusRep * 2;
 
-            _questText.text = _npcDialogs._questDone;
+                if (_questGiver._isQuestGiverWillBeEnemy)
+                {
+                    _questGiver.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+                }
 
-            _npcInventory.DeleteQuestGiver();
-            _questGiver = null;
-            _DoneQuestBut.SetActive(false);
+                _questText.text = _npcDialogs._questCompete;
+
+                _npcInventory.DeleteQuestGiver();
+                _questGiver = null;
+                _DoneQuestBut.SetActive(false);
+            }
         }
-        else if (_questGiver._questCompetitor._isDone)
+        else
         {
-            _npcInventory._reputation -= _questGiver._plusRep * 2;
-
-            if (_questGiver._isQuestGiverWillBeEnemy)
+            if (_questGiver._isDone)
             {
-                _questGiver.gameObject.GetComponent<NpcStats>().BecomeAnEnemy();
+                GameObject item = Instantiate<GameObject>(Resources.Load<GameObject>(_questGiver._itemReward.pathPrefab));
+                item.gameObject.SetActive(false);
+                item.tag = "Item";
+                item.GetComponent<Item>()._partsDescr = item.GetComponent<Item>()._description.Split('$');
+
+                if (_questGiver._itemReward.typeItem == "Consumables")
+                {
+                    _playerInventory.consumables.Add(item.GetComponent<Item>());
+                }
+                else if (_questGiver._itemReward.typeItem == "Weapon")
+                {
+                    _playerInventory.weapon.Add(item.GetComponent<Item>());
+                }
+                else if (_questGiver._itemReward.typeItem == "ExpItems")
+                {
+                    _playerInventory.expItems.Add(item.GetComponent<Item>());
+                }
+                _npcInventory._reputation += _questGiver._plusRep;
+
+                if (_questGiver._questType == 1)
+                {
+                    DeletingItems(_playerInventory.consumables);
+                    DeletingItems(_playerInventory.weapon);
+                    DeletingItems(_playerInventory.expItems);
+                }
+
+                _questText.text = _npcDialogs._questDone;
+
+                _npcInventory.DeleteQuestGiver();
+                _questGiver = null;
+                _DoneQuestBut.SetActive(false);
             }
-
-            _questText.text = _npcDialogs._questCompete;
-
-            _npcInventory.DeleteQuestGiver();
-            _questGiver = null;
-            _DoneQuestBut.SetActive(false);
         }
     }
 
