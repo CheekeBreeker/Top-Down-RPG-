@@ -52,13 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        if (_isCanLook)
-        {
-            Vector3 difference = mousePosition - transform.position;
-            difference.Normalize();
-            float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
-            _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
-        }
+        //if (_isCanLook)
+        //{
+        //    Vector3 difference = mousePosition - transform.position;
+        //    difference.Normalize();
+        //    float rotationY = Mathf.Atan2(difference.x, difference.z) * Mathf.Rad2Deg + 90f;
+        //    _playerModel.transform.rotation = Quaternion.Lerp(_playerModel.transform.rotation, Quaternion.Euler(0f, rotationY, 0f), Time.deltaTime * 5f);
+        //}
 
         CameraPosition();
     }
@@ -156,12 +156,12 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetMouseButtonDown(0) && _playerInventory._weaponInHand != null)
+
+        if (_playerInventory._weaponInHand != null)
         {
-            _characterStatus.isAttack = true;
+            if (Input.GetMouseButton(0))
+                _characterStatus.isAttack = true;
         }
-        else if (Input.GetMouseButtonUp(0))
-            _characterStatus.isAttack = false;
     }
 
     //private void Attacking()

@@ -824,6 +824,7 @@ GameObject:
   - component: {fileID: 2355604723418791981}
   - component: {fileID: 2355604723418791987}
   - component: {fileID: 2355604723418791986}
+  - component: {fileID: 5716207464544772989}
   m_Layer: 0
   m_Name: Spine
   m_TagString: EnemySpine
@@ -839,8 +840,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2355604723418791980}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.491, y: 0, z: 0}
-  m_LocalScale: {x: 0.38644, y: 1, z: 0.59035}
+  m_LocalPosition: {x: 0.3299, y: 0, z: 0}
+  m_LocalScale: {x: 0.06434226, y: 1, z: 0.59035}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8688481652008102046}
@@ -867,6 +868,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5716207464544772989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355604723418791980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e88e609c37b2f541916c85e62e8dc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isEnemySpine: 0
 --- !u!1 &2360875482988344469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,10 +2568,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spine: {fileID: 2355604723418791980}
+  _bodyCollider: {fileID: 0}
+  _spineObj: {fileID: 2355604723418791980}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
+  _spine: {fileID: 2355604723418791980}
   _health: 100
   _maxHealth: 0
   _healthToStan: 0
@@ -2669,7 +2685,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

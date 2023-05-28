@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _damagingClip;
     [SerializeField] private AudioClip _damagedClip;
     [SerializeField] private AudioClip _dodgeClip;
+    [SerializeField] private AudioClip _metallCrashClip;
     [SerializeField] private AudioClip _levelUpClip;
 
     public List<AudioClip> musicAudioClips = new List<AudioClip>();
@@ -111,5 +112,9 @@ public class AudioManager : MonoBehaviour
     public void PlayLevelUpClip()
     {
         _audioSource.PlayOneShot(_levelUpClip);
+    }
+    public void PlayMetallCrashClip()
+    {
+        _audioSource.PlayOneShot(_dodgeClip);
     }
 }

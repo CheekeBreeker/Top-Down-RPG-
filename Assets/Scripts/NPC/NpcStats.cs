@@ -6,10 +6,12 @@ public class NpcStats : MonoBehaviour
     private Animator _anim;
     private Collider _collider;
 
-    [SerializeField] private GameObject _spine;
+    [SerializeField] private CapsuleCollider _bodyCollider;
+    [SerializeField] private GameObject _spineObj;
     [SerializeField] private NpcController _npcController;
     [SerializeField] private NpcStatus _npcStatus;
     [SerializeField] private NpcInventory _npcInventory;
+    [SerializeField] private Spine _spine;
 
 
     public float _health;
@@ -34,6 +36,7 @@ public class NpcStats : MonoBehaviour
         _npcInventory = GetComponent<NpcInventory>();
         _fieldOfView = GetComponent<NpcMovenment>()._fieldOfView;
         _fieldOfHear = GetComponent<NpcMovenment>()._fieldOfHear;
+        _spine = GetComponentInChildren<Spine>();
     }
 
     private void Update()
@@ -41,15 +44,29 @@ public class NpcStats : MonoBehaviour
         SpeedControl();
     }
 
-    public void TakeAwayHealth(float takeAway)
+    public void TakeAwayHealth(float damage)
     {
-        _health -= takeAway;
+        _health -= damage;
         if (_health < _healthToStan)
         {
             GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
             _anim.SetTrigger("impact");
             _npcStatus.isHurt = true;
         }    
+        if (_health <= 0)
+            Die();
+    }
+
+    public void AttackSpine(float damage)
+    {
+
+        _health -= damage;
+        _anim.SetTrigger("fall");
+        if (_health < _healthToStan)
+        {
+            GetComponentInParent<NpcAudioManager>().PlayDamagedClip();
+            _npcStatus.isHurt = true;
+        }
         if (_health <= 0)
             Die();
     }
@@ -61,7 +78,8 @@ public class NpcStats : MonoBehaviour
             _anim.enabled = false;
         _npcController.enabled = false;
         _collider.enabled = false;
-        _spine.SetActive(false);
+        if (!_npcStatus.isBiomass)
+            _spineObj.SetActive(false);
 
         foreach (Transform body in RagdollElem)
             body.GetComponent<Rigidbody>().isKinematic = false;
@@ -108,10 +126,26 @@ public class NpcStats : MonoBehaviour
         _npcInventory._mainWeapon = _npcInventory._hiddenWeapon;
         _npcInventory.TakeWeapon();
 
-        if(gameObject.TryGetComponent<NpcDialogs>(out NpcDialogs npcDialogs))
+        _spine._isEnemySpine = true;
+
+        if (gameObject.TryGetComponent<NpcDialogs>(out NpcDialogs npcDialogs))
         {
             if (npcDialogs._isQuest) Destroy(gameObject.GetComponent<QuestGiver>());
             Destroy(npcDialogs);
+        }
+    }
+
+    public void HitColliderOn(bool isSpine, bool isOn)
+    {
+        if (!isOn)
+        {
+            if (isSpine) _bodyCollider.enabled = false;
+            else _spineObj.GetComponent<BoxCollider>().enabled = false;
+        }
+        else
+        {
+            if (isSpine) _bodyCollider.enabled = true;
+            else _spineObj.GetComponent<BoxCollider>().enabled = true;
         }
     }
 }

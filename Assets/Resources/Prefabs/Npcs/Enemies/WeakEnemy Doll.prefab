@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 2127942783177159262}
   - component: {fileID: 2127942783177159232}
   - component: {fileID: 2127942783177159233}
+  - component: {fileID: 6626558362986261591}
   m_Layer: 0
   m_Name: Spine
   m_TagString: EnemySpine
@@ -428,6 +429,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6626558362986261591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127942783177159263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e88e609c37b2f541916c85e62e8dc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isEnemySpine: 1
 --- !u!1 &2151520684649184929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1850,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5687855048117977175}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c50b9700a2b343a4b966d890ab732b8a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: ce74e0e527e841246aeeb1a9bf1be8b1, type: 2}
   m_Controller: {fileID: 9100000, guid: 162183ebc03a4424d852078c2e189f4e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1858,7 +1872,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.2477734
+  m_Height: 1.88
   m_Direction: 1
   m_Center: {x: 0, y: -0.12162864, z: 0}
 --- !u!195 &6875053527804716447
@@ -1895,10 +1909,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spine: {fileID: 2127942783177159263}
+  _bodyCollider: {fileID: 0}
+  _spineObj: {fileID: 2127942783177159263}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
+  _spine: {fileID: 0}
   _health: 100
   _maxHealth: 0
   _healthToStan: 50
@@ -2014,7 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9d36e12b9510e4f95aa9cff6dfc3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 4.18
+  viewRadius: 6.29
   viewAngle: 98
   targetMask:
     serializedVersion: 2
@@ -2040,7 +2056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9d36e12b9510e4f95aa9cff6dfc3bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 6.26
+  viewRadius: 10.01
   viewAngle: 360
   targetMask:
     serializedVersion: 2
@@ -2087,7 +2103,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -97,7 +97,7 @@ Transform:
   - {fileID: 3987981933848126221}
   m_Father: {fileID: 5222168450012679868}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 44.81372, y: -0.0000062139457, z: -0.000005596429}
+  m_LocalEulerAnglesHint: {x: 40.333637, y: 1.088423, z: 0.86664337}
 --- !u!136 &3205533053927691919
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ Transform:
   - {fileID: 1970823574779550333}
   m_Father: {fileID: 5916695899816498496}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.363833, y: 0.0034144272, z: 0.05306195}
+  m_LocalEulerAnglesHint: {x: 7.4140553, y: -0.34959418, z: -12.117586}
 --- !u!135 &7436288684462947734
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ Transform:
   - {fileID: 5916695899816498496}
   m_Father: {fileID: 7214786688885574035}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 4.747322, y: 6.282857, z: -122.34918}
+  m_LocalEulerAnglesHint: {x: 2.924707, y: 7.243814, z: -107.945206}
 --- !u!65 &7180599680706914354
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -460,7 +460,7 @@ Transform:
   - {fileID: 5050726009197486471}
   m_Father: {fileID: 2891035030400164013}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -34.6049, y: 179.5895, z: 179.99994}
+  m_LocalEulerAnglesHint: {x: -37.508648, y: 168.02422, z: 176.76634}
 --- !u!136 &2526500708158084346
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300000, guid: e0e3a95dc9f7afc49b287eea16ff0562, type: 2}
+  m_Mesh: {fileID: 4300000, guid: 4e59a186a0f108e4b8caf416aaf9d964, type: 2}
   m_Bones:
   - {fileID: 7214786688885574035}
   - {fileID: 7707412123551871471}
@@ -702,7 +702,7 @@ Transform:
   - {fileID: 6908757960744268568}
   m_Father: {fileID: 1297037379038413119}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.004917365, y: 0.00001937338, z: -0.0000010641261}
+  m_LocalEulerAnglesHint: {x: 0.004917272, y: 0.000019278337, z: -0.0000010395461}
 --- !u!136 &6120062400997297010
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ Transform:
   - {fileID: 3055315124730209052}
   m_Father: {fileID: 2891035030400164013}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 38.208252, y: 179.5895, z: -179.99994}
+  m_LocalEulerAnglesHint: {x: 42.341923, y: -171.28448, z: 177.13763}
 --- !u!136 &8405968223306499093
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -924,7 +924,7 @@ Transform:
   - {fileID: 2462513488025054953}
   m_Father: {fileID: 7214786688885574035}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -14.33849, y: -126.48205, z: -65.16025}
+  m_LocalEulerAnglesHint: {x: -8.340694, y: -140.52762, z: -71.51772}
 --- !u!136 &1123512242319464617
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1074,6 +1074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6929643012860624619}
   - component: {fileID: 6929643012860624616}
+  - component: {fileID: 4699134328544924998}
   m_Layer: 0
   m_Name: Spine
   m_TagString: Untagged
@@ -1109,6 +1110,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4699134328544924998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929643012860624618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e88e609c37b2f541916c85e62e8dc53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isEnemySpine: 1
 --- !u!1 &6929643012895957583
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1270,7 @@ Transform:
   - {fileID: 2902751659308616878}
   m_Father: {fileID: 7214786688885574035}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -0.063057385, y: 179.71889, z: -64.04668}
+  m_LocalEulerAnglesHint: {x: -0.0630572, y: 179.71889, z: -64.04668}
 --- !u!136 &8138027416131273825
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1478,7 +1492,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
-  m_Height: 1
+  m_Height: 1.27
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &3549289724905848572
@@ -1515,10 +1529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spine: {fileID: 6929643012860624618}
+  _bodyCollider: {fileID: 0}
+  _spineObj: {fileID: 6929643012860624618}
   _npcController: {fileID: 0}
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
+  _spine: {fileID: 6929643012860624618}
   _health: 250
   _maxHealth: 0
   _healthToStan: 70
@@ -1707,13 +1723,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 167
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 0.8791714
   MaxDistance: 12.69779
@@ -1940,6 +1956,7 @@ MonoBehaviour:
   _item: {fileID: 0}
   _damage: 0
   _plusDamage: 0
+  _isWasOnBodyCollider: 0
   _isWasOnSpineCollider: 0
   _isHand: 1
 --- !u!1 &8676443203502702503
@@ -1973,7 +1990,7 @@ Transform:
   - {fileID: 2891035030400164013}
   m_Father: {fileID: 7707412123551871471}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.5022852, y: 0.40710795, z: -4.019663}
+  m_LocalEulerAnglesHint: {x: 2.45902, y: 0.00037785422, z: 0.017633144}
 --- !u!1 &9040302930375627385
 GameObject:
   m_ObjectHideFlags: 0
@@ -2107,5 +2124,6 @@ MonoBehaviour:
   _item: {fileID: 0}
   _damage: 0
   _plusDamage: 0
+  _isWasOnBodyCollider: 0
   _isWasOnSpineCollider: 0
   _isHand: 1

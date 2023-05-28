@@ -63,6 +63,8 @@ public class PlayerInput : MonoBehaviour
 
         if (!_characterStatus.isDodge && !_characterStatus.isSprint && !_characterStatus.isAiming && !_characterStatus.isAttack
             && Input.GetKeyDown(KeyCode.Z) && _playerMovement._levelUpgrade._isHaveMetallistSkill) _animator.SetTrigger("down");
+
+        if (!Input.GetMouseButton(0)) _characterStatus.isAttack = false;
     }
 
     private bool IsAnimPlaying(string animName)
@@ -85,32 +87,5 @@ public class PlayerInput : MonoBehaviour
     {
         yield return new WaitForSeconds(_playerMovement._dodgeActiveTime);
         _characterStatus.isDodge = false;
-    }
-        //_characterStatus.isAttack = false;
-
-        //if (IsAnimPlaying("FirstAttack.FirstAttack") || IsAnimPlaying("SecondAttack.SecondAttack") || IsAnimPlaying("ThirdAttack.ThirdAttack") || Input.GetMouseButtonDown(0))
-        //{
-        //    _characterStatus.isAttack = true;
-        //    StartCoroutine(TimerAttackCor());
-        //}
-        //StopCoroutine(TimerAttackCor());
-
-        //IEnumerator TimerAttackCor()
-        //{
-        //    yield return new WaitForSeconds(0.8f);
-        //    _characterStatus.isAttack = false;
-        //}
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    _characterStatus.isAttack = true;
-        //    StartCoroutine(AttackCor());
-        //}
-        //StopCoroutine(AttackCor());
-    IEnumerator AttackCor()
-    {
-        _characterStatus.isAttack = false;
-        yield return new WaitForSeconds(0.8f);
-        _characterStatus.isAttack = true;
     }
 }

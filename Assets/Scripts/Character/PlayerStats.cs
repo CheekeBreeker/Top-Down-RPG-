@@ -115,11 +115,13 @@ public class PlayerStats : MonoBehaviour
         if (_blockHP < 0)
         {
             _health -= damage;
-            _animator.SetTrigger("impact");
             GetComponent<CharacterAnimation>()._interfaceAnim.SetTrigger("Damaged");
 
             if (_health < _maxHealth / 2)
+            {
+                _animator.SetTrigger("impact");
                 GetComponent<AudioManager>().PlayDamagedClip();
+            }
 
             if (_health < 0)
                 Die();
@@ -127,6 +129,29 @@ public class PlayerStats : MonoBehaviour
         else
         {
             _blockHP -= damage;
+            GetComponent<AudioManager>().PlayDamagedClip();
+        }
+    }
+    
+    public void AttackSpine(float damage)
+    {
+        if (_blockHP < 0)
+        {
+            _health -= 1.5f * damage;
+            GetComponent<CharacterAnimation>()._interfaceAnim.SetTrigger("Damaged");
+
+            if (_health < _maxHealth / 2)
+            {
+                _animator.SetTrigger("fall");
+                GetComponent<AudioManager>().PlayDamagedClip();
+            }
+
+            if (_health < 0)
+                Die();
+        }
+        else
+        {
+            _blockHP -= 1.5f * damage;
             GetComponent<AudioManager>().PlayDamagedClip();
         }
     }

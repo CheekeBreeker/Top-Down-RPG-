@@ -21,6 +21,7 @@ public class RottenMeat : MonoBehaviour
             StartCoroutine(TakeAwayPlayerHealthCor(other.gameObject.GetComponent<PlayerStats>()));
         else if (other.CompareTag("Enemy") || other.CompareTag("Traider") || other.CompareTag("Freandly Npc"))
             StartCoroutine(TakeAwayNpcHealthCor(other.gameObject.GetComponent<NpcStats>()));
+        else return;
     }
 
     private void OnTriggerExit(Collider other)
