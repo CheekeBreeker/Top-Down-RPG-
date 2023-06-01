@@ -22,6 +22,7 @@ public class Doors : MonoBehaviour
     [SerializeField] private AudioClip _closeClip;
 
     [SerializeField] private GameObject _activeView;
+    [SerializeField] private int _inTriggerColl;
 
     private void Update()
     {
@@ -60,6 +61,7 @@ public class Doors : MonoBehaviour
     {
         if (!other.CompareTag("Untagged") && _isOpenable)
         {
+            _inTriggerColl += 1;
             if (!_isKeyDoor)
             {
                 if (!_isOpening && _isOpenable)
@@ -98,7 +100,8 @@ public class Doors : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Untagged"))
+        _inTriggerColl -= 1;
+        if (!other.CompareTag("Untagged") && _inTriggerColl == 0)
         {
             if (_isOpening && _isOpenable)
             {

@@ -37,8 +37,11 @@ public class PlayerInput : MonoBehaviour
         else _characterStatus.isNormal = isNormal;
 
         if (!debagSprint &&
-            !_characterStatus.isDodge && !_characterStatus.isBlock && !_characterStatus.isAiming) 
-            _characterStatus.isSprint = Input.GetKey(KeyCode.LeftShift);
+            !_characterStatus.isDodge && !_characterStatus.isBlock && !_characterStatus.isAiming)
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                _characterStatus.isSprint = Input.GetKey(KeyCode.LeftShift);
+        }
         else _characterStatus.isSprint = isSprint;
 
         if (!debagBlock && 
@@ -48,7 +51,10 @@ public class PlayerInput : MonoBehaviour
 
         if (!debagDodge &&
             !_characterStatus.isBlock && !_characterStatus.isAiming)
-            IsDodging();
+        {
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+                IsDodging();
+        }
         else _characterStatus.isDodge = isDodge;
 
         if (!debagAiming && 
