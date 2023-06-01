@@ -14,48 +14,65 @@ public class GameCursor : MonoBehaviour
     public Texture2D _enemyCursor;
     public int _size = 15;
     public Animator _anim;
+    public bool _isMainMenuCur;
 
     void Awake()
     {
-        Cursor.visible = false;
+        if (!_isMainMenuCur)
+        {
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.visible = true;
+        }
     }
 
     private void Update()
     {
-        _offset = new Vector2(-_size / 2, -_size / 2);
-
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit, 100f))
+        if (!_isMainMenuCur)
         {
-            if (hit.transform.tag == "Enemy")
+            _offset = new Vector2(-_size / 2, -_size / 2);
+
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, 100f))
             {
-                _cursor = _enemyCursor;
-                _size = 25;
-            }
-            else if (hit.transform.tag == "Trader" || hit.transform.tag == "Freandly Npc")
-            {
-                _cursor = _npcCursor;
-                _size = 25;
-            }
-            else if (hit.transform.tag == "Item")
-            {
-                _cursor = _itemCursor;
-                _size = 25;
-            }
-            else
-            {
-                _cursor = _normalCursor;
-                _size = 20;
+                if (hit.transform.tag == "Enemy")
+                {
+                    _cursor = _enemyCursor;
+                    _size = 25;
+                }
+                else if (hit.transform.tag == "Trader" || hit.transform.tag == "Freandly Npc")
+                {
+                    _cursor = _npcCursor;
+                    _size = 25;
+                }
+                else if (hit.transform.tag == "Item")
+                {
+                    if (hit.transform.GetComponent<Item>()._owner == "")
+                    {
+                        _cursor = _itemCursor;
+                        _size = 25;
+                    }
+                }
+                else
+                {
+                    _cursor = _normalCursor;
+                    _size = 20;
+                }
             }
         }
     }
 
     void OnGUI()
     {
-        Vector2 mousePos = Event.current.mousePosition;
-        GUI.depth = 999;
-        GUI.Label(new Rect(mousePos.x + _offset.x, mousePos.y + _offset.y, _size, _size), _cursor);
+        if (!_isMainMenuCur)
+        {
+            Vector2 mousePos = Event.current.mousePosition;
+            GUI.depth = 999;
+            GUI.Label(new Rect(mousePos.x + _offset.x, mousePos.y + _offset.y, _size, _size), _cursor);
+        }
     }
 }
