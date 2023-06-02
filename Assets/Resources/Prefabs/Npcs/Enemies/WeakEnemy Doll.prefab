@@ -1915,9 +1915,9 @@ MonoBehaviour:
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
   _spine: {fileID: 0}
-  _health: 100
-  _maxHealth: 0
-  _healthToStan: 50
+  _health: 75
+  _maxHealth: 75
+  _healthToStan: 25
   _isHurt: 0
   _handDamage: 0
   RagdollElem:

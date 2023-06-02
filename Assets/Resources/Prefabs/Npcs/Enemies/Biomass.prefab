@@ -149,6 +149,7 @@ MonoBehaviour:
   _item: {fileID: 0}
   _damage: 0
   _plusDamage: 0
+  _isWasOnBodyCollider: 0
   _isWasOnSpineCollider: 0
   _isHand: 1
 --- !u!1 &177264229272199295
@@ -739,12 +740,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c184f99c779787a4d8b9ca590ea854ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spine: {fileID: 177264229272199295}
+  _bodyCollider: {fileID: 0}
+  _spineObj: {fileID: 0}
   _npcController: {fileID: 3018716886715997632}
   _npcStatus: {fileID: 3018716886715997633}
   _npcInventory: {fileID: 3018716886715997634}
-  _health: 500
-  _maxHealth: 500
+  _spine: {fileID: 177264229272199295}
+  _health: 250
+  _maxHealth: 250
   _healthToStan: 0
   _isHurt: 0
   _handDamage: 15
@@ -1275,6 +1278,7 @@ MonoBehaviour:
   _item: {fileID: 0}
   _damage: 0
   _plusDamage: 0
+  _isWasOnBodyCollider: 0
   _isWasOnSpineCollider: 0
   _isHand: 1
 --- !u!1 &7056650976173585652

@@ -596,8 +596,8 @@ MonoBehaviour:
   _npcStatus: {fileID: 0}
   _npcInventory: {fileID: 0}
   _spine: {fileID: 6482542621388306920}
-  _health: 175
-  _maxHealth: 0
+  _health: 100
+  _maxHealth: 100
   _healthToStan: 50
   _isHurt: 0
   _handDamage: 0
